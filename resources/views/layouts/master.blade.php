@@ -38,10 +38,10 @@
 
             <div class="footer">
                 <div class="float-right">
-                    10GB of <strong>250GB</strong> Free.
+                    
                 </div>
                 <div>
-                    <strong>Copyright</strong> Smartaircraft &copy; {{date('Y')}}
+                    <strong>Copyright</strong> Politeknik Elektronika Negeri Surabaya &copy; {{date('Y')}}
                 </div>
             </div>
         </div>

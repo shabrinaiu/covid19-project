@@ -16,7 +16,7 @@
                 </ul>
             </div>
             <div class="logo-element">
-                <img class="absolute2" src="{{URL::asset('theme/img/yems/asset-1.png')}}" alt="">
+                <img class="absolute2" src="{{URL::asset('theme/img/pens.png')}}" alt="">
             </div>
         </li>
         <li class="{{ request()->is('dashboard*') ? 'active' : '' }}">
