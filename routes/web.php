@@ -17,4 +17,13 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/global', 'GlobalController@index')->name('global.index');
+Route::get('/dashboard', 'SiteController@index')->name('dashboard');
+
+Route::prefix('reports')->group(function () {
+    // Route::get('users', function () {
+    // });
+    Route::get('/', 'ReportsController@index')->name('reports.index');
+    Route::get('/global', 'ReportsController@global')->name('global.index');
+    Route::get('/countries', 'ReportsController@countries')->name('countries.index');
+});
+

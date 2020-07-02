@@ -83,7 +83,9 @@
             @endif
 
             <div class="content">
-
+                <a href="{{ route('global.index') }}"><h4>Global data click here</h4></a>
+                <a href="{{ route('countries.index') }}"><h4>Countries data click here</h4></a>
+                
             </div>
         </div>
 
