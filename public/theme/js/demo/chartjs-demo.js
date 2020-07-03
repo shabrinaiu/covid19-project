@@ -6,14 +6,14 @@ $(function () {
 
             {
                 label: "Data 1",
-                backgroundColor: 'rgba(26,179,148,0.5)',
-                borderColor: "rgba(26,179,148,0.7)",
-                pointBackgroundColor: "rgba(26,179,148,1)",
+                backgroundColor: 'rgba(58,58,251,0.5)',
+                borderColor: "rgba(58,58,251,0.7)",
+                pointBackgroundColor: "rgba(58,58,251,1)",
                 pointBorderColor: "#fff",
                 data: [28, 48, 40, 19, 86, 27, 90]
             },{
                 label: "Data 2",
-                backgroundColor: 'rgba(220, 220, 220, 0.5)',
+                backgroundColor: 'rgba(132,22,254, 0.5)',
                 pointBorderColor: "#fff",
                 data: [65, 59, 80, 81, 56, 55, 40]
             }

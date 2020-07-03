@@ -14,7 +14,7 @@
 @section('content')
     <div class="row mb-4">
         <div class="col-md-4">
-            <div class="card" style="width: 18rem;">
+            <div class="card">
                 <div class="card-body">
                     <h2 class="card-title text-success" id="recovered">Recovered</h2>
                     <h6 class="card-subtitle mb-2 text-muted"></h6>
@@ -23,7 +23,7 @@
             </div>
         </div>
         <div class="col-md-4">
-            <div class="card" style="width: 18rem;">
+            <div class="card">
                 <div class="card-body">
                     <h2 class="card-title text-warning" id="confirmed">Confirmed</h2>
                     <h6 class="card-subtitle mb-2 text-muted"></h6>
@@ -32,7 +32,7 @@
             </div>
         </div>
         <div class="col-md-4">
-            <div class="card" style="width: 18rem;">
+            <div class="card">
                 <div class="card-body">
                     <h2 class="card-title text-danger" id="deaths">Deaths</h2>
                     <h6 class="card-subtitle mb-2 text-muted"></h6>
