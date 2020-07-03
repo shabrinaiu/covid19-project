@@ -11,7 +11,7 @@
                 </div>
                 <div class="ibox-footer">
                     <div>
-                        <canvas id="lineChart" style="height:40vh; width:80vw"></canvas>
+                        <canvas id="ctx" style="height:40vh; max-width:80vw"></canvas>
                     </div>
                 </div>
             </div>

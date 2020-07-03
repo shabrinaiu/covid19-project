@@ -1,128 +1,99 @@
 $(function () {
-
-    var lineData = {
-        labels: ["January", "February", "March", "April", "May", "June", "July"],
-        datasets: [
-
-            {
-                label: "Data 1",
-                backgroundColor: 'rgba(58,58,251,0.5)',
-                borderColor: "rgba(58,58,251,0.7)",
-                pointBackgroundColor: "rgba(58,58,251,1)",
-                pointBorderColor: "#fff",
-                data: [28, 48, 40, 19, 86, 27, 90]
-            },{
-                label: "Data 2",
-                backgroundColor: 'rgba(132,22,254, 0.5)',
-                pointBorderColor: "#fff",
-                data: [65, 59, 80, 81, 56, 55, 40]
-            }
-        ]
-    };
-
-    var lineOptions = {
-        responsive: true
-    };
-
-
-    var ctx = document.getElementById("lineChart").getContext("2d");
-    new Chart(ctx, {type: 'line', data: lineData, options:lineOptions});
-
-    var barData = {
-        labels: ["January", "February", "March", "April", "May", "June", "July"],
-        datasets: [
-            {
-                label: "Data 1",
-                backgroundColor: 'rgba(220, 220, 220, 0.5)',
-                pointBorderColor: "#fff",
-                data: [65, 59, 80, 81, 56, 55, 40]
-            },
-            {
-                label: "Data 2",
-                backgroundColor: 'rgba(26,179,148,0.5)',
-                borderColor: "rgba(26,179,148,0.7)",
-                pointBackgroundColor: "rgba(26,179,148,1)",
-                pointBorderColor: "#fff",
-                data: [28, 48, 40, 19, 86, 27, 90]
-            }
-        ]
-    };
-
-    var barOptions = {
-        responsive: true
-    };
-
-
-    var ctx2 = document.getElementById("barChart").getContext("2d");
-    new Chart(ctx2, {type: 'bar', data: barData, options:barOptions});
-
-    var polarData = {
+  let draw = Chart.controllers.line.prototype.draw;
+  Chart.controllers.line = Chart.controllers.line.extend({
+      draw: function() {
+          draw.apply(this, arguments);
+          let ctx = this.chart.chart.ctx;
+          let _stroke = ctx.stroke;
+          ctx.stroke = function() {
+              ctx.save();
+              ctx.shadowColor = "rgba(0,0,0,0.1)";
+              ctx.shadowBlur = 10;
+              ctx.shadowOffsetX = 0;
+              ctx.shadowOffsetY = 2;
+              _stroke.apply(this, arguments)
+              ctx.restore();
+          }
+      }
+  });
+  
+  Chart.defaults.LineWithLine = Chart.defaults.line;
+  Chart.controllers.LineWithLine = Chart.controllers.line.extend({
+     draw: function(ease) {
+        Chart.controllers.line.prototype.draw.call(this, ease);
+  
+        if (this.chart.tooltip._active && this.chart.tooltip._active.length) {
+           var activePoint = this.chart.tooltip._active[0],
+              ctx = this.chart.ctx,
+              x = activePoint.tooltipPosition().x,
+              topY = this.chart.scales['y-axis-0'].top,
+              bottomY = this.chart.scales['y-axis-0'].bottom;
+  
+           // draw line
+            ctx.save();
+            ctx.beginPath();
+            ctx.moveTo(x, topY);
+            ctx.lineTo(x, bottomY);
+            ctx.lineWidth = 1;
+            ctx.strokeStyle = 'transparent';
+            ctx.stroke();
+            ctx.restore();
+        }
+     }
+  });
+  
+  var chart = new Chart(ctx, {
+     type: 'LineWithLine',
+     data: {
+        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],
         datasets: [{
-            data: [
-                300,140,200
-            ],
-            backgroundColor: [
-                "#a3e1d4", "#dedede", "#b5b8cf"
-            ],
-            label: [
-                "My Radar chart"
-            ]
-        }],
-        labels: [
-            "App","Software","Laptop"
-        ]
-    };
-
-    var polarOptions = {
-        segmentStrokeWidth: 2,
-        responsive: true
-
-    };
-
-    var ctx3 = document.getElementById("polarChart").getContext("2d");
-    new Chart(ctx3, {type: 'polarArea', data: polarData, options:polarOptions});
-
-    var doughnutData = {
-        labels: ["App","Software","Laptop" ],
-        datasets: [{
-            data: [300,50,100],
-            backgroundColor: ["#a3e1d4","#dedede","#b5b8cf"]
+            label: 'Statistics',
+            data: [3, 1, 2, 5, 4, 7, 6],
+            borderColor: "#80b6f4",
+            pointBorderColor: "#80b6f4",
+            pointBackgroundColor: "#80b6f4",
+            pointHoverBackgroundColor: "#80b6f4",
+            pointHoverBorderColor: "#80b6f4",
+            pointBorderWidth: 10,
+            pointHoverRadius: 10,
+            pointHoverBorderWidth: 1,
+            pointRadius: 3,
+            fill: false,
+            borderWidth: 4,
         }]
-    } ;
-
-
-    var doughnutOptions = {
-        responsive: true
-    };
-
-
-    var ctx4 = document.getElementById("doughnutChart").getContext("2d");
-    new Chart(ctx4, {type: 'doughnut', data: doughnutData, options:doughnutOptions});
-
-
-    var radarData = {
-        labels: ["Eating", "Drinking", "Sleeping", "Designing", "Coding", "Cycling", "Running"],
-        datasets: [
-            {
-                label: "My First dataset",
-                backgroundColor: "rgba(220,220,220,0.2)",
-                borderColor: "rgba(220,220,220,1)",
-                data: [65, 59, 90, 81, 56, 55, 40]
-            },
-            {
-                label: "My Second dataset",
-                backgroundColor: "rgba(26,179,148,0.2)",
-                borderColor: "rgba(26,179,148,1)",
-                data: [28, 48, 40, 19, 96, 27, 100]
-            }
-        ]
-    };
-
-    var radarOptions = {
-        responsive: true
-    };
-
-    var ctx5 = document.getElementById("radarChart").getContext("2d");
-    new Chart(ctx5, {type: 'radar', data: radarData, options:radarOptions});
-
+     },
+     options: {
+        legend: {
+          position: "bottom"
+        },
+        responsive: false,
+        tooltips: {
+           intersect: false
+        },
+        scales: {
+          yAxes: [{
+              ticks: {
+                  fontColor: "rgba(0,0,0,0.5)",
+                  fontStyle: "bold",
+                  beginAtZero: true,
+                  maxTicksLimit: 5,
+                  padding: 20
+              },
+              gridLines: {
+                  drawTicks: false,
+                  display: false
+              }
+            }],
+          xAxes: [{
+              gridLines: {
+                  zeroLineColor: "transparent"},
+              ticks: {
+                  padding: 20,
+                  fontColor: "rgba(0,0,0,0.5)",
+                  fontStyle: "bold"
+              }
+          }]
+      }
+     }
+  });
 });
