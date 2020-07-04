@@ -16,7 +16,7 @@
     @endcomponent
     <div class="row wrapper border-bottom white-bg page-heading">
         <div class="col-md-8">
-            <h4 class="text-left">Covid-19 Statistics data of a country</h4>
+            <h4 class="text-left">Covid-19 Statistics data of {{(isset($currentData['Country']) ? $currentData['Country'] : 'a country')}}</h4>
         </div>
         <div class="col-md-3">
             <select class="select2_demo_3 form-control country">
@@ -98,7 +98,7 @@
             </div>
             <div class="ibox-footer">
                 <div>
-                    <canvas id="ctx" style="height:40vh; width:70vw"></canvas>
+                    <canvas id="ctx" style="height:20%; width:80%"></canvas>
                 </div>
             </div>
         </div>
@@ -106,14 +106,11 @@
 </div>
 
     @push('footer-scripts')
-        {{-- Numeral JS --}}
+        <!-- Numeral JS -->
         <script src="//cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.6/numeral.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js"></script>
-        {{-- select2 --}}
+        <!-- select2 -->
         <script src="{{URL::asset('theme/js/plugins/select2/select2.full.min.js')}}"></script>
-        <!-- ChartJS-->
-        <!-- <script src="{{URL::asset('theme/js/plugins/chartJs/Chart.min.js')}}"></script> -->
-        <!-- <script src="{{URL::asset('theme/js/demo/chartjs-demo.js')}}"></script> -->
         <script>
         @isset($historyData)
             var ctx = document.getElementById('ctx').getContext('2d');
@@ -123,7 +120,7 @@
             
             console.log(historyData);
             // console.log(currentData);
-            console.log(data);
+            // console.log(data);
             console.log(historyData.map(item => {
                         const d = new Date(item.Date)
                         return `${d.day}-${d.month}`}))
@@ -180,6 +177,9 @@
                 ]
                 },
                 options: {
+                    tooltips: {
+                        intersect: false
+                    },
                     legend: {
                         display: false,
                         position: "bottom"
@@ -203,66 +203,60 @@
                             time: {
                                 unit: "day"
                             },
-                        }
-                        {
-                            type: "time",
-                            time: {
-                                unit: "day"
-                            },
                             gridLines: {
                                 zeroLineColor: "transparent"},
                             ticks: {
                                 padding: 20,
                                 fontColor: "rgba(0,0,0,0.5)",
                                 fontStyle: "bold",
-                            }
-                        }
-                    ]
+                            },
+                        }]
                     }
                 }
             });
 
-            // let draw = Chart.controllers.line.prototype.draw;
-            // Chart.controllers.line = Chart.controllers.line.extend({
-            //     draw: function() {
-            //         draw.apply(this, arguments);
-            //         let ctx = this.chart.chart.ctx;
-            //         let _stroke = ctx.stroke;
-            //         ctx.stroke = function() {
-            //             ctx.save();
-            //             ctx.shadowColor = "#D3E3FF";
-            //             ctx.shadowBlur = 8;
-            //             ctx.shadowOffsetX = 2;
-            //             ctx.shadowOffsetY = 2;
-            //             _stroke.apply(this, arguments)
-            //             ctx.restore();
-            //         }
-            //     }
-            // });
+            let draw = Chart.controllers.line.prototype.draw;
+            Chart.controllers.line = Chart.controllers.line.extend({
+                draw: function() {
+                    draw.apply(this, arguments);
+                    let ctx = this.chart.chart.ctx;
+                    let _stroke = ctx.stroke;
+                    ctx.stroke = function() {
+                        ctx.save();
+                        ctx.shadowColor = "#f1f1f9";
+                        ctx.shadowBlur = 4;
+                        ctx.shadowOffsetX = 2;
+                        ctx.shadowOffsetY = 2;
+                        _stroke.apply(this, arguments)
+                        ctx.restore();
+                    }
+                }
+            });
             
-            // Chart.defaults.LineWithLine = Chart.defaults.line;
-            // Chart.controllers.LineWithLine = Chart.controllers.line.extend({
-            //     draw: function(ease) {
-            //         Chart.controllers.line.prototype.draw.call(this, ease);
+            Chart.defaults.LineWithLine = Chart.defaults.line;
+            Chart.controllers.LineWithLine = Chart.controllers.line.extend({
+                draw: function(ease) {
+                    Chart.controllers.line.prototype.draw.call(this, ease);
             
-            //         if (this.chart.tooltip._active && this.chart.tooltip._active.length) {
-            //         var activePoint = this.chart.tooltip._active[0],
-            //             ctx = this.chart.ctx,
-            //             x = activePoint.tooltipPosition().x,
-            //             topY = this.chart.scales['y-axis-0'].top,
-            //             bottomY = this.chart.scales['y-axis-0'].bottom;
+                    if (this.chart.tooltip._active && this.chart.tooltip._active.length) {
+                    var activePoint = this.chart.tooltip._active[0],
+                        ctx = this.chart.ctx,
+                        x = activePoint.tooltipPosition().x,
+                        topY = this.chart.scales['y-axis-0'].top,
+                        bottomY = this.chart.scales['y-axis-0'].bottom;
             
-            //         // draw line
-            //             ctx.save();
-            //             ctx.beginPath();
-            //             ctx.moveTo(x, topY);
-            //             ctx.lineTo(x, bottomY);
-            //             ctx.strokeStyle = 'transparent';
-            //             ctx.stroke();
-            //             ctx.restore();
-            //         }
-            //     }
-            // });
+                    // draw line
+                        ctx.save();
+                        ctx.beginPath();
+                        ctx.moveTo(x, topY);
+                        ctx.lineTo(x, bottomY);
+                        ctx.lineWidth = 2;
+                        ctx.strokeStyle = 'transparent';
+                        ctx.stroke();
+                        ctx.restore();
+                    }
+                }
+            });
         @endisset
         </script>
 
