@@ -49,7 +49,7 @@ class ReportsController extends Controller
 
         $historyData = $this->fetchHistory($country[0]);
 
-        $data = $this->fetchname();        
+        $data = $this->fetchname();   
 
         return view('pages.reports.countries', compact('currentData', 'historyData', 'data'));
     }
@@ -78,7 +78,12 @@ class ReportsController extends Controller
                 break;
             }
         }
-        return $currentData;
+        if(isset($currentData)){
+            return $currentData;
+        } else{
+            return 'failed to load';
+        }
+            
     }
 
     public function fetchHistory($slug)

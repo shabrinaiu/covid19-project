@@ -50,7 +50,9 @@
     <div class="col-md-4">
         <div class="card">
             <div class="card-body">
-                <h2 class="card-title text-success" id="recovered">{{(isset($currentData['recovered']) ? $currentData['recovered'] : '???')}}</h2>
+                <h2 class="card-title text-success" id="recovered">{{
+                    (isset($currentData['recovered']) ? $currentData['recovered'] : 'no data exists')
+                    }}</h2>
                 <h6 class="card-subtitle mb-2 text-muted"></h6>
                 <h4 class="card-text">patient recovered</h4>
             </div>
@@ -59,7 +61,9 @@
     <div class="col-md-4">
         <div class="card">
             <div class="card-body">
-                <h2 class="card-title text-warning" id="confirmed">{{(isset($currentData['cases']) ? $currentData['cases'] : '???')}}</h2>
+                <h2 class="card-title text-warning" id="confirmed">{{
+                    (isset($currentData['cases']) ? $currentData['cases'] : 'no data exists')
+                    }}</h2>
                 <h6 class="card-subtitle mb-2 text-muted"></h6>
                 <h4 class="card-text">patient confirmed</h4>
             </div>
@@ -68,7 +72,9 @@
     <div class="col-md-4">
         <div class="card">
             <div class="card-body">
-                <h2 class="card-title text-danger" id="deaths">{{(isset($currentData['deaths']) ? $currentData['deaths'] : '???')}}</h2>
+                <h2 class="card-title text-danger" id="deaths">{{
+                    (isset($currentData['deaths']) ? $currentData['deaths'] : 'no data exists')
+                    }}</h2>
                 <h6 class="card-subtitle mb-2 text-muted"></h6>
                 <h4 class="card-text">patient deaths</h4>
             </div>
@@ -114,20 +120,20 @@
                 }
 
                 // menampilkan chart ketika data sudah masuk
-                if( ($('#recovered').html() && $('#confirmed').html() && $('#deaths').html() ) != '???'){
+                if( ($('#recovered').html() && $('#confirmed').html() && $('#deaths').html() ) != 'no data exists'){
                     $('#chart').show();
                 }
 
                 // number formatting
-                if($('#recovered').html() != '???'){
+                if($('#recovered').html() != 'no data exists'){
                     let recovered = numeral($('#recovered').html()).format('0,0');
                     $('#recovered').html(recovered);
                 }
-                if($('#confirmed').html() != '???'){
+                if($('#confirmed').html() != 'no data exists'){
                     let confirmed = numeral($('#confirmed').html()).format('0,0');
                     $('#confirmed').html(confirmed);
                 }
-                if($('#deaths').html() != '???'){
+                if($('#deaths').html() != 'no data exists'){
                     let deaths = numeral($('#deaths').html()).format('0,0');
                     $('#deaths').html(deaths);
                 }
