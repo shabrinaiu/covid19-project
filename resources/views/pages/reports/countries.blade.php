@@ -115,13 +115,14 @@
         <!-- <script src="{{URL::asset('theme/js/plugins/chartJs/Chart.min.js')}}"></script> -->
         <!-- <script src="{{URL::asset('theme/js/demo/chartjs-demo.js')}}"></script> -->
         <script>
+        @isset($historyData)
             var ctx = document.getElementById('ctx').getContext('2d');
             const historyData = {!! json_encode($historyData) !!}
-            const currentData = {!! json_encode($currentData) !!}
+            // const currentData = {!! json_encode($currentData) !!}
             const data = {!! json_encode($data) !!}
             
             console.log(historyData);
-            console.log(currentData);
+            // console.log(currentData);
             console.log(data);
             console.log(historyData.map(item => {
                         const d = new Date(item.Date)
@@ -262,6 +263,7 @@
             //         }
             //     }
             // });
+        @endisset
         </script>
 
         <script>

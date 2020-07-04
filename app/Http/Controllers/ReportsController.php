@@ -54,8 +54,11 @@ class ReportsController extends Controller
         $currentData = $this->fetchCurrent($selectedSlug);
 
         $historyData = $this->fetchHistory($selectedSlug);
+        $historyData = $this->getLastData($historyData, 30);
 
         $data = $this->fetchCountry();
+
+        dd($historyData);
 
         return view('pages.reports.countries', compact('currentData', 'historyData', 'data'));
     }
@@ -119,5 +122,15 @@ class ReportsController extends Controller
         $data = $this->fetchCountry();
 
         return view('pages.reports.global', compact('data'));
+    }
+
+    public function getLastData($dataHistory, $slice)
+    {
+        $collection = collect($dataHistory);
+
+        $slice *= -1;
+        $chunk = $collection->take($slice);
+        
+        return $chunk->all();
     }
 }
