@@ -136,12 +136,12 @@
                         pointBackgroundColor: "#f82649",
                         pointHoverBackgroundColor: "#f82649",
                         pointHoverBorderColor: "#f82649",
-                        pointBorderWidth: 10,
-                        pointHoverRadius: 10,
+                        pointBorderWidth: 5,
+                        pointHoverRadius: 5,
                         pointHoverBorderWidth: 1,
-                        pointRadius: 3,
+                        pointRadius: 2,
                         fill: false,
-                        borderWidth: 4,
+                        borderWidth: 3,
                         data: historyData.map(item => ({t: new Date(item.Date), y: item.Confirmed})),
                     },
                     {
@@ -151,12 +151,12 @@
                         pointBackgroundColor: "#09ad95",
                         pointHoverBackgroundColor: "#09ad95",
                         pointHoverBorderColor: "#09ad95",
-                        pointBorderWidth: 10,
-                        pointHoverRadius: 10,
+                        pointBorderWidth: 5,
+                        pointHoverRadius: 5,
                         pointHoverBorderWidth: 1,
-                        pointRadius: 3,
+                        pointRadius: 2,
                         fill: false,
-                        borderWidth: 4,
+                        borderWidth: 3,
                         data: historyData.map(item => ({t: new Date(item.Date), y: item.Recovered})),
                     },
                     {
@@ -166,12 +166,12 @@
                         pointBackgroundColor: "#d43f8d",
                         pointHoverBackgroundColor: "#d43f8d",
                         pointHoverBorderColor: "#d43f8d",
-                        pointBorderWidth: 10,
-                        pointHoverRadius: 10,
+                        pointBorderWidth: 5,
+                        pointHoverRadius: 5,
                         pointHoverBorderWidth: 1,
-                        pointRadius: 3,
+                        pointRadius: 2,
                         fill: false,
-                        borderWidth: 4,
+                        borderWidth: 3,
                         data: historyData.map(item => ({t: new Date(item.Date), y: item.Deaths})),
                     }
                 ]
@@ -223,7 +223,7 @@
                     let _stroke = ctx.stroke;
                     ctx.stroke = function() {
                         ctx.save();
-                        ctx.shadowColor = "#f1f1f9";
+                        ctx.shadowColor = 'rgba(0,0,0,0.5)';
                         ctx.shadowBlur = 4;
                         ctx.shadowOffsetX = 2;
                         ctx.shadowOffsetY = 2;
