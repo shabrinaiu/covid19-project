@@ -25,6 +25,6 @@ Route::prefix('reports')->group(function () {
     Route::get('/', 'ReportsController@index')->name('reports.index');
     Route::get('/global', 'ReportsController@global')->name('global.index');
     Route::get('/countries', 'ReportsController@countries')->name('countries.index');
-    Route::get('/countries/{slug}', 'ReportsController@show')->name("countries.show");
+    Route::get('/countries/{selected}', 'ReportsController@show')->name("countries.show");
 });
 

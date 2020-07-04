@@ -11,7 +11,7 @@
             <a href="/reports/">Reports</a>
         </li>
         <li class="breadcrumb-item active">
-            <a href="/reports/global">Global</a>
+            <a href="/reports/countries">Countries</a>
         </li>
     @endcomponent
     <div class="row wrapper border-bottom white-bg page-heading">
@@ -33,11 +33,24 @@
 @endsection
 
 @section('content')
-<div class="row mb-4">
+<div class="row mb-2" id="currentData">
+    <div class="col-lg-12">
+        <div class="ibox ">
+            <div class="ibox-title">
+                <h4 class="text-center" id="countryTitle"><strong> Data in {{(isset($currentData['country']) ? $currentData['country'] : 'a country')}}</strong></h4>
+
+                <div class="ibox-tools">
+                    <a class="collapse-link">
+                        <i class="fa fa-chevron-up"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="col-md-4">
         <div class="card">
             <div class="card-body">
-                <h2 class="card-title text-success" id="recovered">Recovered</h2>
+                <h2 class="card-title text-success" id="recovered">{{(isset($currentData['recovered']) ? $currentData['recovered'] : '???')}}</h2>
                 <h6 class="card-subtitle mb-2 text-muted"></h6>
                 <h4 class="card-text">patient recovered</h4>
             </div>
@@ -46,7 +59,7 @@
     <div class="col-md-4">
         <div class="card">
             <div class="card-body">
-                <h2 class="card-title text-warning" id="confirmed">Confirmed</h2>
+                <h2 class="card-title text-warning" id="confirmed">{{(isset($currentData['cases']) ? $currentData['cases'] : '???')}}</h2>
                 <h6 class="card-subtitle mb-2 text-muted"></h6>
                 <h4 class="card-text">patient confirmed</h4>
             </div>
@@ -55,16 +68,21 @@
     <div class="col-md-4">
         <div class="card">
             <div class="card-body">
-                <h2 class="card-title text-danger" id="deaths">Deaths</h2>
+                <h2 class="card-title text-danger" id="deaths">{{(isset($currentData['deaths']) ? $currentData['deaths'] : '???')}}</h2>
                 <h6 class="card-subtitle mb-2 text-muted"></h6>
-                <h4 class="card-text">patient deaths</p>
+                <h4 class="card-text">patient deaths</h4>
             </div>
         </div>
-    </div>
+    </div>    
 </div>
-    @include('components.chart')
+
+    @component('components.chart')
+            
+    @endcomponent()
 
     @push('footer-scripts')
+        {{-- Numeral JS --}}
+        <script src="//cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.6/numeral.min.js"></script>
         {{-- select2 --}}
         <script src="{{URL::asset('theme/js/plugins/select2/select2.full.min.js')}}"></script>
         <!-- ChartJS-->
@@ -72,48 +90,47 @@
         <script src="{{URL::asset('theme/js/demo/chartjs-demo.js')}}"></script>
 
         <script>
-
-            $(document).ready(function() {
-                
-                $("#submitButton").click(function(){
-                    var selectedSlug = $("select.country").children("option:selected").val();
-                    alert("You have selected the country - " + selectedSlug);
-                });
+            $(document).ready(function () {
 
                 $(".select2_demo_3").select2({
                     theme: 'bootstrap4',
                     placeholder: "Select a country",
                     allowClear: true
                 });
-            })
 
-            $(document).ready(function () {
-                semuaData();
+                $('#chart').hide();
+                $("#submitButton").click(function(){
+                    var selectedName = $("select.country").children("option:selected").html();
+                    var selectedSlug = $("select.country").children("option:selected").val();
+                    $('#countryTitle').html(selectedName + ' all data');
+                    var url = '/reports/countries/' + selectedSlug + '-' + selectedName;
+                    document.location.href=url;
+                });                
 
-                setInterval(function () {
-                    semuaData();
-                }, 2000);
-        
-                function semuaData() {
-                $.ajax({
-                    url: 'https://coronavirus-19-api.herokuapp.com/all',
-                    success: function (data) {
-                        try {
-                            var json = data;
-                            var kasus = json.cases;
-                            var meninggal = json.deaths;
-                            var sembuh = json.recovered;
+                function loops(){
+                    setInterval(function () {
+                        semuaData();
+                    }, 2000);
+                }
 
-                            $('#confirmed').html(kasus)
-                            $('#deaths').html(meninggal)
-                            $('#recovered').html(sembuh)
-                        } catch {
-                            alert('error!');
-                        }
-                    }
+                // menampilkan chart ketika data sudah masuk
+                if( ($('#recovered').html() && $('#confirmed').html() && $('#deaths').html() ) != '???'){
+                    $('#chart').show();
+                }
 
-                });
-            }
+                // number formatting
+                if($('#recovered').html() != '???'){
+                    let recovered = numeral($('#recovered').html()).format('0,0');
+                    $('#recovered').html(recovered);
+                }
+                if($('#confirmed').html() != '???'){
+                    let confirmed = numeral($('#confirmed').html()).format('0,0');
+                    $('#confirmed').html(confirmed);
+                }
+                if($('#deaths').html() != '???'){
+                    let deaths = numeral($('#deaths').html()).format('0,0');
+                    $('#deaths').html(deaths);
+                }
         
             });
     

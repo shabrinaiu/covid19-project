@@ -13,10 +13,49 @@
 
 @section('content')
     <div class="row mb-4">
+        {{-- <div class="col-md-4">
+            <div class="card text-center">
+                <div class="card-body">
+                    <div class="row">
+                        <h2 class="text-success" id="recovered">??? </h2>
+                        <span><p id="recovered+">+?</p></span>
+                    </div>
+                    
+                    <h6 class="card-subtitle mb-2 text-muted"></h6>
+                    <h4 class="card-text">patient recovered</h4>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card text-center">
+                <div class="card-body">
+                    <div class="row">
+                        <h2 class="text-warning" id="confirmed">??? </h2>
+                        <span><p id="confirmed+">+?</p></span>
+                    </div>
+                    
+                    <h6 class="card-subtitle mb-2 text-muted"></h6>
+                    <h4 class="card-text">patient confirmed</h4>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card text-center">
+                <div class="card-body">
+                    <div class="row">
+                        <h2 class="text-danger" id="deaths">??? </h2>
+                        <span><p id="deaths+">+?</p></span>
+                    </div>
+                    
+                    <h6 class="card-subtitle mb-2 text-muted"></h6>
+                    <h4 class="card-text">patient deaths</h4>
+                </div>
+            </div>
+        </div> --}}
         <div class="col-md-4">
             <div class="card">
                 <div class="card-body">
-                    <h2 class="card-title text-success" id="recovered">Recovered</h2>
+                    <h2 class="card-title text-success" id="recovered">???</h2>
                     <h6 class="card-subtitle mb-2 text-muted"></h6>
                     <h4 class="card-text">patient recovered</h4>
                 </div>
@@ -25,7 +64,7 @@
         <div class="col-md-4">
             <div class="card">
                 <div class="card-body">
-                    <h2 class="card-title text-warning" id="confirmed">Confirmed</h2>
+                    <h2 class="card-title text-warning" id="confirmed">???</h2>
                     <h6 class="card-subtitle mb-2 text-muted"></h6>
                     <h4 class="card-text">patient confirmed</h4>
                 </div>
@@ -34,9 +73,9 @@
         <div class="col-md-4">
             <div class="card">
                 <div class="card-body">
-                    <h2 class="card-title text-danger" id="deaths">Deaths</h2>
+                    <h2 class="card-title text-danger" id="deaths">???</h2>
                     <h6 class="card-subtitle mb-2 text-muted"></h6>
-                    <h4 class="card-text">patient deaths</p>
+                    <h4 class="card-text">patient deaths</h4>
                 </div>
             </div>
         </div>
@@ -101,6 +140,8 @@
     </div>
 
     @push('footer-scripts')
+    {{-- Numeral JS --}}
+    <script src="//cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.6/numeral.min.js"></script>
     <script>
         $(document).ready(function () {
             semuaData();
@@ -110,25 +151,25 @@
             }, 2000);
     
             function semuaData() {
-            $.ajax({
-                url: 'https://coronavirus-19-api.herokuapp.com/all',
-                success: function (data) {
-                    try {
-                        var json = data;
-                        var kasus = json.cases;
-                        var meninggal = json.deaths;
-                        var sembuh = json.recovered;
+                $.ajax({
+                    url: 'https://coronavirus-19-api.herokuapp.com/all',
+                    success: function (data) {
+                        try {
+                            var json = data;
+                            var kasus = json.cases;
+                            var meninggal = json.deaths;
+                            var sembuh = json.recovered;
 
-                        $('#confirmed').html(kasus)
-                        $('#deaths').html(meninggal)
-                        $('#recovered').html(sembuh)
-                    } catch {
-                        alert('error!');
+                            $('#confirmed').html(numeral(kasus).format('0,0'))
+                            $('#deaths').html(numeral(meninggal).format('0,0'))
+                            $('#recovered').html(numeral(sembuh).format('0,0'))
+                        } catch {
+                            alert('error!');
+                        }
                     }
-                }
 
-            });
-        }
+                });
+            }
     
         });
     
