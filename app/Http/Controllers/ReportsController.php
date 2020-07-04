@@ -58,8 +58,6 @@ class ReportsController extends Controller
 
         $data = $this->fetchCountry();
 
-        dd($historyData);
-
         return view('pages.reports.countries', compact('currentData', 'historyData', 'data'));
     }
 
