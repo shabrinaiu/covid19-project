@@ -37,7 +37,7 @@
     <div class="col-lg-12">
         <div class="ibox ">
             <div class="ibox-title">
-                <h4 class="text-center" id="countryTitle"><strong> Data in {{(isset($currentData['country']) ? $currentData['country'] : 'a country')}}</strong></h4>
+                <h4 class="text-center" id="countryTitle"><strong> Data in {{(isset($currentData['Country']) ? $currentData['Country'] : 'a country')}}</strong></h4>
 
                 <div class="ibox-tools">
                     <a class="collapse-link">
@@ -51,7 +51,7 @@
         <div class="card">
             <div class="card-body">
                 <h2 class="card-title text-success" id="recovered">{{
-                    (isset($currentData['recovered']) ? $currentData['recovered'] : 'no data exists')
+                    (isset($currentData['TotalRecovered']) ? $currentData['TotalRecovered'] : 'no data exists')
                     }}</h2>
                 <h6 class="card-subtitle mb-2 text-muted"></h6>
                 <h4 class="card-text">patient recovered</h4>
@@ -62,7 +62,7 @@
         <div class="card">
             <div class="card-body">
                 <h2 class="card-title text-warning" id="confirmed">{{
-                    (isset($currentData['cases']) ? $currentData['cases'] : 'no data exists')
+                    (isset($currentData['TotalConfirmed']) ? $currentData['TotalConfirmed'] : 'no data exists')
                     }}</h2>
                 <h6 class="card-subtitle mb-2 text-muted"></h6>
                 <h4 class="card-text">patient confirmed</h4>
@@ -73,7 +73,7 @@
         <div class="card">
             <div class="card-body">
                 <h2 class="card-title text-danger" id="deaths">{{
-                    (isset($currentData['deaths']) ? $currentData['deaths'] : 'no data exists')
+                    (isset($currentData['TotalDeaths']) ? $currentData['TotalDeaths'] : 'no data exists')
                     }}</h2>
                 <h6 class="card-subtitle mb-2 text-muted"></h6>
                 <h4 class="card-text">patient deaths</h4>
@@ -109,7 +109,7 @@
                     var selectedName = $("select.country").children("option:selected").html();
                     var selectedSlug = $("select.country").children("option:selected").val();
                     $('#countryTitle').html(selectedName + ' all data');
-                    var url = '/reports/countries/' + selectedSlug + '-' + selectedName;
+                    var url = '/reports/countries/' + selectedSlug;
                     document.location.href=url;
                 });                
 
