@@ -54,8 +54,7 @@ class ReportsController extends Controller
         $currentData = $this->fetchCurrent($selectedSlug);
 
         $historyData = $this->fetchHistory($selectedSlug);
-        $historyData = $this->getLastData($historyData, 20);
-        // dd($historyData);
+        $historyData = $this->getLastData($historyData, 30);
 
         $data = $this->fetchCountry();
 
@@ -129,7 +128,6 @@ class ReportsController extends Controller
 
         $slice *= -1;
         $chunk = $collection->take($slice);
-        
         $i = 0;
         foreach($chunk->all() as $data){
             $historyData[$i] = $data;
