@@ -865,7 +865,7 @@ h5 {
   color: #999c9e;
 }
 .nav > li.active > a {
-  color: #ffffff;
+  color: #8655fc;
 }
 .navbar-default .nav > li > a:hover,
 .navbar-default .nav > li > a:focus {
@@ -899,7 +899,7 @@ h5 {
   margin-right: 0;
 }
 .navbar-top-links li a {
-  padding: 20px 10px;
+  /* padding: 20px 10px; */
   min-height: 50px;
 }
 .dropdown-menu {
@@ -1015,10 +1015,6 @@ h5 {
 ul.nav-second-level {
   background: #293846;
 }
-.nav > li.active {
-  border-left: 4px solid #8655fc;
-  background: #293846;
-}
 .nav.nav-second-level > li.active {
   border: none;
 }
@@ -1062,7 +1058,6 @@ ul.nav-second-level {
   display: none;
 }
 .navbar.navbar-static-top {
-  padding: 0;
   width: 100%;
   align-items: inherit;
 }
@@ -1194,12 +1189,12 @@ body.mini-navbar .navbar-default .nav > li > .nav-second-level li a {
 .navbar-fixed-top {
   background: #fff;
   transition-duration: 0.4s;
-  border-bottom: 1px solid #e7eaec !important;
+  /* border-bottom: 1px solid #e7eaec !important; */
   z-index: 2030;
   position: fixed;
   right: 0;
   left: 0;
-  padding: 0;
+  padding: 0 !important;
   top: 0;
 }
 .navbar-fixed-top .navbar-form-custom .form-control {
@@ -1208,7 +1203,6 @@ body.mini-navbar .navbar-default .nav > li > .nav-second-level li a {
 .navbar-fixed-top,
 .navbar-static-top {
   background: #ffffff;
-  border-bottom : solid 1px #f3f3f4;
 }
 .fixed-nav #wrapper {
   margin-top: 0;
@@ -1422,7 +1416,7 @@ body.canvas-menu.mini-navbar nav.navbar-static-side {
   color: #8655fc;
 }
 .top-navigation .navbar-right {
-  margin-right: 10px;
+  margin-right: 10%;
 }
 .top-navigation .navbar-nav .dropdown-menu {
   box-shadow: none;
@@ -4573,7 +4567,7 @@ video {
   padding: 0 15px;
   position: relative !important;
   flex-shrink: 1;
-  width: calc(100% - 220px);
+  width: 100%; 
 }
 @media (min-width: 768px) {
   #page-wrapper {
@@ -4760,7 +4754,7 @@ body.body-small .footer.fixed {
   font-weight: 600;
   padding: 10px 20px 10px 25px;
 }
-.nav-tabs > li > 1 {
+.nav-tabs > li > a {
   color: #8655fc;
 }
 .nav-tabs > li > a:hover,
@@ -4893,6 +4887,12 @@ code {
   font-size: 90%;
   padding: 2px 4px;
   white-space: nowrap;
+}
+.card{
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.05);
+  -webkit-border-radius: 5px 5px 5px 5px;
+  -moz-border-radius: 5px 5px 5px 5px;
+  border-radius: 5px 5px 5px 5px;
 }
 .ibox {
   clear: both;
@@ -8017,6 +8017,9 @@ body.landing-page {
   padding-bottom: 5px;
   border-bottom: 1px solid #e7eaec;
   border-radius: 0;
+}
+.navbar-right {
+  margin-right: 3%;
 }
 .landing-page .nav.navbar-right {
   flex-direction: row;

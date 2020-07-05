@@ -14,10 +14,6 @@
     </head>
     <body>
     <div id="wrapper">
-        <nav class="navbar-default navbar-static-side" role="navigation">
-            @include('layouts.includes.sidebar')
-        </nav>
-
         <div id="page-wrapper" class="gray-bg dashbard-1">
             <div class="row border-bottom">
                 <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
