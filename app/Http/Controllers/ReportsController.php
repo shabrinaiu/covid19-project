@@ -54,7 +54,8 @@ class ReportsController extends Controller
         $currentData = $this->fetchCurrent($selectedSlug);
 
         $historyData = $this->fetchHistory($selectedSlug);
-        $historyData = $this->getLastData($historyData, 30);
+        $historyData = $this->getFromFirstCase($historyData);
+        // $historyData = $this->getLastData($historyData, 30);
 
         $data = $this->fetchCountry();
 
@@ -78,6 +79,9 @@ class ReportsController extends Controller
         $err = curl_error($curl);
         curl_close($curl);
         $data = json_decode($response, TRUE);
+        if(count($data) <= 1){
+            return 'failed to load';
+        }
 
         $data = $data['Countries'];
         foreach($data as $dataCountry){            
@@ -115,6 +119,25 @@ class ReportsController extends Controller
         return $historyData;
     }
 
+    public function getFromFirstCase($historyData)
+    {
+        $index = 0;
+        foreach($historyData as $i => $rowHistoryData){
+            if($rowHistoryData['Confirmed'] > 0){
+                $index = $i;
+                break;
+            }
+        }
+        $collection = collect($historyData);
+        $slice = $collection->slice($index);
+        $i = 0;
+        foreach($slice->all() as $data){
+            $historyDataArr[$i] = $data;
+            $i++;
+        }
+         return $historyDataArr;
+    }
+
     public function global()
     {
         $data = $this->fetchCountry();
@@ -122,12 +145,12 @@ class ReportsController extends Controller
         return view('pages.reports.global', compact('data'));
     }
 
-    public function getLastData($dataHistory, $slice)
+    public function getLastData($dataHistory, $limit)
     {
         $collection = collect($dataHistory);
 
-        $slice *= -1;
-        $chunk = $collection->take($slice);
+        $limit *= -1;
+        $chunk = $collection->take($limit);
         $i = 0;
         foreach($chunk->all() as $data){
             $historyData[$i] = $data;
