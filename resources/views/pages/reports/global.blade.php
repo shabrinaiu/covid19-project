@@ -105,7 +105,6 @@
                             <tr>
                                 <th>#</th>
                                 <th>Country Name</th>
-                                <th>Country Code</th>
                                 <th>New Confirmed</th>
                                 <th>Total Confirmed</th>
                                 <th>New Deaths</th>
@@ -120,14 +119,13 @@
                                 @php $i++; @endphp
                                 <tr>
                                     <td>{{$i}}</td>
-                                    <td>{{$datum['Country']}}</td>
-                                    <td>{{$datum['CountryCode']}}</td>
+                                    <td>{{$datum['Country_Region']}}</td>
                                     <td>{{$datum['NewConfirmed']}}</td>
-                                    <td>{{$datum['TotalConfirmed']}}</td>
+                                    <td>{{$datum['Confirmed']}}</td>
                                     <td>{{$datum['NewDeaths']}}</td>
-                                    <td>{{$datum['TotalDeaths']}}</td>
+                                    <td>{{$datum['Deaths']}}</td>
                                     <td>{{$datum['NewRecovered']}}</td>
-                                    <td>{{$datum['TotalRecovered']}}</td>
+                                    <td>{{$datum['Recovered']}}</td>
                                 </tr>
                             @endforeach
                             </tbody>
@@ -140,8 +138,6 @@
     </div>
 
     @push('footer-scripts')
-    {{-- Numeral JS --}}
-    <script src="//cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.6/numeral.min.js"></script>
     <script>
         $(document).ready(function () {
             semuaData();

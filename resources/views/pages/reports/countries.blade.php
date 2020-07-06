@@ -87,11 +87,8 @@
 @endisset
 
     @push('footer-scripts')
-        <!-- Numeral JS -->
-        <script src="//cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.6/numeral.min.js"></script>
-        <!-- select2 -->
-        <script src="{{URL::asset('theme/js/plugins/select2/select2.full.min.js')}}"></script>
-        
+        <!-- ChartJS -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js"></script>        
 
         <script>
             

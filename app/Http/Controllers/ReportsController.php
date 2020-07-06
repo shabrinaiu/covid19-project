@@ -14,17 +14,17 @@ class ReportsController extends Controller
 
     public function countries()
     {
-        $data = $this->fetchCountry();
+        $data = $this->fetchCountryIdentity();
         
         return view('pages.reports.countries', compact('data'));
     }
 
-    public function fetchCountry()
+    public function fetchCountryIdentity()
     {
         //Country name data
         $curl = curl_init();
         curl_setopt_array($curl, array(
-            CURLOPT_URL => "https://api.covid19api.com/summary",
+            CURLOPT_URL => "https://api-corona.azurewebsites.net/country",
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => "",
             CURLOPT_TIMEOUT => 30,
@@ -41,7 +41,34 @@ class ReportsController extends Controller
             $data = null;
         } else {
             $data = json_decode($response, TRUE);
-            $data = $data['Countries'];
+        }
+
+        return $data;
+    }
+
+    public function fetchGlobal()
+    {
+        //Country name data
+        $curl = curl_init();
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => "https://api-corona.azurewebsites.net/summary",
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => "",
+            CURLOPT_TIMEOUT => 30,
+            CURLOPT_SSL_VERIFYHOST => 0,
+            CURLOPT_SSL_VERIFYPEER => 0,
+            CURLOPT_CUSTOMREQUEST => "GET",
+        ));
+        $response = curl_exec($curl);
+        $err = curl_error($curl);
+        curl_close($curl);
+
+        if ($err) {
+            echo "cURL Error #:" . $err;
+            $data = null;
+        } else {
+            $data = json_decode($response, TRUE);
+            $data = $data['countries'];
         }
 
         return $data;
@@ -49,15 +76,13 @@ class ReportsController extends Controller
 
     public function show($selectedSlug)
     {
-        // $country = explode('#', $selected);
-
         $currentData = $this->fetchCurrent($selectedSlug);
 
         $historyData = $this->fetchHistory($selectedSlug);
         $historyData = $this->getFromFirstCase($historyData);
         // $historyData = $this->getLastData($historyData, 30);
 
-        $data = $this->fetchCountry();
+        $data = $this->fetchCountryIdentity();
 
         return view('pages.reports.countries', compact('currentData', 'historyData', 'data'));
     }
@@ -67,7 +92,7 @@ class ReportsController extends Controller
         //fetching urrent data country
         $curl = curl_init();
         curl_setopt_array($curl, array(
-            CURLOPT_URL => "https://api.covid19api.com/summary",
+            CURLOPT_URL => "https://api-corona.azurewebsites.net/summary",
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => "",
             CURLOPT_TIMEOUT => 30,
@@ -83,7 +108,7 @@ class ReportsController extends Controller
             return 'failed to load';
         }
 
-        $data = $data['Countries'];
+        $data = $data['countries'];
         foreach($data as $dataCountry){            
             if($dataCountry['Slug'] == $slug){
                 $currentData = $dataCountry;
@@ -103,7 +128,7 @@ class ReportsController extends Controller
         //fetching All data in the contry
         $curl = curl_init();
         curl_setopt_array($curl, array(
-            CURLOPT_URL => "https://api.covid19api.com/country/" . $slug,
+            CURLOPT_URL => "https://api-corona.azurewebsites.net/timeline/" . $slug,
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => "",
             CURLOPT_TIMEOUT => 30,
@@ -140,7 +165,7 @@ class ReportsController extends Controller
 
     public function global()
     {
-        $data = $this->fetchCountry();
+        $data = $this->fetchGlobal();
 
         return view('pages.reports.global', compact('data'));
     }

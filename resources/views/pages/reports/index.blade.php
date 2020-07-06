@@ -58,9 +58,9 @@
                         var meninggal = json.deaths;
                         var sembuh = json.recovered;
 
-                        $('#confirmed').html(kasus)
-                        $('#deaths').html(meninggal)
-                        $('#recovered').html(sembuh)
+                        $('#confirmed').html(numeral(kasus).format('0,0'))
+                        $('#deaths').html(numeral(meninggal).format('0,0'))
+                        $('#recovered').html(numeral(sembuh).format('0,0'))
                     } catch {
                         alert('error!');
                     }

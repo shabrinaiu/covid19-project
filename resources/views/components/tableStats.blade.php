@@ -20,7 +20,6 @@
                             <th>Confirmed</th>
                             <th>Death</th>
                             <th>Recovered</th>
-                            <th>Active</th>
                             <th>Date</th>
                         </tr>
                         </thead>
@@ -33,12 +32,10 @@
                                 <td>{{$row['Confirmed']}}</td>
                                 <td>{{$row['Deaths']}}</td>
                                 <td>{{$row['Recovered']}}</td>
-                                <td>{{$row['Active']}}</td>
                                 @php
-                                    $date = explode("T", $row['Date']);
-                                    $date = date_create($date[0]);
+                                    $date = date_create($row['Date']);
                                 @endphp
-                                <td>{{date_format($date,"F d, Y")}}</td>
+                                <td>{{$row['Date']}}</td>
                             </tr>
                         @endforeach
                         </tbody>

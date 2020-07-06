@@ -28,7 +28,6 @@
     @isset($historyData)
         var historyData = {!! json_encode($historyData) !!}
         var data = {!! json_encode($data) !!}
-        console.log(historyData);
 
         var ctx2 = document.getElementById('deathsChart').getContext('2d');
 

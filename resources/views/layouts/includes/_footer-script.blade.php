@@ -18,6 +18,12 @@
     <script src="{{URL::asset('theme/js/plugins/dataTables/datatables.min.js')}}"></script>
     <script src="{{URL::asset('theme/js/plugins/dataTables/dataTables.bootstrap4.min.js')}}"></script>
 
+    <!-- Numeral JS -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.6/numeral.min.js"></script>
+    
+    <!-- select2 -->
+    <script src="{{URL::asset('theme/js/plugins/select2/select2.full.min.js')}}"></script>
+
     <!-- Page-Level Scripts -->
     <script>
         $(document).ready(function(){
