@@ -15,8 +15,8 @@
         </li>
     @endcomponent
     <div class="row wrapper border-bottom white-bg page-heading">
-        <div class="col-md-8">
-            <h4 class="text-left">Covid-19 Statistics data of {{(isset($currentData['Country']) ? $currentData['Country'] : 'a country')}}</h4>
+        <div class="col-md-8 vertical-align-middle">
+            <h3>Covid-19 Statistics data of {{(isset($currentData['Country']) ? $currentData['Country'] : 'a country')}}</h3>
         </div>
         <div class="col-md-3">
             <select class="select2_demo_3 form-control country">
@@ -39,8 +39,7 @@
     <div class="col-lg-12">
         <div class="ibox">
             <div class="ibox-title">
-                <h4 class="text-center" id="countryTitle"><strong> Data in {{(isset($currentData['Country']) ? $currentData['Country'] : 'a country')}}</strong></h4>
-
+                <h4 id="countryTitle"><strong> Data in {{(isset($currentData['Country']) ? $currentData['Country'] : 'a country')}}</strong></h4>
                 <div class="ibox-tools">
                     <a class="collapse-link">
                         <i class="fa fa-chevron-up"></i>

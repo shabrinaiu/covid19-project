@@ -38,7 +38,7 @@
                                     $date = explode("T", $row['Date']);
                                     $date = date_create($date[0]);
                                 @endphp
-                                <td>{{date_format($date,"M d, Y")}}</td>
+                                <td>{{date_format($date,"F d, Y")}}</td>
                             </tr>
                         @endforeach
                         </tbody>

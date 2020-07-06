@@ -1,6 +1,6 @@
 <div class="nav navbar-header">
     <li>
-        <span class="m-r-sm text-muted welcome-message">Welcome to PENS Health Information</span>
+        <h2 class="m-r-sm welcome-message">Welcome to PENS Health Information</h2>
     </li>
 </div>
 <ul class="nav navbar-top-links navbar-right">
