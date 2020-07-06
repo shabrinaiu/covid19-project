@@ -36,18 +36,6 @@
 
 @section('content')
 <div class="row mb-2" id="currentData">
-    <div class="col-lg-12">
-        <div class="ibox">
-            <div class="ibox-title">
-                <h4 id="countryTitle"><strong> Data in {{(isset($currentData['Country']) ? $currentData['Country'] : 'a country')}}</strong></h4>
-                <div class="ibox-tools">
-                    <a class="collapse-link">
-                        <i class="fa fa-chevron-up"></i>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
     <div class="col-md-4">
         <div class="card card-confirmed">
             <div class="card-body">
