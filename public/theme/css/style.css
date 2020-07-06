@@ -4906,6 +4906,15 @@ code {
   border-radius: 5px 5px 5px 5px;
   margin-bottom: 25px;
 }
+.card-confirmed{
+  border-left: solid 0.5vw #f82649;
+}
+.card-recovered{
+  border-left: solid 0.5vw #09ad95;
+}
+.card-deaths{
+  border-left: solid 0.5vw #d43f8d;
+}
 .ibox {
   clear: both;
   margin-bottom: 25px;

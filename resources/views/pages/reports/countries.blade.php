@@ -49,7 +49,7 @@
         </div>
     </div>
     <div class="col-md-4">
-        <div class="card">
+        <div class="card card-confirmed">
             <div class="card-body">
                 <h2 class="card-title text-success" id="recovered">{{
                     (isset($currentData['TotalRecovered']) ? $currentData['TotalRecovered'] : 'no data exists')
@@ -60,7 +60,7 @@
         </div>
     </div>
     <div class="col-md-4">
-        <div class="card">
+        <div class="card card-recovered">
             <div class="card-body">
                 <h2 class="card-title text-warning" id="confirmed">{{
                     (isset($currentData['TotalConfirmed']) ? $currentData['TotalConfirmed'] : 'no data exists')
@@ -71,7 +71,7 @@
         </div>
     </div>
     <div class="col-md-4">
-        <div class="card">
+        <div class="card card-deaths">
             <div class="card-body">
                 <h2 class="card-title text-danger" id="deaths">{{
                     (isset($currentData['TotalDeaths']) ? $currentData['TotalDeaths'] : 'no data exists')
