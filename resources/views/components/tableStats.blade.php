@@ -34,7 +34,11 @@
                                 <td>{{$row['Deaths']}}</td>
                                 <td>{{$row['Recovered']}}</td>
                                 <td>{{$row['Active']}}</td>
-                                <td>{{$row['Date']}}</td>
+                                @php
+                                    $date = explode("T", $row['Date']);
+                                    $date = date_create($date[0]);
+                                @endphp
+                                <td>{{date_format($date,"M d, Y")}}</td>
                             </tr>
                         @endforeach
                         </tbody>
