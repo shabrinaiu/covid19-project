@@ -160,7 +160,13 @@ class ReportsController extends Controller
             $historyDataArr[$i] = $data;
             $i++;
         }
-         return $historyDataArr;
+
+        for($idx = 0; $idx<count($historyDataArr); $idx++){
+            $dateParts = explode("-",$historyDataArr[$idx]['Date']);
+            $historyDataArr[$idx]['Date'] = ($dateParts[2] . '-' . $dateParts[0] . '-' . $dateParts[1]);
+        }
+
+        return $historyDataArr;
     }
 
     public function global()

@@ -26,9 +26,9 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js"></script>
 <script>
 @isset($historyData)
-    var ctx = document.getElementById('confirmedChart').getContext('2d');
     var historyData = {!! json_encode($historyData) !!}
     var data = {!! json_encode($data) !!}
+    var ctx = document.getElementById('confirmedChart').getContext('2d');
     
     // console.log(historyData);
     // console.log(historyData.map(item => {
