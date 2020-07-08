@@ -15,7 +15,7 @@ class ReportsController extends Controller
     public function countries()
     {
         $data = $this->fetchCountryIdentity();
-        
+
         return view('pages.reports.countries', compact('data'));
     }
 
@@ -88,7 +88,7 @@ class ReportsController extends Controller
     }
 
     public function fetchCurrent($slug)
-    {        
+    {
         //fetching urrent data country
         $curl = curl_init();
         curl_setopt_array($curl, array(
@@ -109,7 +109,7 @@ class ReportsController extends Controller
         }
 
         $data = $data['countries'];
-        foreach($data as $dataCountry){            
+        foreach($data as $dataCountry){
             if($dataCountry['Slug'] == $slug){
                 $currentData = $dataCountry;
                 break;
@@ -120,7 +120,7 @@ class ReportsController extends Controller
         } else{
             return 'failed to load';
         }
-            
+
     }
 
     public function fetchHistory($slug)
@@ -176,6 +176,11 @@ class ReportsController extends Controller
         return view('pages.reports.global', compact('data'));
     }
 
+    public function compareCountryData()
+    {
+        return view('pages.reports.comparison');
+    }
+
     public function getLastData($dataHistory, $limit)
     {
         $collection = collect($dataHistory);
@@ -187,7 +192,7 @@ class ReportsController extends Controller
             $historyData[$i] = $data;
             $i++;
         }
-        
+
         return $historyData;
     }
 }
