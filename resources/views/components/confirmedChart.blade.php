@@ -30,11 +30,11 @@
     var historyData = {!! json_encode($historyData) !!}
     var data = {!! json_encode($data) !!}
     
-    // console.log(historyData);
-    // console.log(historyData.map(item => {
-    //             const d = new Date(item.Date)
-    //             return `${d.day}-${d.month}`}))
-    // console.log(historyData.map(item => item.Confirmed))
+    console.log(historyData);
+    console.log(historyData.map(item => {
+                const d = new Date(item.Date)
+                return `${d.day}-${d.month}`}))
+    console.log(historyData.map(item => item.Confirmed))
 
     var chart = new Chart(ctx, {
         type: 'line',
