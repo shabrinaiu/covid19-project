@@ -15,7 +15,7 @@ class ReportsController extends Controller
     public function countries()
     {
         $data = $this->fetchCountryIdentity();
-        
+
         return view('pages.reports.countries', compact('data'));
     }
 
@@ -88,7 +88,7 @@ class ReportsController extends Controller
     }
 
     public function fetchCurrent($slug)
-    {        
+    {
         //fetching urrent data country
         $curl = curl_init();
         curl_setopt_array($curl, array(
@@ -109,7 +109,7 @@ class ReportsController extends Controller
         }
 
         $data = $data['countries'];
-        foreach($data as $dataCountry){            
+        foreach($data as $dataCountry){
             if($dataCountry['Slug'] == $slug){
                 $currentData = $dataCountry;
                 break;
@@ -120,7 +120,7 @@ class ReportsController extends Controller
         } else{
             return 'failed to load';
         }
-            
+
     }
 
     public function fetchHistory($slug)
@@ -160,7 +160,13 @@ class ReportsController extends Controller
             $historyDataArr[$i] = $data;
             $i++;
         }
-         return $historyDataArr;
+
+        for($idx = 0; $idx<count($historyDataArr); $idx++){
+            $dateParts = explode("-",$historyDataArr[$idx]['Date']);
+            $historyDataArr[$idx]['Date'] = ($dateParts[2] . '-' . $dateParts[0] . '-' . $dateParts[1]);
+        }
+
+        return $historyDataArr;
     }
 
     public function global()
@@ -168,6 +174,21 @@ class ReportsController extends Controller
         $data = $this->fetchGlobal();
 
         return view('pages.reports.global', compact('data'));
+    }
+
+    public function compareCountryData()
+    {
+        $data = $this->fetchCountryIdentity();
+
+        return view('pages.reports.comparison', compact('data'));
+    }
+
+    public function showCountryData($selected)
+    {
+        dd($selected);
+        $data = $this->fetchCountryIdentity();
+
+        return view('pages.reports.comparison', compact('data'));
     }
 
     public function getLastData($dataHistory, $limit)
@@ -181,7 +202,7 @@ class ReportsController extends Controller
             $historyData[$i] = $data;
             $i++;
         }
-        
+
         return $historyData;
     }
 }

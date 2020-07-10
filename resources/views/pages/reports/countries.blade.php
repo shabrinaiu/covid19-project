@@ -8,13 +8,13 @@
 @section('page-heading')
     <div class="row wrapper page-heading">
         <div class="col-md-8 vertical-align-middle">
-            <h3>Covid-19 Statistics data of {{(isset($currentData['Country']) ? $currentData['Country'] : 'a country')}}</h3>
+            <h3>Covid-19 Statistics data of {{(isset($currentData['Country_Region']) ? $currentData['Country_Region'] : 'a country')}}</h3>
         </div>
         <div class="col-md-3">
             <select class="select2_demo_3 form-control country">
-                <option disabled selected>-- choose country --</option>
                 @isset($data)
                     @foreach ($data as $row)
+                        <option value="" disabled selected></option>
                         <option value="{{$row['Slug']}}">{{$row['Country']}}</option>
                     @endforeach                    
                 @endisset
@@ -32,7 +32,7 @@
         <div class="card card-confirmed">
             <div class="card-body">
                 <h2 class="card-title text-success" id="recovered">{{
-                    (isset($currentData['TotalRecovered']) ? $currentData['TotalRecovered'] : 'no data exists')
+                    (isset($currentData['Recovered']) ? $currentData['Recovered'] : 'no data exists')
                     }}</h2>
                 <h6 class="card-subtitle mb-2 text-muted"></h6>
                 <h4 class="card-text">patient recovered</h4>
@@ -43,7 +43,7 @@
         <div class="card card-recovered">
             <div class="card-body">
                 <h2 class="card-title text-warning" id="confirmed">{{
-                    (isset($currentData['TotalConfirmed']) ? $currentData['TotalConfirmed'] : 'no data exists')
+                    (isset($currentData['Confirmed']) ? $currentData['Confirmed'] : 'no data exists')
                     }}</h2>
                 <h6 class="card-subtitle mb-2 text-muted"></h6>
                 <h4 class="card-text">patient confirmed</h4>
@@ -54,7 +54,7 @@
         <div class="card card-deaths">
             <div class="card-body">
                 <h2 class="card-title text-danger" id="deaths">{{
-                    (isset($currentData['TotalDeaths']) ? $currentData['TotalDeaths'] : 'no data exists')
+                    (isset($currentData['Deaths']) ? $currentData['Deaths'] : 'no data exists')
                     }}</h2>
                 <h6 class="card-subtitle mb-2 text-muted"></h6>
                 <h4 class="card-text">patient deaths</h4>
@@ -89,22 +89,15 @@
                 $(".select2_demo_3").select2({
                     theme: 'bootstrap4',
                     placeholder: "Select a country",
-                    allowClear: true
+                    // allowClear: true
                 });
 
                 $("#submitButton").click(function(){
                     var selectedName = $("select.country").children("option:selected").html();
                     var selectedSlug = $("select.country").children("option:selected").val();
-                    $('#countryTitle').html(selectedName + ' all data');
                     var url = '/reports/countries/' + selectedSlug;
                     document.location.href=url;
-                });                
-
-                function loops(){
-                    setInterval(function () {
-                        semuaData();
-                    }, 2000);
-                }
+                });          
 
                 // menampilkan chart ketika data sudah masuk
                 if( ($('#recovered').html() && $('#confirmed').html() && $('#deaths').html() ) == 'no data exists'){

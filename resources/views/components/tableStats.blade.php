@@ -2,7 +2,7 @@
     <div class="col-lg-12">
         <div class="ibox ">
             <div class="ibox-title">
-                <h4 class="text-center">Table Statistic Data</h4>
+                <h4 class="text-center" id="TableTitle">Table Statistic Data</h4>
 
                 <div class="ibox-tools">
                     <a class="collapse-link">
