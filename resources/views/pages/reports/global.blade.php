@@ -1,16 +1,5 @@
 @extends('layouts.master')
 
-@section('page-heading')
-    @component('components.breadcrumb', ['name' => 'Reports'])
-        <li class="breadcrumb-item active">
-            <a href="/reports/">Reports</a>
-        </li>
-        <li class="breadcrumb-item active">
-            <a href="/reports/global">Global</a>
-        </li>
-    @endcomponent
-@endsection
-
 @section('content')
     <div class="row mb-4">
         {{-- <div class="col-md-4">
@@ -40,7 +29,7 @@
             </div>
         </div>
         <div class="col-md-4">
-            <div class="card text-center">
+            <div class="card">
                 <div class="card-body">
                     <div class="row">
                         <h2 class="text-danger" id="deaths">??? </h2>
@@ -53,7 +42,7 @@
             </div>
         </div> --}}
         <div class="col-md-4">
-            <div class="card">
+            <div class="card card-recovered">
                 <div class="card-body">
                     <h2 class="card-title text-success" id="recovered">???</h2>
                     <h6 class="card-subtitle mb-2 text-muted"></h6>
@@ -62,7 +51,7 @@
             </div>
         </div>
         <div class="col-md-4">
-            <div class="card">
+            <div class="card card-deaths">
                 <div class="card-body">
                     <h2 class="card-title text-warning" id="confirmed">???</h2>
                     <h6 class="card-subtitle mb-2 text-muted"></h6>

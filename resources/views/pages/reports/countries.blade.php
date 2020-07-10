@@ -6,15 +6,7 @@
 @endpush
 
 @section('page-heading')
-    @component('components.breadcrumb', ['name' => 'Reports'])
-        <li class="breadcrumb-item active">
-            <a href="/reports/">Reports</a>
-        </li>
-        <li class="breadcrumb-item active">
-            <a href="/reports/countries">Countries</a>
-        </li>
-    @endcomponent
-    <div class="row wrapper border-bottom white-bg page-heading">
+    <div class="row wrapper page-heading">
         <div class="col-md-8 vertical-align-middle">
             <h3>Covid-19 Statistics data of {{(isset($currentData['Country']) ? $currentData['Country'] : 'a country')}}</h3>
         </div>
