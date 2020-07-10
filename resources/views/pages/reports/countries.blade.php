@@ -103,7 +103,6 @@
                 $("#submitButton").click(function(){
                     var selectedName = $("select.country").children("option:selected").html();
                     var selectedSlug = $("select.country").children("option:selected").val();
-                    $('#countryTitle').html(selectedName + ' all data');
                     var url = '/reports/countries/' + selectedSlug;
                     document.location.href=url;
                 });          

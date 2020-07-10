@@ -183,6 +183,14 @@ class ReportsController extends Controller
         return view('pages.reports.comparison', compact('data'));
     }
 
+    public function showCountryData($selected)
+    {
+        dd($selected);
+        $data = $this->fetchCountryIdentity();
+
+        return view('pages.reports.comparison', compact('data'));
+    }
+
     public function getLastData($dataHistory, $limit)
     {
         $collection = collect($dataHistory);

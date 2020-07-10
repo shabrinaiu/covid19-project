@@ -19,7 +19,7 @@
             <h3>Covid-19 Statistics data of {{(isset($currentData['Country_Region']) ? $currentData['Country_Region'] : 'a country')}}</h3>
         </div>
         <div class="col-md-3">
-            <select class="select2_demo_2 form-control country" multiple="multiple">
+            <select class="select2_demo_2 form-control countries" multiple="multiple">
                 @isset($data)
                     @foreach ($data as $row)
                         <option value="" disabled></option>
@@ -44,17 +44,16 @@
         $(document).ready(function () {
 
             $(".select2_demo_2").select2({
-                theme: 'bootstrap4',
                 placeholder: "Select a country",
             });
 
             $("#submitButton").click(function(){
-                var selectedName = $("select.country").children("option:selected").html();
-                var selectedSlug = $("select.country").children("option:selected").val();
-                $('#countryTitle').html(selectedName + ' all data');
-                var url = '/reports/countries/' + selectedSlug;
+                var selectedCountries = $("select.countries").val();
+                console.log(selectedCountries)
+                // var selectedSlug = $("select.country").children("option:selected").val();
+                var url = '/reports/compare/' + selectedCountries;
                 document.location.href=url;
-            });                
+            });
 
         });
 
