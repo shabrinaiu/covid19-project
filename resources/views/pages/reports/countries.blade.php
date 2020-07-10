@@ -16,13 +16,13 @@
     @endcomponent
     <div class="row wrapper border-bottom white-bg page-heading">
         <div class="col-md-8 vertical-align-middle">
-            <h3>Covid-19 Statistics data of {{(isset($currentData['Country']) ? $currentData['Country'] : 'a country')}}</h3>
+            <h3>Covid-19 Statistics data of {{(isset($currentData['Country_Region']) ? $currentData['Country_Region'] : 'a country')}}</h3>
         </div>
         <div class="col-md-3">
             <select class="select2_demo_3 form-control country">
-                <option disabled selected>-- choose country --</option>
                 @isset($data)
                     @foreach ($data as $row)
+                        <option value="" disabled selected></option>
                         <option value="{{$row['Slug']}}">{{$row['Country']}}</option>
                     @endforeach                    
                 @endisset
@@ -97,7 +97,7 @@
                 $(".select2_demo_3").select2({
                     theme: 'bootstrap4',
                     placeholder: "Select a country",
-                    allowClear: true
+                    // allowClear: true
                 });
 
                 $("#submitButton").click(function(){
@@ -106,13 +106,7 @@
                     $('#countryTitle').html(selectedName + ' all data');
                     var url = '/reports/countries/' + selectedSlug;
                     document.location.href=url;
-                });                
-
-                function loops(){
-                    setInterval(function () {
-                        semuaData();
-                    }, 2000);
-                }
+                });          
 
                 // menampilkan chart ketika data sudah masuk
                 if( ($('#recovered').html() && $('#confirmed').html() && $('#deaths').html() ) == 'no data exists'){
