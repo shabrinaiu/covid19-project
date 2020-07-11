@@ -9,7 +9,7 @@
 </div>
 <ul class="nav navbar-top-links navbar-right">
     <li class="">
-        <a href="">
+        <a href="{{route('reports.index')}}">
             <i class="fa fa-globe"></i> 
             <span class="nav-label">Home</span>
         </a>
