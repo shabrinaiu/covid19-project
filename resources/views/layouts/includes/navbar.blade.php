@@ -37,6 +37,15 @@
                     </div>
                 </a>
             </li>
+            <li class="dropdown-divider"></li>
+            <li>
+                <a href="{{ route('compare.index')}}" class="dropdown-item">
+                    <div>
+                        <i class="fa fa-flag-o"></i>
+                        <strong>Perbandingan Banyak Negara</strong>
+                    </div>
+                </a>
+            </li>
         </ul>
     </li>
 </ul>

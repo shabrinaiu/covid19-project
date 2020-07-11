@@ -6,14 +6,6 @@
 @endpush
 
 @section('page-heading')
-    @component('components.breadcrumb', ['name' => 'Reports'])
-        <li class="breadcrumb-item active">
-            <a href="/reports/">Reports</a>
-        </li>
-        <li class="breadcrumb-item active">
-            <a href="/reports/countries">Comparison</a>
-        </li>
-    @endcomponent
     <div class="row wrapper border-bottom white-bg page-heading">
         <div class="col-md-8 vertical-align-middle">
             <h3>Covid-19 Statistics data of {{(isset($currentData['Country_Region']) ? $currentData['Country_Region'] : 'a country')}}</h3>
@@ -24,7 +16,7 @@
                     @foreach ($data as $row)
                         <option value="" disabled></option>
                         <option value="{{$row['Slug']}}">{{$row['Country']}}</option>
-                    @endforeach                    
+                    @endforeach
                 @endisset
             </select>
         </div>
@@ -33,6 +25,22 @@
         </div>
     </div>
 @endsection
+
+
+@isset($historyData)
+    @component('components.confirmedChart', ['historyData' => $historyData, 'data' => $data])
+    @endcomponent
+
+    @component('components.recoveredChart', ['historyData' => $historyData, 'data' => $data])
+    @endcomponent
+
+    @component('components.deathChart', ['historyData' => $historyData, 'data' => $data])
+    @endcomponent
+
+    @component('components.tableStats', ['historyData' => $historyData])
+    @endcomponent
+
+@endisset
 
 @section('content')
     @push('footer-scripts')

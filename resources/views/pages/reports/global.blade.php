@@ -2,45 +2,15 @@
 
 @section('content')
     <div class="row mb-4">
-        {{-- <div class="col-md-4">
-            <div class="card text-center">
-                <div class="card-body">
-                    <div class="row">
-                        <h2 class="text-success" id="recovered">??? </h2>
-                        <span><p id="recovered+">+?</p></span>
-                    </div>
-                    
-                    <h6 class="card-subtitle mb-2 text-muted"></h6>
-                    <h4 class="card-text">patient recovered</h4>
-                </div>
-            </div>
-        </div>
         <div class="col-md-4">
-            <div class="card text-center">
+            <div class="card card-confirmed">
                 <div class="card-body">
-                    <div class="row">
-                        <h2 class="text-warning" id="confirmed">??? </h2>
-                        <span><p id="confirmed+">+?</p></span>
-                    </div>
-                    
+                    <h2 class="card-title text-warning" id="confirmed">???</h2>
                     <h6 class="card-subtitle mb-2 text-muted"></h6>
                     <h4 class="card-text">patient confirmed</h4>
                 </div>
             </div>
         </div>
-        <div class="col-md-4">
-            <div class="card">
-                <div class="card-body">
-                    <div class="row">
-                        <h2 class="text-danger" id="deaths">??? </h2>
-                        <span><p id="deaths+">+?</p></span>
-                    </div>
-                    
-                    <h6 class="card-subtitle mb-2 text-muted"></h6>
-                    <h4 class="card-text">patient deaths</h4>
-                </div>
-            </div>
-        </div> --}}
         <div class="col-md-4">
             <div class="card card-recovered">
                 <div class="card-body">
@@ -52,15 +22,6 @@
         </div>
         <div class="col-md-4">
             <div class="card card-deaths">
-                <div class="card-body">
-                    <h2 class="card-title text-warning" id="confirmed">???</h2>
-                    <h6 class="card-subtitle mb-2 text-muted"></h6>
-                    <h4 class="card-text">patient confirmed</h4>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="card">
                 <div class="card-body">
                     <h2 class="card-title text-danger" id="deaths">???</h2>
                     <h6 class="card-subtitle mb-2 text-muted"></h6>
