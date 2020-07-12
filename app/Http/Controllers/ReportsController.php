@@ -169,6 +169,23 @@ class ReportsController extends Controller
         return $historyDataArr;
     }
 
+    public function getDataAroundDate($historyData, $startDate, $endDate)
+    {
+        $startDate = explode("/",$startDate);
+        $startDate = $startDate[0] . '-' . $startDate[1] . '-' . $startDate[2];
+
+        $endDate = explode("/",$endDate);
+        $endDate = $endDate[0] . '-' . $endDate[1] . '-' . $endDate[2];
+        
+        foreach($historyData as $i => $rowHistoryData){
+            if($rowHistoryData['Date'] >= $startDate && $rowHistoryData['Date'] <= $endDate){
+                $historyDataArr[$i] = $rowHistoryData;
+            }
+        }
+
+        return $historyDataArr;
+    }
+
     public function global()
     {
         $data = $this->fetchGlobal();
@@ -183,12 +200,43 @@ class ReportsController extends Controller
         return view('pages.reports.comparison', compact('data'));
     }
 
-    public function showCountryData($selected)
+    public function processComparedData(Request $request)
     {
-        dd($selected);
+        $mainHistoryData = $this->fetchHistory($request->mainCountry);
+        $mainHistoryData = $this->getDataAroundDate($mainHistoryData, $request->start, $request->end);
+        $mainHistoryData = array_values($mainHistoryData); //returning index arr to 0
+
+        foreach ($request->countries as $i => $countries) {
+            $comparedHistoryDataArr[$i] = $this->fetchHistory($countries);
+            $comparedHistoryDataArr[$i] = $this->getDataAroundDate($comparedHistoryDataArr[$i], $request->start, $request->end);
+            $comparedHistoryDataArr[$i] = array_values($comparedHistoryDataArr[$i]); //returning index arr to 0
+        }
+        $results = $this->countDataCountries($mainHistoryData, $comparedHistoryDataArr);
+        dd($results);
+
         $data = $this->fetchCountryIdentity();
 
-        return view('pages.reports.comparison', compact('data'));
+        return view('pages.reports.comparison', compact(['data', 'results']));
+    }
+
+    public function countDataCountries($mainHistoryData, $comparedHistoryDataArr)
+    {
+        foreach ($comparedHistoryDataArr as $idx => $comparedHistoryData) { //tiap negara. $idx dari 0
+            $confirmedDiff[$idx]['country'] = $comparedHistoryData[0]['Country'];
+            $recoveredDiff[$idx]['country'] = $comparedHistoryData[0]['Country'];
+            $deathsDiff[$idx]['country'] = $comparedHistoryData[0]['Country'];
+
+            foreach($comparedHistoryData as $i => $rowComparedData){ //tiap data pada tiap tanggal. $i dari tergantung date yg diambil
+                $confirmedDiff[$idx][$i] = abs($rowComparedData['Confirmed'] - $mainHistoryData[$i]['Confirmed']);
+                $recoveredDiff[$idx][$i] = abs($rowComparedData['Recovered'] - $mainHistoryData[$i]['Recovered']);
+                $deathsDiff[$idx][$i] = abs($rowComparedData['Deaths'] - $mainHistoryData[$i]['Deaths']);
+            }
+        }
+        $results['confirmed'] = $confirmedDiff;
+        $results['recovered'] = $recoveredDiff;
+        $results['deaths'] = $deathsDiff;
+
+        return $results;
     }
 
     public function getLastData($dataHistory, $limit)

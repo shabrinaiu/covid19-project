@@ -6,13 +6,15 @@
     <link href="{{URL::asset('theme/css/plugins/datapicker/datepicker3.css')}}" rel="stylesheet">
 @endpush
 
+<form action="/reports/compare" method="post" id="compare-countries">
+@csrf
 @section('page-heading')
     <div class="row wrapper page-heading">
         <div class="col-md-8 vertical-align-middle">
-            <h3>Covid-19 Statistics data of {{(isset($currentData['Country_Region']) ? $currentData['Country_Region'] : 'a country')}}</h3>
+            <h3>Main data of {{(isset($currentData['Country_Region']) ? $currentData['Country_Region'] : 'a country')}}</h3>
         </div>
         <div class="col-md-3">
-            <select class="select2_country form-control country">
+            <select class="select2_country form-control country" name="mainCountry">
                 @isset($data)
                     @foreach ($data as $row)
                         <option value="" disabled selected></option>
@@ -48,8 +50,9 @@
                     <div class="row wrapper justify-content-around align-items-start">
                         <div class="col-md-6">
                             <div class="form-group row">
+                                <label class="font-normal">Select Countries to compare</label>
                                 <div class="col-sm-8">
-                                    <select class="select2_countries form-control countries" multiple="multiple">
+                                    <select class="select2_countries form-control" multiple="multiple" name="countries[]">
                                         @isset($data)
                                             @foreach ($data as $row)
                                                 <option value="" disabled></option>
@@ -62,11 +65,12 @@
                         </div>
                         <div class="col-md-6 justify-content-end align-items-end">
                             <div class="form-group row">
-                                <div class="col-sm-8">
+                                <div class="col-sm-8 text-center">
+                                    <label class="font-normal">Range select</label>
                                     <div class="input-daterange input-group" id="datepicker">
-                                        <input type="text" class="form-control-sm form-control" id="start-date" name="start" value="05/14/2014"/>
-                                        <span class="input-group-addon">to</span>
-                                        <input type="text" class="form-control-sm form-control" id="end-date" name="end" value="05/22/2014" />
+                                        <input type="text" class="form-control-sm form-control" id="start-date" name="start" value="03/14/2020"/>
+                                        <span class="ml-2 mr-2"><i class="fa fa-arrow-circle-right"></i></span>
+                                        <input type="text" class="form-control-sm form-control" id="end-date" name="end" value="03/22/2020" />
                                     </div>
                                 </div>
                             </div>
@@ -76,6 +80,7 @@
             </div>
         </div>
     </div>
+</form>
 
     <div id="contentWrapper">
         <div class="row" id="table-stats">
@@ -92,28 +97,30 @@
                     </div>
                     <div class="ibox-footer">
                         <div class="table-responsive">
-                            <table id="" class="table table-hover text-center dataTables-example">
-                                <thead>
-                                    <tr>
-                                        <th>#</th>
-                                        <th>Date</th>
-                                        <th>Country A</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>#</td>
-                                        <td>Date</td>
-                                        <th>Country A</th>
-                                    </tr>
-                                </tbody>
-                            </table>
+                            @isset($results['confirmed'])
+                                <table id="" class="table table-hover text-center dataTables-example">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Date</th>
+                                            <th>Country A</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>#</td>
+                                            <td>Date</td>
+                                            <th>Country A</th>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            @endisset
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-
+        
         
         <div class="row" id="table-stats">
             <div class="col-lg-12">
@@ -129,22 +136,24 @@
                     </div>
                     <div class="ibox-footer">
                         <div class="table-responsive">
-                            <table id="" class="table table-hover text-center dataTables-example">
-                                <thead>
-                                    <tr>
-                                        <th>#</th>
-                                        <th>Date</th>
-                                        <th>Country A</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>#</td>
-                                        <td>Date</td>
-                                        <th>Country A</th>
-                                    </tr>
-                                </tbody>
-                            </table>
+                            @isset($results['recovered'])
+                                <table id="" class="table table-hover text-center dataTables-example">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Date</th>
+                                            <th>Country A</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>#</td>
+                                            <td>Date</td>
+                                            <th>Country A</th>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            @endisset
                         </div>
                     </div>
                 </div>
@@ -166,22 +175,24 @@
                     </div>
                     <div class="ibox-footer">
                         <div class="table-responsive">
-                            <table id="" class="table table-hover text-center dataTables-example">
-                                <thead>
-                                    <tr>
-                                        <th>#</th>
-                                        <th>Date</th>
-                                        <th>Country A</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>#</td>
-                                        <td>Date</td>
-                                        <th>Country A</th>
-                                    </tr>
-                                </tbody>
-                            </table>
+                            @isset($results['deaths'])
+                                <table id="" class="table table-hover text-center dataTables-example">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Date</th>
+                                            <th>Country A</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>#</td>
+                                            <td>Date</td>
+                                            <th>Country A</th>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            @endisset
                         </div>
                     </div>
                 </div>
@@ -199,6 +210,10 @@
         $(document).ready(function () {
             $('#contentWrapper').hide();
 
+            @isset($results)
+                $('#contentWrapper').show();
+            @endisset
+
             $(".select2_country").select2({
                 theme: 'bootstrap4',
                 placeholder: "Select a target country",
@@ -212,15 +227,14 @@
             });
 
             $(".select2_countries").select2({
-                placeholder: "Select countries to compare",
+                theme: 'bootstrap4',
+                placeholder: "Select countries here",
             });
 
             $("#submitButton").click(function(){
                 // var selectedCountries = $("select.countries").val();
                 // console.log(selectedCountries)
-                var selectedCountries = $("#start-date").val();
-                var url = '/reports/compare/' + selectedCountries;
-                document.location.href=url;
+                $('#compare-countries').submit();
             });
 
         });

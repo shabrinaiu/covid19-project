@@ -29,6 +29,6 @@ Route::prefix('reports')->group(function () {
     Route::get('/countries/{selected}', 'ReportsController@show')->name("countries.show");
 
     Route::get('/compare', 'ReportsController@compareCountryData')->name('compare.index');
-    Route::get('/compare/{selected}', 'ReportsController@showCountryData')->name('compare.show');
+    Route::post('/compare', 'ReportsController@processComparedData')->name('compare.post');
 });
 
