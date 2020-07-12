@@ -10,10 +10,15 @@
 @csrf
 @section('page-heading')
     <div class="row wrapper page-heading">
-        <div class="col-md-8 vertical-align-middle">
-            <h3>Main data of {{(isset($currentData['Country_Region']) ? $currentData['Country_Region'] : 'a country')}}</h3>
+        <div class="col-md-12 vertical-align-middle">
+            <h2>Perbandingan Data Banyak Negara</h2>
         </div>
-        <div class="col-md-3">
+    </div>
+    <div class="row wrapper page-heading">
+        <div class="col-md-4 vertical-align-middle">
+            <h3>Select main data of {{(isset($currentData['Country_Region']) ? $currentData['Country_Region'] : 'a country')}}</h3>
+        </div>
+        <div class="col-md-8">
             <select class="select2_country form-control country" name="mainCountry">
                 @isset($data)
                     @foreach ($data as $row)
@@ -23,6 +28,33 @@
                 @endisset
             </select>
         </div>
+    </div>
+    <div class="row wrapper page-heading">
+        <div class="col-md-4 vertical-align-middle">
+            <h3>Select Multiple Data for Comparison</h3>
+        </div>
+        <div class="col-md-8">
+            <select class="select2_countries form-control" multiple="multiple" name="countries[]">
+                @isset($data)
+                    @foreach ($data as $row)
+                        <option value="" disabled></option>
+                        <option value="{{$row['Slug']}}">{{$row['Country']}}</option>
+                    @endforeach
+                @endisset
+            </select>
+        </div>
+    </div>
+    <div class="row wrapper page-heading">
+        <div class="col-md-4 vertical-align-middle">
+            <h3>Select Range Date</h3>
+        </div>
+        <div class="col-md-7">
+            <div class="input-daterange input-group" id="datepicker">
+                <input type="text" class="form-control-sm form-control" id="start-date" name="start" value="03/14/2020"/>
+                <span class="ml-2 mr-2">to</span>
+                <input type="text" class="form-control-sm form-control" id="end-date" name="end" value="03/22/2020" />
+            </div>
+        </div>
         <div class="col-md-1">
             <button type="button" class="btn btn-primary" id="submitButton">Submit</button>
         </div>
@@ -30,58 +62,6 @@
 @endsection
 
 @section('content')
-
-    <div class="row" id="chart1">
-        <div class="col-md-12">
-            <div class="ibox ">
-                <div class="ibox-title">
-                    <h5>Choose Input</h5>
-                    <div class="ibox-tools">
-                        <a class="collapse-link">
-                            <i class="fa fa-chevron-up"></i>
-                        </a>
-                        
-                        <a class="close-link">
-                            <i class="fa fa-times"></i>
-                        </a>
-                    </div>
-                </div>
-                <div class="ibox-footer">
-                    <div class="row wrapper justify-content-around align-items-start">
-                        <div class="col-md-6">
-                            <div class="form-group row">
-                                <label class="font-normal">Select Countries to compare</label>
-                                <div class="col-sm-8">
-                                    <select class="select2_countries form-control" multiple="multiple" name="countries[]">
-                                        @isset($data)
-                                            @foreach ($data as $row)
-                                                <option value="" disabled></option>
-                                                <option value="{{$row['Slug']}}">{{$row['Country']}}</option>
-                                            @endforeach
-                                        @endisset
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6 justify-content-end align-items-end">
-                            <div class="form-group row">
-                                <div class="col-sm-8 text-center">
-                                    <label class="font-normal">Range select</label>
-                                    <div class="input-daterange input-group" id="datepicker">
-                                        <input type="text" class="form-control-sm form-control" id="start-date" name="start" value="03/14/2020"/>
-                                        <span class="ml-2 mr-2"><i class="fa fa-arrow-circle-right"></i></span>
-                                        <input type="text" class="form-control-sm form-control" id="end-date" name="end" value="03/22/2020" />
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</form>
-
     <div id="contentWrapper">
         <div class="row" id="table-stats">
             <div class="col-lg-12">

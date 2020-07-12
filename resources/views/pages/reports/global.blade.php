@@ -86,8 +86,22 @@
             </div>
         </div>
     </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="ibox ">
+                <div class="ibox-title">
+                    <h5>Basic example</h5>
+                </div>
+            </div>
+        </div>
+    </div>
 
     @push('footer-scripts')
+    <!-- DataMaps -->
+    <script src="js/plugins/typehead/bootstrap3-typeahead.min.js"></script>
+    <script src="js/plugins/d3/d3.min.js"></script>
+    <script src="js/plugins/topojson/topojson.js"></script>
+    <script src="js/plugins/datamaps/datamaps.all.min.js"></script>
     <script>
         $(document).ready(function () {
             semuaData();
@@ -116,9 +130,29 @@
 
                 });
             }
-    
+
+            var basic = new Datamap({
+                element: document.getElementById("basic_map"),
+                responsive: true,
+                fills: {
+                    defaultFill: "#DBDAD6"
+                },
+                geographyConfig: {
+                    highlightFillColor: '#1C977A',
+                    highlightBorderWidth: 0,
+                },
+            });
+
+            // Resize map on window resize
+            $(window).on('resize', function() {
+                setTimeout(function(){
+                    basic.resize();
+                    selected_map.resize();
+                },100)
+            });
+
+
         });
-    
     </script>
     @endpush
 

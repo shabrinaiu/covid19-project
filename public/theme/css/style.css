@@ -846,7 +846,6 @@ h4,
 h5 {
   margin-top: 5px;
   margin-bottom: 5px;
-  font-weight: 600;
 }
 .vertical-align-middle{
   vertical-align: middle;
@@ -1572,7 +1571,7 @@ button:focus {
 .btn-info.btn-outline:hover,
 .btn-warning.btn-outline:hover,
 .btn-danger.btn-outline:hover {
-  color: #fff;
+  color: #183b67;
 }
 .btn.active,
 .btn:active {
@@ -1582,7 +1581,7 @@ button:focus {
   box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
 }
 .btn-primary {
-  color: #fff;
+  color: #183b67;
   background-color: #F2C808;
   border-color: #F2C808;
 }
@@ -1591,18 +1590,18 @@ button:focus {
 .btn-primary.focus {
   background-color: #F2C808;
   border-color: #F2C808;
-  color: #FFFFFF;
+  color: #183b67;
 }
 .btn-primary.disabled,
 .btn-primary:disabled {
-  color: #fff;
+  color: #183b67;
   background-color: #F2C808;
   border-color: #F2C808;
 }
 .btn-primary:not(:disabled):not(.disabled):active,
 .btn-primary:not(:disabled):not(.disabled).active,
 .show > .btn-primary.dropdown-toggle {
-  color: #fff;
+  color: #183b67;
   background-color: #F2C808;
   border-color: #F2C808;
 }
