@@ -67,8 +67,12 @@
             <div class="col-lg-12">
                 <div class="ibox ">
                     <div class="ibox-title">
+<<<<<<< HEAD
                         <h3 class="text-center" id="TableTitle">Confirmed Data Comparison of @isset($mainCountryName) {{$mainCountryName}} @endisset</h3>
 
+=======
+                        <h3 class="text-center" id="TableTitle">Confirmed Comparison</h3>
+>>>>>>> tfoot
                         <div class="ibox-tools">
                             <a class="collapse-link">
                                 <i class="fa fa-chevron-up"></i>
@@ -102,6 +106,13 @@
                                             </tr>
                                         @endforeach
                                     </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <td>#</td>
+                                            <td>Date</td>
+                                            <th>Country A</th>
+                                        </tr>
+                                    </tfoot>
                                 </table>
                             @endisset
                         </div>
@@ -150,6 +161,13 @@
                                             </tr>
                                         @endforeach
                                     </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <td>#</td>
+                                            <td>Date</td>
+                                            <th>Country A</th>
+                                        </tr>
+                                    </tfoot>
                                 </table>
                             @endisset
                         </div>
@@ -198,6 +216,13 @@
                                             </tr>
                                         @endforeach
                                     </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <td>#</td>
+                                            <td>Date</td>
+                                            <th>Country A</th>
+                                        </tr>
+                                    </tfoot>
                                 </table>
                             @endisset
                         </div>
