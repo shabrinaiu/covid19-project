@@ -68,7 +68,6 @@
                 <div class="ibox ">
                     <div class="ibox-title">
                         <h3 class="text-center" id="TableTitle">Confirmed Comparison</h3>
-
                         <div class="ibox-tools">
                             <a class="collapse-link">
                                 <i class="fa fa-chevron-up"></i>
@@ -93,6 +92,13 @@
                                             <th>Country A</th>
                                         </tr>
                                     </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <td>#</td>
+                                            <td>Date</td>
+                                            <th>Country A</th>
+                                        </tr>
+                                    </tfoot>
                                 </table>
                             @endisset
                         </div>
@@ -132,6 +138,13 @@
                                             <th>Country A</th>
                                         </tr>
                                     </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <td>#</td>
+                                            <td>Date</td>
+                                            <th>Country A</th>
+                                        </tr>
+                                    </tfoot>
                                 </table>
                             @endisset
                         </div>
@@ -171,6 +184,13 @@
                                             <th>Country A</th>
                                         </tr>
                                     </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <td>#</td>
+                                            <td>Date</td>
+                                            <th>Country A</th>
+                                        </tr>
+                                    </tfoot>
                                 </table>
                             @endisset
                         </div>
