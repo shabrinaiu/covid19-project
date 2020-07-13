@@ -50,9 +50,9 @@
         </div>
         <div class="col-md-7">
             <div class="input-daterange input-group" id="datepicker">
-                <input type="text" class="form-control-sm form-control" id="start-date" name="start" value="03/14/2020"/>
+                <input type="text" class="form-control-sm form-control" id="start-date" name="start" value="03/01/2020"/>
                 <span class="ml-2 mr-2">to</span>
-                <input type="text" class="form-control-sm form-control" id="end-date" name="end" value="03/22/2020" />
+                <input type="text" class="form-control-sm form-control" id="end-date" name="end" value="03/04/2020" />
             </div>
         </div>
         <div class="col-md-1">
@@ -67,7 +67,7 @@
             <div class="col-lg-12">
                 <div class="ibox ">
                     <div class="ibox-title">
-                        <h3 class="text-center" id="TableTitle">Confirmed Comparison</h3>
+                        <h3 class="text-center" id="TableTitle">Confirmed Data Comparison of @isset($mainCountryName) {{$mainCountryName}} @endisset</h3>
 
                         <div class="ibox-tools">
                             <a class="collapse-link">
@@ -81,17 +81,26 @@
                                 <table id="" class="table table-hover text-center dataTables-example">
                                     <thead>
                                         <tr>
-                                            <th>#</th>
-                                            <th>Date</th>
-                                            <th>Country A</th>
+                                            <th rowspan="2">#</th>
+                                            <th colspan="{{count($results['confirmed'])}}">Compared data with</th>
+                                            <th rowspan="2">Date</th>
+                                        </tr>
+                                        <tr>
+                                            @foreach ($results['confirmed'] as $confirmed)
+                                                <th>{{$confirmed['country']}}</th>
+                                            @endforeach
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>#</td>
-                                            <td>Date</td>
-                                            <th>Country A</th>
-                                        </tr>
+                                        @foreach ($dates as $i => $date)
+                                            <tr>
+                                                <td>{{$i+1}}</td>
+                                                @foreach ($results['confirmed'] as $confirmed)
+                                                    <td>{{$confirmed[$i]}}</td>
+                                                @endforeach
+                                                <td>{{date_create_from_format('m-d-Y', $date)->format('d M Y')}}</td>
+                                            </tr>
+                                        @endforeach
                                     </tbody>
                                 </table>
                             @endisset
@@ -106,7 +115,7 @@
             <div class="col-lg-12">
                 <div class="ibox ">
                     <div class="ibox-title">
-                        <h3 class="text-center" id="TableTitle">Recovered Comparison</h3>
+                        <h3 class="text-center" id="TableTitle">Recovered Data Comparison of @isset($mainCountryName) {{$mainCountryName}} @endisset</h3>
 
                         <div class="ibox-tools">
                             <a class="collapse-link">
@@ -120,17 +129,26 @@
                                 <table id="" class="table table-hover text-center dataTables-example">
                                     <thead>
                                         <tr>
-                                            <th>#</th>
-                                            <th>Date</th>
-                                            <th>Country A</th>
+                                            <th rowspan="2">#</th>
+                                            <th colspan="{{count($results['recovered'])}}">Compared data with</th>
+                                            <th rowspan="2">Date</th>
+                                        </tr>
+                                        <tr>
+                                            @foreach ($results['recovered'] as $recovered)
+                                                <th>{{$recovered['country']}}</th>
+                                            @endforeach
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>#</td>
-                                            <td>Date</td>
-                                            <th>Country A</th>
-                                        </tr>
+                                        @foreach ($dates as $i => $date)
+                                            <tr>
+                                                <td>{{$i+1}}</td>
+                                                @foreach ($results['recovered'] as $recovered)
+                                                    <td>{{$recovered[$i]}}</td>
+                                                @endforeach
+                                                <td>{{date_create_from_format('m-d-Y', $date)->format('d M Y')}}</td>
+                                            </tr>
+                                        @endforeach
                                     </tbody>
                                 </table>
                             @endisset
@@ -145,7 +163,7 @@
             <div class="col-lg-12">
                 <div class="ibox ">
                     <div class="ibox-title">
-                        <h3 class="text-center" id="TableTitle">Deaths Comparison</h3>
+                        <h3 class="text-center" id="TableTitle">Deaths Data Comparison of @isset($mainCountryName) {{$mainCountryName}} @endisset</h3>
 
                         <div class="ibox-tools">
                             <a class="collapse-link">
@@ -159,17 +177,26 @@
                                 <table id="" class="table table-hover text-center dataTables-example">
                                     <thead>
                                         <tr>
-                                            <th>#</th>
-                                            <th>Date</th>
-                                            <th>Country A</th>
+                                            <th rowspan="2">#</th>
+                                            <th colspan="{{count($results['deaths'])}}">Compared data with</th>
+                                            <th rowspan="2">Date</th>
+                                        </tr>
+                                        <tr>
+                                            @foreach ($results['deaths'] as $deaths)
+                                                <th>{{$deaths['country']}}</th>
+                                            @endforeach
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>#</td>
-                                            <td>Date</td>
-                                            <th>Country A</th>
-                                        </tr>
+                                        @foreach ($dates as $i => $date)
+                                            <tr>
+                                                <td>{{$i+1}}</td>
+                                                @foreach ($results['deaths'] as $deaths)
+                                                    <td>{{$deaths[$i]}}</td>
+                                                @endforeach
+                                                <td>{{date_create_from_format('m-d-Y', $date)->format('d M Y')}}</td>
+                                            </tr>
+                                        @endforeach
                                     </tbody>
                                 </table>
                             @endisset
