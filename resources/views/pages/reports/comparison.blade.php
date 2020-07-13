@@ -11,7 +11,7 @@
 @section('page-heading')
     <div class="row wrapper page-heading">
         <div class="col-md-12 vertical-align-middle">
-            <h2>Perbandingan Data Banyak Negara</h2>
+            <h2>Correlation Data of Countries</h2>
         </div>
     </div>
     <div class="row wrapper page-heading">
