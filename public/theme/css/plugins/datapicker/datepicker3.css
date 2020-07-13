@@ -95,7 +95,7 @@
 }
 .datepicker table tr td.old,
 .datepicker table tr td.new {
-  color: #cfaa04;
+  color: white;
 }
 .datepicker table tr td.day:hover,
 .datepicker table tr td.focused {

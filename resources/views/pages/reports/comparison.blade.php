@@ -67,7 +67,7 @@
             <div class="col-lg-12">
                 <div class="ibox ">
                     <div class="ibox-title">
-                        <h4 class="text-center" id="TableTitle">Confirmed Comparison</h4>
+                        <h3 class="text-center" id="TableTitle">Confirmed Comparison</h3>
 
                         <div class="ibox-tools">
                             <a class="collapse-link">
@@ -106,7 +106,7 @@
             <div class="col-lg-12">
                 <div class="ibox ">
                     <div class="ibox-title">
-                        <h4 class="text-center" id="TableTitle">Recovered Comparison</h4>
+                        <h3 class="text-center" id="TableTitle">Recovered Comparison</h3>
 
                         <div class="ibox-tools">
                             <a class="collapse-link">
@@ -145,7 +145,7 @@
             <div class="col-lg-12">
                 <div class="ibox ">
                     <div class="ibox-title">
-                        <h4 class="text-center" id="TableTitle">Deaths Comparison</h4>
+                        <h3 class="text-center" id="TableTitle">Deaths Comparison</h3>
 
                         <div class="ibox-tools">
                             <a class="collapse-link">

@@ -2222,7 +2222,7 @@ button.dim:active:before {
   background-image: none;
   background-repeat: repeat-x;
   box-shadow: none;
-  color: #333333;
+  color: white;
   text-shadow: none;
 }
 .fc-state-default {
@@ -2282,7 +2282,7 @@ button.dim:active:before {
 }
 .fc-event-time,
 .fc-event-title {
-  color: #717171;
+  color: white;
   padding: 0 1px;
 }
 .ui-calendar .fc-event-time,
