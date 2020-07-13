@@ -80,9 +80,8 @@
                                 <table id="" class="table table-hover text-center dataTables-example">
                                     <thead>
                                         <tr>
-                                            <th rowspan="2">#</th>
-                                            <th colspan="{{count($results['confirmed'])}}">Compared data with</th>
                                             <th rowspan="2">Date</th>
+                                            <th colspan="{{count($results['confirmed'])}}">Compared data with</th>
                                         </tr>
                                         <tr>
                                             @foreach ($results['confirmed'] as $confirmed)
@@ -93,30 +92,20 @@
                                     <tbody>
                                         @foreach ($dates as $i => $date)
                                             <tr>
-                                                <td>{{$i+1}}</td>
+                                                <td>{{date_create_from_format('m-d-Y', $date)->format('d M Y')}}</td>
                                                 @foreach ($results['confirmed'] as $confirmed)
                                                     <td>{{$confirmed[$i]}}</td>
                                                 @endforeach
-                                                <td>{{date_create_from_format('m-d-Y', $date)->format('d M Y')}}</td>
                                             </tr>
                                         @endforeach
                                     </tbody>
                                     <tfoot>
                                         <tr>
-                                            <td>#</td>
-                                            <td>Date</td>
-                                            <th>Country A</th>
+                                            <th>Correlation rate (%)</th>
+                                            @foreach ($results['confirmed'] as $confirmed)
+                                                <td>{{$confirmed['persentase']}}</td>
+                                            @endforeach
                                         </tr>
-<<<<<<< HEAD
-=======
-                                    </tbody>
-                                    <tfoot>
-                                        <tr>
-                                            <td>#</td>
-                                            <td>Date</td>
-                                            <th>Country A</th>
-                                        </tr>
->>>>>>> latest_remote_tfoot
                                     </tfoot>
                                 </table>
                             @endisset
@@ -145,9 +134,8 @@
                                 <table id="" class="table table-hover text-center dataTables-example">
                                     <thead>
                                         <tr>
-                                            <th rowspan="2">#</th>
-                                            <th colspan="{{count($results['recovered'])}}">Compared data with</th>
                                             <th rowspan="2">Date</th>
+                                            <th colspan="{{count($results['recovered'])}}">Compared data with</th>
                                         </tr>
                                         <tr>
                                             @foreach ($results['recovered'] as $recovered)
@@ -158,30 +146,20 @@
                                     <tbody>
                                         @foreach ($dates as $i => $date)
                                             <tr>
-                                                <td>{{$i+1}}</td>
+                                                <td>{{date_create_from_format('m-d-Y', $date)->format('d M Y')}}</td>
                                                 @foreach ($results['recovered'] as $recovered)
                                                     <td>{{$recovered[$i]}}</td>
                                                 @endforeach
-                                                <td>{{date_create_from_format('m-d-Y', $date)->format('d M Y')}}</td>
                                             </tr>
                                         @endforeach
                                     </tbody>
                                     <tfoot>
                                         <tr>
-                                            <td>#</td>
-                                            <td>Date</td>
-                                            <th>Country A</th>
+                                            <th>Correlation rate (%)</th>
+                                            @foreach ($results['recovered'] as $recovered)
+                                                <td>{{$recovered['persentase']}}</td>
+                                            @endforeach
                                         </tr>
-<<<<<<< HEAD
-=======
-                                    </tbody>
-                                    <tfoot>
-                                        <tr>
-                                            <td>#</td>
-                                            <td>Date</td>
-                                            <th>Country A</th>
-                                        </tr>
->>>>>>> latest_remote_tfoot
                                     </tfoot>
                                 </table>
                             @endisset
@@ -210,9 +188,8 @@
                                 <table id="" class="table table-hover text-center dataTables-example">
                                     <thead>
                                         <tr>
-                                            <th rowspan="2">#</th>
-                                            <th colspan="{{count($results['deaths'])}}">Compared data with</th>
                                             <th rowspan="2">Date</th>
+                                            <th colspan="{{count($results['deaths'])}}">Compared data with</th>
                                         </tr>
                                         <tr>
                                             @foreach ($results['deaths'] as $deaths)
@@ -223,30 +200,20 @@
                                     <tbody>
                                         @foreach ($dates as $i => $date)
                                             <tr>
-                                                <td>{{$i+1}}</td>
+                                                <td>{{date_create_from_format('m-d-Y', $date)->format('d M Y')}}</td>
                                                 @foreach ($results['deaths'] as $deaths)
                                                     <td>{{$deaths[$i]}}</td>
                                                 @endforeach
-                                                <td>{{date_create_from_format('m-d-Y', $date)->format('d M Y')}}</td>
                                             </tr>
                                         @endforeach
                                     </tbody>
                                     <tfoot>
                                         <tr>
-                                            <td>#</td>
-                                            <td>Date</td>
-                                            <th>Country A</th>
+                                            <th>Correlation rate (%)</th>
+                                            @foreach ($results['deaths'] as $deaths)
+                                                <td>{{$deaths['persentase']}}</td>
+                                            @endforeach
                                         </tr>
-<<<<<<< HEAD
-=======
-                                    </tbody>
-                                    <tfoot>
-                                        <tr>
-                                            <td>#</td>
-                                            <td>Date</td>
-                                            <th>Country A</th>
-                                        </tr>
->>>>>>> latest_remote_tfoot
                                     </tfoot>
                                 </table>
                             @endisset
