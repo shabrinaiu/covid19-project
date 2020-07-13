@@ -107,6 +107,16 @@
                                             <td>Date</td>
                                             <th>Country A</th>
                                         </tr>
+<<<<<<< HEAD
+=======
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <td>#</td>
+                                            <td>Date</td>
+                                            <th>Country A</th>
+                                        </tr>
+>>>>>>> latest_remote_tfoot
                                     </tfoot>
                                 </table>
                             @endisset
@@ -162,6 +172,16 @@
                                             <td>Date</td>
                                             <th>Country A</th>
                                         </tr>
+<<<<<<< HEAD
+=======
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <td>#</td>
+                                            <td>Date</td>
+                                            <th>Country A</th>
+                                        </tr>
+>>>>>>> latest_remote_tfoot
                                     </tfoot>
                                 </table>
                             @endisset
@@ -217,6 +237,16 @@
                                             <td>Date</td>
                                             <th>Country A</th>
                                         </tr>
+<<<<<<< HEAD
+=======
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <td>#</td>
+                                            <td>Date</td>
+                                            <th>Country A</th>
+                                        </tr>
+>>>>>>> latest_remote_tfoot
                                     </tfoot>
                                 </table>
                             @endisset
