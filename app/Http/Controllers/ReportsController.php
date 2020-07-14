@@ -205,6 +205,9 @@ class ReportsController extends Controller
         $mainHistoryData = $this->fetchHistory($request->mainCountry);
         $mainHistoryData = $this->getDataAroundDate($mainHistoryData, $request->start, $request->end);
         $mainHistoryData = array_values($mainHistoryData); //returning index arr to 0
+        foreach ($mainHistoryData as $i => $mainData) {
+            $dates[$i] = $mainData['Date'];
+        }
         $mainCountryName = $mainHistoryData[0]['Country'];
 
         foreach ($request->countries as $i => $countries) {
@@ -217,7 +220,7 @@ class ReportsController extends Controller
 
         $data = $this->fetchCountryIdentity();
 
-        return view('pages.reports.comparison', compact(['data', 'results', 'mainCountryName']));
+        return view('pages.reports.comparison', compact(['data', 'results', 'dates', 'mainCountryName']));
     }
 
     public function countDataCountries($mainHistoryData, $comparedHistoryDataArr)
@@ -227,11 +230,22 @@ class ReportsController extends Controller
             $recoveredDiff[$idx]['country'] = $comparedHistoryData[0]['Country'];
             $deathsDiff[$idx]['country'] = $comparedHistoryData[0]['Country'];
 
-            foreach($comparedHistoryData as $i => $rowComparedData){ //tiap data pada tiap tanggal. $i dari tergantung date yg diambil
+            $totalDiffConfirmed = 0;
+            $totalDiffRecovered = 0;
+            $totalDiffDeaths = 0;
+            foreach($comparedHistoryData as $i => $rowComparedData){ //tiap data pada tiap tanggal
                 $confirmedDiff[$idx][$i] = abs($rowComparedData['Confirmed'] - $mainHistoryData[$i]['Confirmed']);
+                $totalDiffConfirmed += $confirmedDiff[$idx][$i];
                 $recoveredDiff[$idx][$i] = abs($rowComparedData['Recovered'] - $mainHistoryData[$i]['Recovered']);
+                $totalDiffRecovered += $recoveredDiff[$idx][$i];
                 $deathsDiff[$idx][$i] = abs($rowComparedData['Deaths'] - $mainHistoryData[$i]['Deaths']);
+                $totalDiffDeaths += $deathsDiff[$idx][$i];
+                $countData = $i+1;
             }
+            // hitung persentase dari total selisih dibagi total main data
+            $confirmedDiff[$idx]['persentase'] = ($totalDiffConfirmed / $countData);
+            $recoveredDiff[$idx]['persentase'] = ($totalDiffRecovered / $countData);
+            $deathsDiff[$idx]['persentase'] = ($totalDiffDeaths / $countData);
         }
         $results['confirmed'] = $confirmedDiff;
         $results['recovered'] = $recoveredDiff;
