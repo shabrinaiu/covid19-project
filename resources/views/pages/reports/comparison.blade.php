@@ -16,9 +16,19 @@
     </div>
     <div class="row wrapper page-heading">
         <div class="col-md-4 vertical-align-middle">
-            <h3>Select main data of {{(isset($currentData['Country_Region']) ? $currentData['Country_Region'] : 'a country')}}</h3>
+            <h3>Pilih 2 Negara untuk perbandingan</h3>
         </div>
-        <div class="col-md-8">
+        <div class="col-md-4">
+            <select class="select2_country form-control country" name="mainCountry">
+                @isset($data)
+                    @foreach ($data as $row)
+                        <option value="" disabled selected></option>
+                        <option value="{{$row['Slug']}}">{{$row['Country']}}</option>
+                    @endforeach                    
+                @endisset
+            </select>
+        </div>
+        <div class="col-md-4">
             <select class="select2_country form-control country" name="mainCountry">
                 @isset($data)
                     @foreach ($data as $row)
@@ -31,35 +41,24 @@
     </div>
     <div class="row wrapper page-heading">
         <div class="col-md-4 vertical-align-middle">
-            <h3>Select Multiple Data for Comparison</h3>
+            <h3>Pilih Periode Data</h3>
         </div>
         <div class="col-md-8">
-            <select class="select2_countries form-control" multiple="multiple" name="countries[]">
-                @isset($data)
-                    @foreach ($data as $row)
-                        <option value="" disabled></option>
-                        <option value="{{$row['Slug']}}">{{$row['Country']}}</option>
-                    @endforeach
-                @endisset
-            </select>
-        </div>
-    </div>
-    <div class="row wrapper page-heading">
-        <div class="col-md-4 vertical-align-middle">
-            <h3>Select Range Date</h3>
-        </div>
-        <div class="col-md-7">
-            <div class="input-daterange input-group" id="datepicker">
-                <input type="text" class="form-control-sm form-control" id="start-date" name="start" value="03/14/2020"/>
-                <span class="ml-2 mr-2">to</span>
-                <input type="text" class="form-control-sm form-control" id="end-date" name="end" value="03/22/2020" />
-            </div>
-        </div>
-        <div class="col-md-1">
-            <button type="button" class="btn btn-primary" id="submitButton">Submit</button>
+            <input type="number" placeholder="" class="form-control">
         </div>
     </div>
 @endsection
+
+@isset($historyData)
+    @component('components.recoveredChart', ['historyData' => $historyData, 'data' => $data])
+    @endcomponent
+
+    @component('components.deathChart', ['historyData' => $historyData, 'data' => $data])
+    @endcomponent
+
+    @component('components.tableStats', ['historyData' => $historyData])
+    @endcomponent
+@endisset
 
 @section('content')
     <div id="contentWrapper">
