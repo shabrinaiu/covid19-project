@@ -43,24 +43,20 @@
         <div class="col-md-4 vertical-align-middle">
             <h3>Pilih Periode Data</h3>
         </div>
-        <div class="col-md-8">
+        <div class="col-md-7">
             <input type="number" placeholder="" class="form-control">
+        </div>
+        <div class="col-md-1">
+            <button type="button" class="btn btn-primary" id="submitButton">Submit</button>
         </div>
     </div>
 @endsection
 
-@isset($historyData)
-    @component('components.recoveredChart', ['historyData' => $historyData, 'data' => $data])
-    @endcomponent
-
-    @component('components.deathChart', ['historyData' => $historyData, 'data' => $data])
-    @endcomponent
-
-    @component('components.tableStats', ['historyData' => $historyData])
-    @endcomponent
-@endisset
-
 @section('content')
+
+    @component('components.comparisonChart.confirmedChart')
+    @endcomponent
+
     <div id="contentWrapper">
         <div class="row" id="table-stats">
             <div class="col-lg-12">
