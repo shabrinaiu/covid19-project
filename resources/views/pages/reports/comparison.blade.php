@@ -54,10 +54,12 @@
 
 @section('content')
 
-    @component('components.comparisonChart.confirmedChart')
-    @endcomponent
+<div id="contentWrapper">
+    @isset($getComparedHistoryData)
+        @component('components.comparisonChart.confirmedChart', ['getMainHistoryData' => $getMainHistoryData, 'getComparedHistoryData' => $getComparedHistoryData])
+        @endcomponent
+    @endisset
 
-    <div id="contentWrapper">
         <div class="row" id="table-stats">
             <div class="col-lg-12">
                 <div class="ibox ">
@@ -205,7 +207,7 @@
         $(document).ready(function () {
             $('#contentWrapper').hide();
 
-            @isset($results)
+            @isset($getComparedHistoryData)
                 $('#contentWrapper').show();
             @endisset
 

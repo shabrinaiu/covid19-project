@@ -208,7 +208,7 @@ class ReportsController extends Controller
         
         $comparedHistoryData = $this->fetchHistory($request->comparedCountry);
         $comparedHistoryData = $this->getFromFirstCase($comparedHistoryData);
-        $getcomparedHistoryData = array_slice($comparedHistoryData, 0, $request->count);
+        $getComparedHistoryData = array_slice($comparedHistoryData, 0, $request->count);
         
         // $mainHistoryData = $this->getDataAroundDate($mainHistoryData, $request->start, $request->end);
         // $mainHistoryData = array_values($mainHistoryData); //returning index arr to 0
@@ -226,7 +226,7 @@ class ReportsController extends Controller
 
         $data = $this->fetchCountryIdentity();
 
-        return view('pages.reports.comparison', compact(['data', 'results', 'dates', 'mainCountryName']));
+        return view('pages.reports.comparison', compact(['data', 'getComparedHistoryData', 'getMainHistoryData']));
     }
 
     public function countDataCountries($mainHistoryData, $comparedHistoryDataArr)
