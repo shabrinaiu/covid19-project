@@ -29,7 +29,7 @@
             </select>
         </div>
         <div class="col-md-4">
-            <select class="select2_country form-control country" name="mainCountry">
+            <select class="select2_country form-control country" name="comparedCountry">
                 @isset($data)
                     @foreach ($data as $row)
                         <option value="" disabled selected></option>
@@ -44,7 +44,7 @@
             <h3>Pilih Periode Data</h3>
         </div>
         <div class="col-md-7">
-            <input type="number" placeholder="" class="form-control">
+            <input type="number" placeholder="" name="count" class="form-control">
         </div>
         <div class="col-md-1">
             <button type="button" class="btn btn-primary" id="submitButton">Submit</button>

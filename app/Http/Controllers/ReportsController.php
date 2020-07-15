@@ -203,20 +203,26 @@ class ReportsController extends Controller
     public function processComparedData(Request $request)
     {
         $mainHistoryData = $this->fetchHistory($request->mainCountry);
-        $mainHistoryData = $this->getDataAroundDate($mainHistoryData, $request->start, $request->end);
-        $mainHistoryData = array_values($mainHistoryData); //returning index arr to 0
-        foreach ($mainHistoryData as $i => $mainData) {
-            $dates[$i] = $mainData['Date'];
-        }
-        $mainCountryName = $mainHistoryData[0]['Country'];
+        $mainHistoryData = $this->getFromFirstCase($mainHistoryData);
+        $getMainHistoryData = array_slice($mainHistoryData, 0, $request->count);
+        
+        $comparedHistoryData = $this->fetchHistory($request->comparedCountry);
+        $comparedHistoryData = $this->getFromFirstCase($comparedHistoryData);
+        $getcomparedHistoryData = array_slice($comparedHistoryData, 0, $request->count);
+        
+        // $mainHistoryData = $this->getDataAroundDate($mainHistoryData, $request->start, $request->end);
+        // $mainHistoryData = array_values($mainHistoryData); //returning index arr to 0
+        // foreach ($mainHistoryData as $i => $mainData) {
+        //     $dates[$i] = $mainData['Date'];
+        // }
+        // $mainCountryName = $mainHistoryData[0]['Country'];
 
-        foreach ($request->countries as $i => $countries) {
-            $comparedHistoryDataArr[$i] = $this->fetchHistory($countries);
-            $comparedHistoryDataArr[$i] = $this->getDataAroundDate($comparedHistoryDataArr[$i], $request->start, $request->end);
-            $comparedHistoryDataArr[$i] = array_values($comparedHistoryDataArr[$i]); //returning index arr to 0
-        }
-        $results = $this->countDataCountries($mainHistoryData, $comparedHistoryDataArr);
-        // dd($results);
+        // foreach ($request->countries as $i => $countries) {
+        //     $comparedHistoryDataArr[$i] = $this->fetchHistory($countries);
+        //     $comparedHistoryDataArr[$i] = $this->getDataAroundDate($comparedHistoryDataArr[$i], $request->start, $request->end);
+        //     $comparedHistoryDataArr[$i] = array_values($comparedHistoryDataArr[$i]); //returning index arr to 0
+        // }
+        // $results = $this->countDataCountries($mainHistoryData, $comparedHistoryDataArr);
 
         $data = $this->fetchCountryIdentity();
 
