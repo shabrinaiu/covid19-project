@@ -24,6 +24,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js"></script>
 <script>
 @isset($getMainHistoryData)
+
     var historyData = {!! json_encode($getMainHistoryData) !!}
     var comparedData = {!! json_encode($getComparedHistoryData) !!}
     var ctx = document.getElementById('confirmedChart').getContext('2d');
@@ -75,6 +76,7 @@
         ]
         },
         options: {
+
             tooltips: {
                 intersect: false
             },
