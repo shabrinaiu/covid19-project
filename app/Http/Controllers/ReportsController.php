@@ -205,21 +205,15 @@ class ReportsController extends Controller
         $mainHistoryData = $this->fetchHistory($request->mainCountry);
         $mainHistoryData = $this->getFromFirstCase($mainHistoryData);
         $getMainHistoryData = array_slice($mainHistoryData, 0, $request->count);
-        foreach($getMainHistoryData as $idx => $mainData){
-            // $merge = array("label" => ('day ' . ($idx+1)));
-            // $merged = array_merge($mainData, array("label" => ('day ' . ($idx+1))) );
-            // $mainData += $merge;
-            $mainData["Date"] = ('day ' . ($idx+1));
+        for($i = 0; $i < count($getMainHistoryData); $i++){
+            $getMainHistoryData[$i] = array_merge($getMainHistoryData[$i], ["Label" => ('day ' . ($i+1))]);
         }
         
         $comparedHistoryData = $this->fetchHistory($request->comparedCountry);
         $comparedHistoryData = $this->getFromFirstCase($comparedHistoryData);
         $getComparedHistoryData = array_slice($comparedHistoryData, 0, $request->count);
-        foreach($getComparedHistoryData as $idx => $comparedData){
-            // $merge = array("label" => ('day ' . ($idx+1)));
-            // $merged = array_merge($comparedData, array("label" => ('day ' . ($idx+1))) );
-            // $comparedData += $merge;
-            $comparedData["Date"] = ('day ' . ($idx+1));
+        for($i = 0; $i < count($getComparedHistoryData); $i++){
+            $getComparedHistoryData[$i] = array_merge($getComparedHistoryData[$i], ["Label" => ('day ' . ($i+1))]);
         }
         
         // $mainHistoryData = $this->getDataAroundDate($mainHistoryData, $request->start, $request->end);
