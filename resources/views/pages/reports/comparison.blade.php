@@ -29,7 +29,7 @@
             </select>
         </div>
         <div class="col-md-4">
-            <select class="select2_country form-control country" name="mainCountry">
+            <select class="select2_country form-control country" name="comparedCountry">
                 @isset($data)
                     @foreach ($data as $row)
                         <option value="" disabled selected></option>
@@ -44,7 +44,7 @@
             <h3>Pilih Periode Data</h3>
         </div>
         <div class="col-md-7">
-            <input type="number" placeholder="" class="form-control">
+            <input type="number" placeholder="" name="count" class="form-control">
         </div>
         <div class="col-md-1">
             <button type="button" class="btn btn-primary" id="submitButton">Submit</button>
@@ -54,10 +54,18 @@
 
 @section('content')
 
-    @component('components.comparisonChart.confirmedChart')
-    @endcomponent
+<div id="contentWrapper">
+    @isset($getComparedHistoryData)
+        @component('components.comparisonChart.confirmedChart', ['getMainHistoryData' => $getMainHistoryData, 'getComparedHistoryData' => $getComparedHistoryData])
+        @endcomponent
 
-    <div id="contentWrapper">
+        @component('components.comparisonChart.recoveredChart', ['getMainHistoryData' => $getMainHistoryData, 'getComparedHistoryData' => $getComparedHistoryData])
+        @endcomponent
+
+        @component('components.comparisonChart.deathsChart', ['getMainHistoryData' => $getMainHistoryData, 'getComparedHistoryData' => $getComparedHistoryData])
+        @endcomponent
+    @endisset
+
         <div class="row" id="table-stats">
             <div class="col-lg-12">
                 <div class="ibox ">
@@ -205,7 +213,7 @@
         $(document).ready(function () {
             $('#contentWrapper').hide();
 
-            @isset($results)
+            @isset($getComparedHistoryData)
                 $('#contentWrapper').show();
             @endisset
 

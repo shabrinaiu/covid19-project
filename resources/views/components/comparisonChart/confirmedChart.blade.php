@@ -7,15 +7,14 @@
                     <a class="collapse-link">
                         <i class="fa fa-chevron-up"></i>
                     </a>
+                    
                     <a class="close-link">
                         <i class="fa fa-times"></i>
                     </a>
                 </div>
             </div>
             <div class="ibox-footer">
-                <div>
-                    <canvas id="confirmedChart" style="height:50%; width:80%"></canvas>
-                </div>
+                    <canvas id="confirmedChart" style="height:200px; width:80%"></canvas>
             </div>
         </div>
     </div>
@@ -24,52 +23,58 @@
 @push('footer-scripts')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js"></script>
 <script>
-    var canvas = document.getElementById("confirmedChart");
-var ctx = canvas.getContext('2d');
+@isset($getMainHistoryData)
+    var historyData = {!! json_encode($getMainHistoryData) !!}
+    var comparedData = {!! json_encode($getComparedHistoryData) !!}
+    var ctx = document.getElementById('confirmedChart').getContext('2d');
+    
+    console.log(historyData);
+    console.log(comparedData);
+    console.log(historyData.map(item => {
+                const d = new Date(item.Date)
+                return `${d.getDay()}-${d.getMonth()}`}))
+    console.log(comparedData.map(item => {
+                const d = new Date(item.Date)
+                return `${d.getDay()}-${d.getMonth()}`}))
+    console.log(historyData.map(item => item.Confirmed))
+    console.log(comparedData.map(item => item.Confirmed))
 
-// Global Options:
-Chart.defaults.global.defaultFontColor = 'black';
-Chart.defaults.global.defaultFontSize = 16;
-
-var data = {
-    labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-    datasets: [{
-        label: "Stock A",
-        borderColor: "#f82649",
-        pointBorderColor: "#f82649",
-        pointBackgroundColor: "#f82649",
-        pointHoverBackgroundColor: "#f82649",
-        pointHoverBorderColor: "#f82649",
-        pointBorderWidth: 3,
-        pointHoverRadius: 3,
-        pointHoverBorderWidth: 1,
-        pointRadius: 2,
-        fill: false,
-        borderWidth: 3,
-        // notice the gap in the data and the spanGaps: true
-        data: [65, 59, 80, 81, 56, 55, 40, 89,60,55,30,78],
-        }, {
-        label: "Stock B",
-        borderColor: "#f82649",
-        pointBorderColor: "#f82649",
-        pointBackgroundColor: "#f82649",
-        pointHoverBackgroundColor: "#f82649",
-        pointHoverBorderColor: "#f82649",
-        pointBorderWidth: 3,
-        pointHoverRadius: 3,
-        pointHoverBorderWidth: 1,
-        pointRadius: 2,
-        fill: false,
-        borderWidth: 3,
-        // notice the gap in the data and the spanGaps: false
-        data: [10, 20, 60, 95, 64, 78, 90,80,70,40,70,89],
-        }
-
-    ]
-    };
-
-    // Notice the scaleLabel at the same level as Ticks
-    var options = {
+    var chart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            datasets: [{
+                label: `${historyData[0].Country} Confirmed`,
+                borderColor: "#f82649",
+                pointBorderColor: "#f82649",
+                pointBackgroundColor: "#f82649",
+                pointHoverBackgroundColor: "#f82649",
+                pointHoverBorderColor: "#f82649",
+                pointBorderWidth: 3,
+                pointHoverRadius: 3,
+                pointHoverBorderWidth: 1,
+                pointRadius: 2,
+                fill: false,
+                borderWidth: 3,
+                data: historyData.map(item => ({t: new Date(item.Date), y: item.Confirmed})),
+            },
+            {
+                label: `${comparedData[0].Country} Confirmed`,
+                borderColor: "#63121f",
+                pointBorderColor: "#63121f",
+                pointBackgroundColor: "#63121f",
+                pointHoverBackgroundColor: "#63121f",
+                pointHoverBorderColor: "#63121f",
+                pointBorderWidth: 3,
+                pointHoverRadius: 3,
+                pointHoverBorderWidth: 1,
+                pointRadius: 2,
+                fill: false,
+                borderWidth: 3,
+                data: comparedData.map(item => ({t: new Date(item.Date), y: item.Confirmed})),
+            },
+        ]
+        },
+        options: {
             tooltips: {
                 intersect: false
             },
@@ -92,6 +97,10 @@ var data = {
                     }
                     }],
                 xAxes: [{
+                    type: "time",
+                    time: {
+                        unit: "day"
+                    },
                     gridLines: {
                         zeroLineColor: "transparent"},
                     ticks: {
@@ -101,13 +110,8 @@ var data = {
                     },
                 }]
             }
-    };
-
-    // Chart declaration:
-    var myBarChart = new Chart(ctx, {
-    type: 'line',
-    data: data,
-    options: options
+        }
     });
+@endisset
 </script>
 @endpush
