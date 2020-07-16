@@ -4,6 +4,7 @@
     <link href="{{URL::asset('theme/css/plugins/select2/select2.min.css')}}" rel="stylesheet">
     <link href="{{URL::asset('theme/css/plugins/select2/select2-bootstrap4.min.css')}}" rel="stylesheet">
     <link href="{{URL::asset('theme/css/plugins/datapicker/datepicker3.css')}}" rel="stylesheet">
+    <link href="{{URL::asset('theme/css/plugins/morris/morris-0.4.3.min.css')}}" rel="stylesheet">
 @endpush
 
 <form action="/reports/compare" method="post" id="compare-countries">
@@ -207,6 +208,10 @@
     <!-- ChartJS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js"></script>        
     <script src="{{URL::asset('theme/js/plugins/datapicker/bootstrap-datepicker.js')}}"></script>
+
+    {{-- MorrisJS --}}
+    <script src="{{URL::asset('theme/js/plugins/morris/raphael-2.1.0.min.js')}}"></script>
+    <script src="{{URL::asset('theme/js/plugins/morris/morris.js')}}"></script>
 
     <script>
         

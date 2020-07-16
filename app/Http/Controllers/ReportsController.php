@@ -207,6 +207,7 @@ class ReportsController extends Controller
         $getMainHistoryData = array_slice($mainHistoryData, 0, $request->count);
         for($i = 0; $i < count($getMainHistoryData); $i++){
             $getMainHistoryData[$i] = array_merge($getMainHistoryData[$i], ["Label" => ('day ' . ($i+1))]);
+            $getMainHistoryData[$i] = array_merge($getMainHistoryData[$i], ["Index" => $i]);
         }
         
         $comparedHistoryData = $this->fetchHistory($request->comparedCountry);
@@ -214,6 +215,7 @@ class ReportsController extends Controller
         $getComparedHistoryData = array_slice($comparedHistoryData, 0, $request->count);
         for($i = 0; $i < count($getComparedHistoryData); $i++){
             $getComparedHistoryData[$i] = array_merge($getComparedHistoryData[$i], ["Label" => ('day ' . ($i+1))]);
+            $getComparedHistoryData[$i] = array_merge($getComparedHistoryData[$i], ["Index" => $i]);
         }
         
         // $mainHistoryData = $this->getDataAroundDate($mainHistoryData, $request->start, $request->end);
