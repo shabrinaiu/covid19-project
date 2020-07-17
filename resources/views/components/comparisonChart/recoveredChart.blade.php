@@ -23,7 +23,7 @@
 @push('footer-scripts')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js"></script>
 <script>
-@isset($mainHistoryData)
+@isset($getMainHistoryData)
     var historyData = {!! json_encode($getMainHistoryData) !!}
     var comparedData = {!! json_encode($getComparedHistoryData) !!}
     var ctx = document.getElementById('recoveredChart').getContext('2d');
@@ -42,6 +42,7 @@
     var chart = new Chart(ctx, {
         type: 'line',
         data: {
+            labels: [...Array(historyData.length).keys()].map(index => `Day ${index}`),
             datasets: [{
                 label: `${historyData[0].Country} Recovered`,
                 borderColor: "#f82649",
@@ -49,13 +50,13 @@
                 pointBackgroundColor: "#f82649",
                 pointHoverBackgroundColor: "#f82649",
                 pointHoverBorderColor: "#f82649",
-                pointBorderWidth: 3,
-                pointHoverRadius: 3,
+                pointBorderWidth: 2,
+                pointHoverRadius: 2,
                 pointHoverBorderWidth: 1,
                 pointRadius: 2,
                 fill: false,
-                borderWidth: 3,
-                data: historyData.map(item => ({t: new Date(item.Date), y: item.Recovered})),
+                borderWidth: 2,
+                data: historyData.map(item => item.Recovered),
             },
             {
                 label: `${comparedData[0].Country} Recovered`,
@@ -64,13 +65,13 @@
                 pointBackgroundColor: "#63121f",
                 pointHoverBackgroundColor: "#63121f",
                 pointHoverBorderColor: "#63121f",
-                pointBorderWidth: 3,
-                pointHoverRadius: 3,
+                pointBorderWidth: 2,
+                pointHoverRadius: 2,
                 pointHoverBorderWidth: 1,
                 pointRadius: 2,
                 fill: false,
-                borderWidth: 3,
-                data: comparedData.map(item => ({t: new Date(item.Date), y: item.Recovered})),
+                borderWidth: 2,
+                data: comparedData.map(item => item.Recovered),
             },
         ]
         },
@@ -79,7 +80,7 @@
                 intersect: false
             },
             legend: {
-                display: false,
+                display: true,
                 position: "bottom"
             },
             scales: {
@@ -97,16 +98,13 @@
                     }
                     }],
                 xAxes: [{
-                    type: "time",
-                    time: {
-                        unit: "day"
-                    },
                     gridLines: {
                         zeroLineColor: "transparent"},
                     ticks: {
                         padding: 20,
                         fontColor: "rgba(0,0,0,0.5)",
                         fontStyle: "bold",
+                        beginAtZero: true,
                     },
                 }]
             }

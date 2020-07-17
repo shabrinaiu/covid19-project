@@ -43,6 +43,7 @@
     var chart = new Chart(ctx, {
         type: 'line',
         data: {
+            labels: [...Array(historyData.length).keys()].map(index => `Day ${index}`),
             datasets: [{
                 label: `${historyData[0].Country} Confirmed`,
                 borderColor: "#f82649",
@@ -50,13 +51,13 @@
                 pointBackgroundColor: "#f82649",
                 pointHoverBackgroundColor: "#f82649",
                 pointHoverBorderColor: "#f82649",
-                pointBorderWidth: 3,
-                pointHoverRadius: 3,
+                pointBorderWidth: 2,
+                pointHoverRadius: 2,
                 pointHoverBorderWidth: 1,
                 pointRadius: 2,
                 fill: false,
-                borderWidth: 3,
-                data: historyData.map(item => ({t: new Date(item.Date), y: item.Confirmed})),
+                borderWidth: 2,
+                data: historyData.map(item => item.Confirmed),
             },
             {
                 label: `${comparedData[0].Country} Confirmed`,
@@ -65,13 +66,13 @@
                 pointBackgroundColor: "#63121f",
                 pointHoverBackgroundColor: "#63121f",
                 pointHoverBorderColor: "#63121f",
-                pointBorderWidth: 3,
-                pointHoverRadius: 3,
+                pointBorderWidth: 2,
+                pointHoverRadius: 2,
                 pointHoverBorderWidth: 1,
                 pointRadius: 2,
                 fill: false,
-                borderWidth: 3,
-                data: comparedData.map(item => ({t: new Date(item.Date), y: item.Confirmed})),
+                borderWidth: 2,
+                data: comparedData.map(item => item.Confirmed),
             },
         ]
         },
@@ -81,7 +82,7 @@
                 intersect: false
             },
             legend: {
-                display: false,
+                display: true,
                 position: "bottom"
             },
             scales: {
@@ -99,16 +100,13 @@
                     }
                     }],
                 xAxes: [{
-                    type: "time",
-                    time: {
-                        unit: "day"
-                    },
                     gridLines: {
                         zeroLineColor: "transparent"},
                     ticks: {
                         padding: 20,
                         fontColor: "rgba(0,0,0,0.5)",
                         fontStyle: "bold",
+                        beginAtZero: true,
                     },
                 }]
             }

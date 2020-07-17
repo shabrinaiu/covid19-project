@@ -79,8 +79,6 @@ class ReportsController extends Controller
         $currentData = $this->fetchCurrent($selectedSlug);
 
         $historyData = $this->fetchHistory($selectedSlug);
-        $historyData = $this->getFromFirstCase($historyData);
-        // $historyData = $this->getLastData($historyData, 30);
 
         $data = $this->fetchCountryIdentity();
 
@@ -144,31 +142,6 @@ class ReportsController extends Controller
         return $historyData;
     }
 
-    public function getFromFirstCase($historyData)
-    {
-        $index = 0;
-        foreach($historyData as $i => $rowHistoryData){
-            if($rowHistoryData['Confirmed'] > 0){
-                $index = $i;
-                break;
-            }
-        }
-        $collection = collect($historyData);
-        $slice = $collection->slice($index);
-        $i = 0;
-        foreach($slice->all() as $data){
-            $historyDataArr[$i] = $data;
-            $i++;
-        }
-
-        for($idx = 0; $idx<count($historyDataArr); $idx++){
-            $dateParts = explode("-",$historyDataArr[$idx]['Date']);
-            $historyDataArr[$idx]['Date'] = ($dateParts[2] . '-' . $dateParts[0] . '-' . $dateParts[1]);
-        }
-
-        return $historyDataArr;
-    }
-
     public function getDataAroundDate($historyData, $startDate, $endDate)
     {
         $startDate = explode("/",$startDate);
@@ -203,32 +176,10 @@ class ReportsController extends Controller
     public function processComparedData(Request $request)
     {
         $mainHistoryData = $this->fetchHistory($request->mainCountry);
-        $mainHistoryData = $this->getFromFirstCase($mainHistoryData);
-        $getMainHistoryData = array_slice($mainHistoryData, 0, $request->count);
-        for($i = 0; $i < count($getMainHistoryData); $i++){
-            $getMainHistoryData[$i] = array_merge($getMainHistoryData[$i], ["Label" => ('day ' . ($i+1))]);
-        }
+        $getMainHistoryData = array_slice($mainHistoryData, 0, $request->periode);
         
         $comparedHistoryData = $this->fetchHistory($request->comparedCountry);
-        $comparedHistoryData = $this->getFromFirstCase($comparedHistoryData);
-        $getComparedHistoryData = array_slice($comparedHistoryData, 0, $request->count);
-        for($i = 0; $i < count($getComparedHistoryData); $i++){
-            $getComparedHistoryData[$i] = array_merge($getComparedHistoryData[$i], ["Label" => ('day ' . ($i+1))]);
-        }
-        
-        // $mainHistoryData = $this->getDataAroundDate($mainHistoryData, $request->start, $request->end);
-        // $mainHistoryData = array_values($mainHistoryData); //returning index arr to 0
-        // foreach ($mainHistoryData as $i => $mainData) {
-        //     $dates[$i] = $mainData['Date'];
-        // }
-        // $mainCountryName = $mainHistoryData[0]['Country'];
-
-        // foreach ($request->countries as $i => $countries) {
-        //     $comparedHistoryDataArr[$i] = $this->fetchHistory($countries);
-        //     $comparedHistoryDataArr[$i] = $this->getDataAroundDate($comparedHistoryDataArr[$i], $request->start, $request->end);
-        //     $comparedHistoryDataArr[$i] = array_values($comparedHistoryDataArr[$i]); //returning index arr to 0
-        // }
-        // $results = $this->countDataCountries($mainHistoryData, $comparedHistoryDataArr);
+        $getComparedHistoryData = array_slice($comparedHistoryData, 0, $request->periode);
 
         $data = $this->fetchCountryIdentity();
 
@@ -237,47 +188,17 @@ class ReportsController extends Controller
 
     public function countDataCountries($mainHistoryData, $comparedHistoryDataArr)
     {
-        foreach ($comparedHistoryDataArr as $idx => $comparedHistoryData) { //tiap negara. $idx dari 0
-            $confirmedDiff[$idx]['country'] = $comparedHistoryData[0]['Country'];
-            $recoveredDiff[$idx]['country'] = $comparedHistoryData[0]['Country'];
-            $deathsDiff[$idx]['country'] = $comparedHistoryData[0]['Country'];
-
-            $totalDiffConfirmed = 0;
-            $totalDiffRecovered = 0;
-            $totalDiffDeaths = 0;
-            foreach($comparedHistoryData as $i => $rowComparedData){ //tiap data pada tiap tanggal
-                $confirmedDiff[$idx][$i] = abs($rowComparedData['Confirmed'] - $mainHistoryData[$i]['Confirmed']);
-                $totalDiffConfirmed += $confirmedDiff[$idx][$i];
-                $recoveredDiff[$idx][$i] = abs($rowComparedData['Recovered'] - $mainHistoryData[$i]['Recovered']);
-                $totalDiffRecovered += $recoveredDiff[$idx][$i];
-                $deathsDiff[$idx][$i] = abs($rowComparedData['Deaths'] - $mainHistoryData[$i]['Deaths']);
-                $totalDiffDeaths += $deathsDiff[$idx][$i];
-                $countData = $i+1;
-            }
-            // hitung persentase dari total selisih dibagi total main data
-            $confirmedDiff[$idx]['persentase'] = ($totalDiffConfirmed / $countData);
-            $recoveredDiff[$idx]['persentase'] = ($totalDiffRecovered / $countData);
-            $deathsDiff[$idx]['persentase'] = ($totalDiffDeaths / $countData);
-        }
-        $results['confirmed'] = $confirmedDiff;
-        $results['recovered'] = $recoveredDiff;
-        $results['deaths'] = $deathsDiff;
+        $result = array();
+        $results['Confirmed'] = abs(
+            array_sum(array_column($main, 'Confirmed')) - array_sum(array_column($compared, 'Confirmed'))
+        ) / count($main);
+        $results['Recovered'] = abs(
+            array_sum(array_column($main, 'Recovered')) - array_sum(array_column($compared, 'Recovered'))
+        ) / count($main);
+        $results['Deaths'] = abs(
+            array_sum(array_column($main, 'Deaths')) - array_sum(array_column($compared, 'Deaths'))
+        ) / count($main);
 
         return $results;
-    }
-
-    public function getLastData($dataHistory, $limit)
-    {
-        $collection = collect($dataHistory);
-
-        $limit *= -1;
-        $chunk = $collection->take($limit);
-        $i = 0;
-        foreach($chunk->all() as $data){
-            $historyData[$i] = $data;
-            $i++;
-        }
-
-        return $historyData;
     }
 }
