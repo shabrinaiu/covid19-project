@@ -20,7 +20,7 @@
             <h3>Pilih 2 Negara untuk perbandingan</h3>
         </div>
         <div class="col-md-4">
-            <select class="select2_country form-control country" name="mainCountry">
+            <select class="select2_country form-control country" required name="mainCountry">
                 @isset($data)
                     @foreach ($data as $row)
                         <option value="" disabled selected></option>
@@ -30,7 +30,7 @@
             </select>
         </div>
         <div class="col-md-4">
-            <select class="select2_country form-control country" name="comparedCountry">
+            <select class="select2_country form-control country" required name="comparedCountry">
                 @isset($data)
                     @foreach ($data as $row)
                         <option value="" disabled selected></option>
@@ -45,7 +45,7 @@
             <h3>Pilih Periode Data</h3>
         </div>
         <div class="col-md-7">
-            <input type="number" placeholder="" name="count" class="form-control">
+            <input type="number" required placeholder="" name="count" class="form-control">
         </div>
         <div class="col-md-1">
             <button type="button" class="btn btn-primary" id="submitButton">Submit</button>
@@ -55,7 +55,50 @@
 
 @section('content')
 
-<div id="contentWrapper">
+<div id="contentWrapper">   
+    @isset($correlations)
+        <div class="row" id="table-stats">
+            <div class="col-lg-12">
+                <div class="ibox ">
+                    <div class="ibox-title">
+                        <h4 class="text-center font-weight-bold" id="TableTitle">Table of Correlations</h4>
+        
+                        <div class="ibox-tools">
+                            <a class="collapse-link">
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="ibox-footer">
+                        <div class="table-responsive">
+                            <table id="" class="table table-hover text-center dataTables-example">
+                                <thead>
+                                <tr>
+                                    <th>Time Shift</th>
+                                    <th>Coefficient of Correlation</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                @php $i = 0; @endphp
+                                @foreach($correlations as $i => $corr)
+                                    @php $i++; @endphp
+                                    <tr 
+                                    @if ($i == ($maxIndex+1))
+                                        class="font-weight-bold bg-success text-white"
+                                    @endif>
+                                        <td>{{$i}}</td>
+                                        <td>{{$corr}}</td>
+                                    </tr>
+                                @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endisset
+
     @isset($getComparedHistoryData)
         @component('components.comparisonChart.confirmedChart', ['getMainHistoryData' => $getMainHistoryData, 'getComparedHistoryData' => $getComparedHistoryData])
         @endcomponent
@@ -65,8 +108,8 @@
 
         @component('components.comparisonChart.deathsChart', ['getMainHistoryData' => $getMainHistoryData, 'getComparedHistoryData' => $getComparedHistoryData])
         @endcomponent
-    @endisset
-    
+    @endisset 
+
 </div>
 
     @push('footer-scripts')

@@ -79,10 +79,36 @@ class ReportsController extends Controller
         $currentData = $this->fetchCurrent($selectedSlug);
 
         $historyData = $this->fetchHistory($selectedSlug);
+        $historyData = $this->getFromFirstCase($historyData);
 
         $data = $this->fetchCountryIdentity();
 
         return view('pages.reports.countries', compact('currentData', 'historyData', 'data'));
+    }
+
+    public function getFromFirstCase($historyData)	
+    {	
+        $index = 0;	
+        foreach($historyData as $i => $rowHistoryData){	
+            if($rowHistoryData['Confirmed'] > 0){	
+                $index = $i;	
+                break;	
+            }	
+        }	
+        $collection = collect($historyData);	
+        $slice = $collection->slice($index);	
+        $i = 0;	
+        foreach($slice->all() as $data){	
+            $historyDataArr[$i] = $data;	
+            $i++;	
+        }	
+
+        for($idx = 0; $idx<count($historyDataArr); $idx++){	
+            $dateParts = explode("-",$historyDataArr[$idx]['Date']);	
+            $historyDataArr[$idx]['Date'] = ($dateParts[2] . '-' . $dateParts[0] . '-' . $dateParts[1]);	
+        }	
+
+        return $historyDataArr;	
     }
 
     public function fetchCurrent($slug)
@@ -185,44 +211,55 @@ class ReportsController extends Controller
         
         $comparedHistoryData = $this->fetchHistory($request->comparedCountry);
         $comparedHistoryData = $this->getFromFirstCase($comparedHistoryData);
-        $getComparedHistoryData = array_slice($comparedHistoryData, 0, $request->count);
-        for($i = 0; $i < count($getComparedHistoryData); $i++){
-            $getComparedHistoryData[$i] = array_merge($getComparedHistoryData[$i], ["Label" => ('day ' . ($i+1))]);
-            $getComparedHistoryData[$i] = array_merge($getComparedHistoryData[$i], ["Index" => $i]);
-        }
-        
-        // $mainHistoryData = $this->getDataAroundDate($mainHistoryData, $request->start, $request->end);
-        // $mainHistoryData = array_values($mainHistoryData); //returning index arr to 0
-        // foreach ($mainHistoryData as $i => $mainData) {
-        //     $dates[$i] = $mainData['Date'];
-        // }
-        // $mainCountryName = $mainHistoryData[0]['Country'];
 
-        // foreach ($request->countries as $i => $countries) {
-        //     $comparedHistoryDataArr[$i] = $this->fetchHistory($countries);
-        //     $comparedHistoryDataArr[$i] = $this->getDataAroundDate($comparedHistoryDataArr[$i], $request->start, $request->end);
-        //     $comparedHistoryDataArr[$i] = array_values($comparedHistoryDataArr[$i]); //returning index arr to 0
-        // }
-        // $results = $this->countDataCountries($mainHistoryData, $comparedHistoryDataArr)
+        $maxCorrelation = 0;
+        for($idx = 0; $idx < 15; $idx++){
+            $getComparedHistoryData[$idx] = array_slice($comparedHistoryData, $idx, $request->count);            
+            $correlations[$idx] = $this->countCountryCorrelation($getMainHistoryData, $getComparedHistoryData[$idx], $request->count);
+            if($correlations[$idx] > $maxCorrelation){
+                $maxCorrelation = $correlations[$idx];
+                $maxIndex = $idx;
+            }
+        }
+
+        for($i = 0; $i < count($getComparedHistoryData[$maxIndex]); $i++){
+            $getComparedHistoryData[$maxIndex] = array_merge($getComparedHistoryData[$maxIndex], ["Label" => ('day ' . ($i+1))]);
+            $getComparedHistoryData[$maxIndex] = array_merge($getComparedHistoryData[$maxIndex], ["Index" => $i]);
+        }
+        $getComparedHistoryData = $getComparedHistoryData[$maxIndex];
 
         $data = $this->fetchCountryIdentity();
 
-        return view('pages.reports.comparison', compact(['data', 'getComparedHistoryData', 'getMainHistoryData']));
+        return view('pages.reports.comparison', compact(['data', 'getComparedHistoryData', 'getMainHistoryData', 'correlations', 'maxIndex']));
     }
 
-    public function countDataCountries($mainHistoryData, $comparedHistoryDataArr)
+    public function countCountryCorrelation($mainHistoryData, $comparedHistoryData, $total)
     {
-        $result = array();
-        $results['Confirmed'] = abs(
-            array_sum(array_column($main, 'Confirmed')) - array_sum(array_column($compared, 'Confirmed'))
-        ) / count($main);
-        $results['Recovered'] = abs(
-            array_sum(array_column($main, 'Recovered')) - array_sum(array_column($compared, 'Recovered'))
-        ) / count($main);
-        $results['Deaths'] = abs(
-            array_sum(array_column($main, 'Deaths')) - array_sum(array_column($compared, 'Deaths'))
-        ) / count($main);
+        $sumX = 0; $sumY = 0;
+        foreach($mainHistoryData as $i => $mainData){
+            $sumX += $mainData['Confirmed'];
+            $sumY += $comparedHistoryData[$i]['Confirmed'];
+        }
+        $avgX = ($sumX/$total);
+        $avgY = ($sumY/$total);
 
-        return $results;
+        $diffX = 0; $diffY = 0; 
+        foreach($mainHistoryData as $i => $mainData){
+            $diffX = ($mainData['Confirmed'] - $avgX);
+            $diffXSquare[$i] = pow($diffX, 2);
+            $diffY = ($comparedHistoryData[$i]['Confirmed'] - $avgY);
+            $diffYSquare[$i] = pow($diffY, 2);
+
+            $correlationArr[$i] = ($diffX * $diffY);
+        }
+        $sumCorrelation = collect($correlationArr)->sum();
+        $sumDiffXSquare = collect($diffXSquare)->sum();
+        $sumDiffYSquare = collect($diffYSquare)->sum();
+        $sx = sqrt($sumDiffXSquare / ($total - 1));
+        $sy = sqrt($sumDiffYSquare / ($total - 1));
+        
+        $correlationFinal = $sumCorrelation / ($total * $sx * $sy);
+        
+        return $correlationFinal;
     }
 }

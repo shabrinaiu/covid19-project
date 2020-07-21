@@ -28,7 +28,7 @@ $(function() {
         element: 'morris-line-chart-confirmed',
         data: [
             @foreach($getMainHistoryData as $i => $mainData)
-                { y: 'day {{$mainData['Index']}}', a: {{$mainData['Confirmed']}}, b: {{$getComparedHistoryData[$i]['Confirmed']}} },
+                { y: '{{$mainData['Label']}}', a: {{$mainData['Confirmed']}}, b: {{$getComparedHistoryData[$i]['Confirmed']}} },
             @endforeach
         ],
         xkey: 'y',

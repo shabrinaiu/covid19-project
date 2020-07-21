@@ -27,7 +27,7 @@ $(function() {
         element: 'morris-line-chart-recovered',
         data: [
             @foreach($getMainHistoryData as $i => $mainData)
-                { y: 'day {{$mainData['Index']}}', a: {{$mainData['Recovered']}}, b: {{$getComparedHistoryData[$i]['Recovered']}} },
+                { y: '{{$mainData['Label']}}', a: {{$mainData['Recovered']}}, b: {{$getComparedHistoryData[$i]['Recovered']}} },
             @endforeach
         ],
         xkey: 'y',

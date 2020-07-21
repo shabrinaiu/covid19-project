@@ -27,7 +27,7 @@ $(function() {
         element: 'morris-line-chart-deaths',
         data: [
             @foreach($getMainHistoryData as $i => $mainData)
-                { y: 'day {{$mainData['Index']}}', a: {{$mainData['Deaths']}}, b: {{$getComparedHistoryData[$i]['Deaths']}} },
+                { y: '{{$mainData['Label']}}', a: {{$mainData['Deaths']}}, b: {{$getComparedHistoryData[$i]['Deaths']}} },
             @endforeach
         ],
         xkey: 'y',
