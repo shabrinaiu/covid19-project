@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Country;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 
@@ -21,29 +22,34 @@ class ReportsController extends Controller
 
     public function fetchCountryIdentity()
     {
-        //Country name data
-        $curl = curl_init();
-        curl_setopt_array($curl, array(
-            CURLOPT_URL => "https://api-corona.azurewebsites.net/country",
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_ENCODING => "",
-            CURLOPT_TIMEOUT => 30,
-            CURLOPT_SSL_VERIFYHOST => 0,
-            CURLOPT_SSL_VERIFYPEER => 0,
-            CURLOPT_CUSTOMREQUEST => "GET",
-        ));
-        $response = curl_exec($curl);
-        $err = curl_error($curl);
-        curl_close($curl);
+        // $curl = curl_init();
+        // curl_setopt_array($curl, array(
+        //     CURLOPT_URL => "https://api-corona.azurewebsites.net/country",
+        //     CURLOPT_RETURNTRANSFER => true,
+        //     CURLOPT_ENCODING => "",
+        //     CURLOPT_TIMEOUT => 30,
+        //     CURLOPT_SSL_VERIFYHOST => 0,
+        //     CURLOPT_SSL_VERIFYPEER => 0,
+        //     CURLOPT_CUSTOMREQUEST => "GET",
+        // ));
+        // $response = curl_exec($curl);
+        // $err = curl_error($curl);
+        // curl_close($curl);
 
-        if ($err) {
-            echo "cURL Error #:" . $err;
-            $data = null;
-        } else {
-            $data = json_decode($response, TRUE);
+        // if ($err) {
+        //     echo "cURL Error #:" . $err;
+        //     $data = null;
+        // } else {
+        //     $data = json_decode($response, TRUE);
+        // }
+
+        $queryCountries = Country::all();
+        foreach ($queryCountries as $i => $country) {
+            $countries[$i]['Country'] = $country->name;
+            $countries[$i]['Slug'] = $country->slug;
         }
 
-        return $data;
+        return $countries;
     }
 
     public function fetchGlobal()
@@ -204,7 +210,7 @@ class ReportsController extends Controller
         $request->validate([
             'mainCountry' => ['required', 'string'],
             'comparedCountry' => ['required', 'string'],
-            'count' => ['numeric', 'min:15']
+            'count' => ['required', 'numeric', 'min:15']
         ]);
         
         $mainHistoryData = $this->fetchHistory($request->mainCountry);
@@ -227,11 +233,7 @@ class ReportsController extends Controller
                 $maxIndex = $idx;
             }
         }
-
-        for($i = 0; $i < count($getComparedHistoryData[$maxIndex]); $i++){
-            $getComparedHistoryData[$maxIndex] = array_merge($getComparedHistoryData[$maxIndex], ["Label" => ('day ' . ($i+1))]);
-            $getComparedHistoryData[$maxIndex] = array_merge($getComparedHistoryData[$maxIndex], ["Index" => $i]);
-        }
+        
         $getComparedHistoryData = $getComparedHistoryData[$maxIndex];
 
         $data = $this->fetchCountryIdentity();
@@ -267,5 +269,61 @@ class ReportsController extends Controller
         $correlationFinal = $sumCorrelation / ($total * $sx * $sy);
         
         return $correlationFinal;
+    }
+
+    public function compareAllCountries()
+    {
+        $data = $this->fetchCountryIdentity();
+
+        return view('pages.reports.comparison-all', compact('data'));
+    }
+
+    public function processAllCountries(Request $request)
+    {
+        $request->validate([
+            'mainCountry' => ['required', 'string'],
+            'count' => ['required', 'numeric', 'min:29']
+        ]);
+        
+        $mainHistoryData = $this->fetchHistory($request->mainCountry);
+        $mainHistoryData = $this->getFromFirstCase($mainHistoryData);
+        $getMainHistoryData = array_slice($mainHistoryData, 0, $request->count);
+        for($i = 0; $i < count($getMainHistoryData); $i++){
+            $getMainHistoryData[$i] = array_merge($getMainHistoryData[$i], ["Label" => ('day ' . ($i+1))]);
+            $getMainHistoryData[$i] = array_merge($getMainHistoryData[$i], ["Index" => $i]);
+        }
+        
+        $data = $this->fetchCountryIdentity();
+        // foreach ($data as $i => $dataRow) {
+        for($i=0; $i<5; $i++){
+            $comparedHistoryDataAll[$i] = $this->fetchHistory($data[$i]['Slug']);
+            $comparedHistoryData[$i] = $this->getFromFirstCase($comparedHistoryDataAll[$i]);
+        }
+        foreach ($comparedHistoryData as $i => $rowData) {  //$i = index untuk negara
+            $maxCorrelation[$i] = 0;
+            for($idx = 0; $idx < 15; $idx++){  //idx = index untuk pergeseran ke-
+                $getComparedHistoryData[$i][$idx] = array_slice($rowData, $idx, $request->count);     
+                $correlations[$i][$idx] = $this->countCountryCorrelation($getMainHistoryData, $getComparedHistoryData[$i][$idx], $request->count);
+                if($correlations[$i][$idx] > $maxCorrelation[$i]){
+                    $maxCorrelation[$i] = $correlations[$i][$idx];
+                    $maxIndex[$i] = $idx;
+                }
+            }
+            $maxIndexCountry = $maxIndex[$i];
+            $getComparedHistoryData[$i] = $getComparedHistoryData[$i][$maxIndexCountry];
+        }
+
+        arsort($maxCorrelation);
+        $indexesMaxCorr = array_keys($maxCorrelation);
+        $indexesMaxCorr = array_slice($indexesMaxCorr, 0, 3); //get indexes of highest three
+
+        foreach ($getComparedHistoryData as $a => $row) {
+            if (!in_array($a, $indexesMaxCorr)) { //jika current index ga termasuk highest three indexes
+                unset($getComparedHistoryData[$a]);  //maka delete element tsb
+                unset($maxCorrelation[$a]);
+            }
+        }
+        //index dari getComparedHistoryData dan maxCorrelation harus disamakan
+        return view('pages.reports.comparison-all', compact(['data', 'getComparedHistoryData', 'getMainHistoryData', 'maxCorrelation']));
     }
 }
