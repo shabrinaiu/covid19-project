@@ -113,7 +113,7 @@ class ReportsController extends Controller
 
     public function fetchCurrent($slug)
     {
-        //fetching urrent data country
+        //fetching current data country
         $curl = curl_init();
         curl_setopt_array($curl, array(
             CURLOPT_URL => "https://api-corona.azurewebsites.net/summary",
@@ -201,6 +201,12 @@ class ReportsController extends Controller
 
     public function processComparedData(Request $request)
     {
+        $request->validate([
+            'mainCountry' => ['required', 'string'],
+            'comparedCountry' => ['required', 'string'],
+            'count' => ['numeric', 'min:15']
+        ]);
+        
         $mainHistoryData = $this->fetchHistory($request->mainCountry);
         $mainHistoryData = $this->getFromFirstCase($mainHistoryData);
         $getMainHistoryData = array_slice($mainHistoryData, 0, $request->count);

@@ -7,9 +7,10 @@
     <link href="{{URL::asset('theme/css/plugins/morris/morris-0.4.3.min.css')}}" rel="stylesheet">
 @endpush
 
-<form action="/reports/compare" method="post" id="compare-countries">
-@csrf
+
 @section('page-heading')
+    <form action="/reports/compare" method="post" id="compare-countries">
+    @csrf
     <div class="row wrapper page-heading">
         <div class="col-md-12 vertical-align-middle">
             <h2>Perbandingan Data Banyak Negara</h2>
@@ -20,7 +21,7 @@
             <h3>Pilih 2 Negara untuk perbandingan</h3>
         </div>
         <div class="col-md-4">
-            <select class="select2_country form-control country" required name="mainCountry">
+            <select class="select2_country form-control country @error('mainCountry') is-invalid @enderror" required name="mainCountry">
                 @isset($data)
                     @foreach ($data as $row)
                         <option value="" disabled selected></option>
@@ -28,9 +29,12 @@
                     @endforeach                    
                 @endisset
             </select>
+            @error('mainCountry')
+                <div class="invalid-feedback">{{$message}}</div>
+            @enderror
         </div>
         <div class="col-md-4">
-            <select class="select2_country form-control country" required name="comparedCountry">
+            <select class="select2_country form-control country @error('comparedCountry') is-invalid @enderror" required name="comparedCountry">
                 @isset($data)
                     @foreach ($data as $row)
                         <option value="" disabled selected></option>
@@ -38,19 +42,26 @@
                     @endforeach                    
                 @endisset
             </select>
+            @error('comparedCountry')
+                <div class="invalid-feedback">{{$message}}</div>
+            @enderror
         </div>
     </div>
     <div class="row wrapper page-heading">
         <div class="col-md-4 vertical-align-middle">
-            <h3>Pilih Periode Data</h3>
+            <h3>Pilih Periode Data (hari)</h3>
         </div>
         <div class="col-md-7">
-            <input type="number" required placeholder="" name="count" class="form-control">
+            <input type="number" min="15" required placeholder="" name="count" class="form-control @error('count') is-invalid @enderror">
+            @error('count')
+              <div class="invalid-feedback">{{$message}}</div>
+            @enderror
         </div>
         <div class="col-md-1">
             <button type="button" class="btn btn-primary" id="submitButton">Submit</button>
         </div>
     </div>
+    </form>
 @endsection
 
 @section('content')
@@ -74,7 +85,7 @@
                             <table id="" class="table table-hover text-center dataTables-example">
                                 <thead>
                                 <tr>
-                                    <th>Time Shift</th>
+                                    <th>Time (Day-n)</th>
                                     <th>Coefficient of Correlation</th>
                                 </tr>
                                 </thead>
@@ -148,8 +159,6 @@
             });
 
             $("#submitButton").click(function(){
-                // var selectedCountries = $("select.countries").val();
-                // console.log(selectedCountries)
                 $('#compare-countries').submit();
             });
 

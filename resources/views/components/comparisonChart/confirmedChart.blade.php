@@ -41,6 +41,6 @@ $(function() {
         lineColors: ['#ffdd33','#eda405'],
     });
 });
-    
+
 </script>
 @endpush
