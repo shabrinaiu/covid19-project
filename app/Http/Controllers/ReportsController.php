@@ -282,7 +282,7 @@ class ReportsController extends Controller
     {
         $request->validate([
             'mainCountry' => ['required', 'string'],
-            'count' => ['required', 'numeric', 'min:29']
+            'count' => ['required', 'numeric', 'min:20']
         ]);
         
         $mainHistoryData = $this->fetchHistory($request->mainCountry);
