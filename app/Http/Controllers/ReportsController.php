@@ -210,7 +210,7 @@ class ReportsController extends Controller
         $request->validate([
             'mainCountry' => ['required', 'string'],
             'comparedCountry' => ['required', 'string'],
-            'count' => ['required', 'numeric', 'min:15']
+            'count' => ['required', 'numeric', 'min:29']
         ]);
         
         $mainHistoryData = $this->fetchHistory($request->mainCountry);
@@ -296,8 +296,10 @@ class ReportsController extends Controller
         $data = $this->fetchCountryIdentity();
         // foreach ($data as $i => $dataRow) {
         for($i=0; $i<5; $i++){
-            $comparedHistoryDataAll[$i] = $this->fetchHistory($data[$i]['Slug']);
-            $comparedHistoryData[$i] = $this->getFromFirstCase($comparedHistoryDataAll[$i]);
+            if($data[$i]['Slug'] != 'finland'){
+                $comparedHistoryDataAll[$i] = $this->fetchHistory($data[$i]['Slug']);
+                $comparedHistoryData[$i] = $this->getFromFirstCase($comparedHistoryDataAll[$i]);
+            }
         }
         foreach ($comparedHistoryData as $i => $rowData) {  //$i = index untuk negara
             $maxCorrelation[$i] = 0;

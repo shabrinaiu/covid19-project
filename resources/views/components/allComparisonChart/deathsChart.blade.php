@@ -1,10 +1,10 @@
-<div id="morris-line-chart-deaths"></div>
+
 
 @push('footer-scripts')
 <script>
 $(function() {
     Morris.Line({
-        element: 'morris-line-chart-deaths',
+        element: 'morris-line-chart-deaths-{{$idx}}',
         data: [
             @foreach($getMainHistoryData as $i => $mainData)
                 { y: '{{$mainData['Label']}}', a: {{$mainData['Deaths']}}, b: {{$getComparedHistoryData[$i]['Deaths']}} },

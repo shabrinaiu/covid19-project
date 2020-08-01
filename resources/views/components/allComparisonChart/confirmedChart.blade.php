@@ -1,10 +1,10 @@
-<div id="morris-line-chart-confirmed"></div>
+
 
 @push('footer-scripts')
 <script>
 $(function() {
     Morris.Line({
-        element: 'morris-line-chart-confirmed',
+        element: 'morris-line-chart-confirmed-{{$idx}}',
         data: [
             @foreach($getMainHistoryData as $i => $mainData)
                 { y: '{{$mainData['Label']}}', a: {{$mainData['Confirmed']}}, b: {{$getComparedHistoryData[$i]['Confirmed']}} },

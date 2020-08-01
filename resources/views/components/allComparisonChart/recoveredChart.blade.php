@@ -1,10 +1,10 @@
-<div id="morris-line-chart-recovered"></div>
+
 
 @push('footer-scripts')
 <script>
 $(function() {
     Morris.Line({
-        element: 'morris-line-chart-recovered',
+        element: 'morris-line-chart-recovered-{{$idx}}',
         data: [
             @foreach($getMainHistoryData as $i => $mainData)
                 { y: '{{$mainData['Label']}}', a: {{$mainData['Recovered']}}, b: {{$getComparedHistoryData[$i]['Recovered']}} },

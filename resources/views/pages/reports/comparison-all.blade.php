@@ -74,23 +74,46 @@
                             </div>
                         </div>
                         <div class="ibox-footer" id="ibox_ost">
-                            <div>
-                                <h5 class="font-weight-bold">Highest correlation between 
+                            <div class="mb-2">
+                                <h5 class="font-weight-bold">*Highest correlation between 
                                     {{$getMainHistoryData[0]['Country']}} and {{$countryData[0]['Country']}} is {{$maxCorrelation[$i]}}
                                 </h5>
                             </div>
-                            <div>
-                                @component('components.allComparisonChart.confirmedChart', ['getMainHistoryData' => $getMainHistoryData, 'getComparedHistoryData' => $countryData])
-                                @endcomponent
-
-                                @component('components.allComparisonChart.recoveredChart', ['getMainHistoryData' => $getMainHistoryData, 'getComparedHistoryData' => $countryData])
-                                @endcomponent
-
-                                @component('components.allComparisonChart.deathsChart', ['getMainHistoryData' => $getMainHistoryData, 'getComparedHistoryData' => $countryData])
-                                @endcomponent
+                            <div class="mt-1 mb-1 p-1">
+                                <div class="card">
+                                    <div class="card-header text-center">
+                                        Confirmed Data Chart
+                                    </div>
+                                    <div class="card-body">
+                                        <div id="morris-line-chart-confirmed-{{$i}}"></div>
+                                        @component('components.allComparisonChart.confirmedChart', ['getMainHistoryData' => $getMainHistoryData, 'getComparedHistoryData' => $countryData, 'idx' => $i])
+                                        @endcomponent
+                                    </div>
+                                </div>
+                                <div class="card">
+                                    <div class="card-header text-center">
+                                        Recovered Data Chart
+                                    </div>
+                                    <div class="card-body">
+                                        <div id="morris-line-chart-recovered-{{$i}}"></div>
+                                        @component('components.allComparisonChart.recoveredChart', ['getMainHistoryData' => $getMainHistoryData, 'getComparedHistoryData' => $countryData, 'idx' => $i])
+                                        @endcomponent
+                                    </div>
+                                </div>
+                                <div class="card">
+                                    <div class="card-header text-center">
+                                        Deaths Data Chart
+                                    </div>
+                                    <div class="card-body">
+                                        <div id="morris-line-chart-deaths-{{$i}}"></div>
+                                        @component('components.allComparisonChart.deathsChart', ['getMainHistoryData' => $getMainHistoryData, 'getComparedHistoryData' => $countryData, 'idx' => $i])
+                                        @endcomponent
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
+
                 </div>
             @endforeach
         </div>
