@@ -111,13 +111,16 @@
     @endisset
 
     @isset($getComparedHistoryData)
-        @component('components.comparisonChart.confirmedChart', ['getMainHistoryData' => $getMainHistoryData, 'getComparedHistoryData' => $getComparedHistoryData])
+        @component('components.comparisonChart.confirmedChart', ['getMainHistoryData' => $getMainHistoryData, 'getComparedHistoryData' => $getComparedHistoryData,
+                    'mainCountryName' => $mainCountryName, 'comparedCountryName' => $comparedCountryName])
         @endcomponent
 
-        @component('components.comparisonChart.recoveredChart', ['getMainHistoryData' => $getMainHistoryData, 'getComparedHistoryData' => $getComparedHistoryData])
+        @component('components.comparisonChart.recoveredChart', ['getMainHistoryData' => $getMainHistoryData, 'getComparedHistoryData' => $getComparedHistoryData,
+                    'mainCountryName' => $mainCountryName, 'comparedCountryName' => $comparedCountryName])
         @endcomponent
 
-        @component('components.comparisonChart.deathsChart', ['getMainHistoryData' => $getMainHistoryData, 'getComparedHistoryData' => $getComparedHistoryData])
+        @component('components.comparisonChart.deathsChart', ['getMainHistoryData' => $getMainHistoryData, 'getComparedHistoryData' => $getComparedHistoryData,
+        'mainCountryName' => $mainCountryName, 'comparedCountryName' => $comparedCountryName])
         @endcomponent
     @endisset 
 
