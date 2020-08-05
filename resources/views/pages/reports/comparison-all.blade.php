@@ -7,7 +7,6 @@
     <link href="{{URL::asset('theme/css/plugins/morris/morris-0.4.3.min.css')}}" rel="stylesheet">
 @endpush
 
-
 @section('page-heading')
     <form action="/reports/compare-all" method="post" id="compare-countries">
     @csrf
@@ -161,6 +160,18 @@
 
             $("#submitButton").click(function(){
                 $('#compare-countries').submit();
+            });
+
+            $('#country-1').hover(function() {
+                $(window).trigger('resize');
+            });
+
+            $('#country-2').hover(function() {
+                $(window).trigger('resize');
+            });
+
+            $('#country-3').hover(function() {
+                $(window).trigger('resize');
             });
 
         });

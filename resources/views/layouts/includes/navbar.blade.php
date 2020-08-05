@@ -1,5 +1,5 @@
 <div class="nav col-md-12 navbar-right">
-    <h4>Website by PENS</h4>
+    <h4>Politeknik Elektronika Negeri Surabaya</h4>
 </div>
 <div class="nav navbar-header col-md-5">
     <li>
@@ -10,11 +10,30 @@
 <ul class="nav navbar-top-links navbar-right">
     <li class="">
         <a href="{{route('reports.index')}}">
-            <i class="fa fa-globe"></i> 
             <span class="nav-label">Home</span>
         </a>
     </li>
-    <li class="dropdown {{ (request()->is('reports/countries') || request()->is('reports/countries/*') || request()->is('reports/global') || request()->is('reports/global/*')) ? 'active' : '' }}">
+    <li class="">
+        <a href="{{route('reports.index')}}">
+            <span class="nav-label">Global</span>
+        </a>
+    </li>
+    <li class="{{ request()->is('reports/countries') || request()->is('reports/countries/*') ? 'active' : '' }}">
+        <a href="{{ route('countries.index')}}">
+            <span class="nav-label">Country</span>
+        </a>
+    </li>
+    <li class="">
+        <a href="{{ route('compare.index')}}"> 
+            <span class="nav-label">Comparison</span>
+        </a>
+    </li>
+    <li class="{{ request()->is('reports/countries') || request()->is('reports/countries/*') ? 'active' : '' }}">
+        <a href="{{ route('compare-all.index')}}">
+            <span class="nav-label">Correlations</span>
+        </a>
+    </li>
+    <!-- <li class="dropdown {{ (request()->is('reports/countries') || request()->is('reports/countries/*') || request()->is('reports/global') || request()->is('reports/global/*')) ? 'active' : '' }}">
         <a class="dropdown-toggle" data-toggle="dropdown" href="">
             <i class="fa fa-flag-o"></i>
             <span class="nav-label">Lihat Data</span>
@@ -46,6 +65,15 @@
                     </div>
                 </a>
             </li>
+            <li class="dropdown-divider"></li>
+            <li>
+                <a href="{{ route('compare-all.index')}}" class="dropdown-item">
+                    <div>
+                        <i class="fa fa-flag-o"></i>
+                        <strong>Relasi Terdekat Suatu Negara</strong>
+                    </div>
+                </a>
+            </li>
         </ul>
-    </li>
+    </li> -->
 </ul>

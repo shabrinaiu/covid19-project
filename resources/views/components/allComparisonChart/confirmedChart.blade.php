@@ -1,5 +1,3 @@
-
-
 @push('footer-scripts')
 <script>
 $(function() {
@@ -15,7 +13,7 @@ $(function() {
         ykeys: ['a', 'b'],
         xLabels: "string",
         labels: ['{{$getMainHistoryData[0]['Country']}}', '{{$getComparedHistoryData[0]['Country']}}'],
-        hideHover: 'auto',
+        // hideHover: 'auto',
         resize: true,
         lineColors: ['#ffdd33','#eda405'],
     });

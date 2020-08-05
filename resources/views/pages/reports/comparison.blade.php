@@ -7,7 +7,6 @@
     <link href="{{URL::asset('theme/css/plugins/morris/morris-0.4.3.min.css')}}" rel="stylesheet">
 @endpush
 
-
 @section('page-heading')
     <form action="/reports/compare" method="post" id="compare-countries">
     @csrf
@@ -26,7 +25,7 @@
                     @foreach ($data as $row)
                         <option value="" disabled selected></option>
                         <option value="{{$row['Slug']}}">{{$row['Country']}}</option>
-                    @endforeach                    
+                    @endforeach
                 @endisset
             </select>
             @error('mainCountry')
@@ -118,6 +117,9 @@
         @endcomponent
 
         @component('components.comparisonChart.deathsChart', ['getMainHistoryData' => $getMainHistoryData, 'getComparedHistoryData' => $getComparedHistoryData])
+        @endcomponent
+
+        @component('components.comparisonChart.correlationChart', ['correlations' => $correlations])
         @endcomponent
     @endisset 
 
