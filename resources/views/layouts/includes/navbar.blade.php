@@ -13,7 +13,7 @@
             <span class="nav-label">Home</span>
         </a>
     </li>
-    <li class="">
+    <li class="{{ request()->is('reports') ? 'active' : '' }}">
         <a href="{{route('reports.index')}}">
             <span class="nav-label">Global</span>
         </a>
@@ -23,12 +23,12 @@
             <span class="nav-label">Country</span>
         </a>
     </li>
-    <li class="">
+    <li class="{{ request()->is('reports/compare') || request()->is('reports/compare/*') ? 'active' : '' }}">
         <a href="{{ route('compare.index')}}"> 
             <span class="nav-label">Comparison</span>
         </a>
     </li>
-    <li class="{{ request()->is('reports/countries') || request()->is('reports/countries/*') ? 'active' : '' }}">
+    <li class="{{ request()->is('reports/compare-all') || request()->is('reports/compare-all/*') ? 'active' : '' }}">
         <a href="{{ route('compare-all.index')}}">
             <span class="nav-label">Correlations</span>
         </a>
