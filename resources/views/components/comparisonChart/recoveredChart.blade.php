@@ -27,14 +27,14 @@ $(function() {
         element: 'morris-line-chart-recovered',
         data: [
             @foreach($getMainHistoryData as $i => $mainData)
-                { y: '{{$mainData['Label']}}', a: {{$mainData['Recovered']}}, b: {{$getComparedHistoryData[$i]['Recovered']}} },
+                { y: '{{$mainData['Label']}}', a: {{$mainData['recovered']}}, b: {{$getComparedHistoryData[$i]['recovered']}} },
             @endforeach
         ],
         xkey: 'y',
         parseTime: false,
         ykeys: ['a', 'b'],
         xLabels: "string",
-        labels: ['{{$getMainHistoryData[0]['Country']}}', '{{$getComparedHistoryData[0]['Country']}}'],
+        labels: ['{{$mainCountryName}}', '{{$comparedCountryName}}'],
         hideHover: 'auto',
         resize: true,
         lineColors: ['#07e6c4','#04c2c2'],

@@ -55,7 +55,7 @@
     <div class="tabs-container">
         <ul class="nav nav-tabs" role="tablist">
             @foreach ($getComparedHistoryData as $i => $countryData)
-                <li><a class="nav-link" data-toggle="tab" href="#country-{{$i}}">{{$countryData[0]['Country']}}</a></li>
+                <li><a class="nav-link" data-toggle="tab" href="#country-{{$i}}">{{$comparedCountryNames[$i]}}</a></li>
             @endforeach
         </ul>
         <div class="tab-content">
@@ -64,7 +64,7 @@
                     <div class="ibox ">
                         <div class="ibox-title">
                             <h3 class="text-center font-weight-bold">
-                                {{$getMainHistoryData[0]['Country']}} with {{$countryData[0]['Country']}}
+                                {{$comparedCountryNames[$i]}} with {{$mainCountryName}}
                             </h3>
                             <div class="ibox-tools">
                                 <a class="collapse-link">
@@ -75,7 +75,7 @@
                         <div class="ibox-footer" id="ibox_ost">
                             <div class="mb-2">
                                 <h5 class="font-weight-bold">*Highest correlation between 
-                                    {{$getMainHistoryData[0]['Country']}} and {{$countryData[0]['Country']}} is {{$maxCorrelation[$i]}}
+                                    {{$comparedCountryNames[$i]}} and {{$mainCountryName}} is {{$maxCorrelation[$i]}}
                                 </h5>
                             </div>
                             <div class="mt-1 mb-1 p-1">
@@ -85,27 +85,8 @@
                                     </div>
                                     <div class="card-body">
                                         <div id="morris-line-chart-confirmed-{{$i}}"></div>
-                                        @component('components.allComparisonChart.confirmedChart', ['getMainHistoryData' => $getMainHistoryData, 'getComparedHistoryData' => $countryData, 'idx' => $i])
-                                        @endcomponent
-                                    </div>
-                                </div>
-                                <div class="card">
-                                    <div class="card-header text-center">
-                                        Recovered Data Chart
-                                    </div>
-                                    <div class="card-body">
-                                        <div id="morris-line-chart-recovered-{{$i}}"></div>
-                                        @component('components.allComparisonChart.recoveredChart', ['getMainHistoryData' => $getMainHistoryData, 'getComparedHistoryData' => $countryData, 'idx' => $i])
-                                        @endcomponent
-                                    </div>
-                                </div>
-                                <div class="card">
-                                    <div class="card-header text-center">
-                                        Deaths Data Chart
-                                    </div>
-                                    <div class="card-body">
-                                        <div id="morris-line-chart-deaths-{{$i}}"></div>
-                                        @component('components.allComparisonChart.deathsChart', ['getMainHistoryData' => $getMainHistoryData, 'getComparedHistoryData' => $countryData, 'idx' => $i])
+                                        @component('components.allComparisonChart.confirmedChart', ['getMainHistoryData' => $getMainHistoryData, 'getComparedHistoryData' => $countryData, 
+                                                    'idx' => $i, 'mainCountryName' => $mainCountryName, 'comparedCountryName' => $comparedCountryNames[$i]])
                                         @endcomponent
                                     </div>
                                 </div>
@@ -162,15 +143,7 @@
                 $('#compare-countries').submit();
             });
 
-            $('#country-1').hover(function() {
-                $(window).trigger('resize');
-            });
-
-            $('#country-2').hover(function() {
-                $(window).trigger('resize');
-            });
-
-            $('#country-3').hover(function() {
+            $('div[id^="country-"]').hover(function(){
                 $(window).trigger('resize');
             });
 
