@@ -7,7 +7,6 @@
     <link href="{{URL::asset('theme/css/plugins/morris/morris-0.4.3.min.css')}}" rel="stylesheet">
 @endpush
 
-
 @section('page-heading')
     <form action="/reports/compare-all" method="post" id="compare-countries">
     @csrf

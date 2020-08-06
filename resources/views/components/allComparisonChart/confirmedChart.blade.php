@@ -1,5 +1,3 @@
-
-
 @push('footer-scripts')
 <script>
 $(function() {
