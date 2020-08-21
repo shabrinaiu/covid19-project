@@ -25,7 +25,7 @@
                     @foreach ($data as $row)
                         <option value="" disabled selected></option>
                         <option value="{{$row['Slug']}}">{{$row['Country']}}</option>
-                    @endforeach                    
+                    @endforeach
                 @endisset
             </select>
             @error('mainCountry')
@@ -50,8 +50,48 @@
 
 @section('content')
 
-<div id="contentWrapper">   
+<div id="contentWrapper">
     @isset($maxCorrelation)
+    <div class="row" id="table-stats">
+        <div class="col-lg-12">
+            <div class="ibox ">
+                <div class="ibox-title">
+                    <h4 class="text-center font-weight-bold" id="TableTitle">Table of Maximum Correlations</h4>
+
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-footer">
+                    <div class="table-responsive">
+                        <table id="" class="table table-hover text-center dataTables-example">
+                            <thead>
+                            <tr>
+                                <th>Country Name</th>
+                                <th>Day-n (date)</th>
+                                <th>Coefficient of Correlation</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                @foreach($datatableMaxCorr as $row)
+                                    <tr
+                                    @isset ($row['max_index'])
+                                    class="font-weight-bold bg-success text-white"
+                                    @endisset>
+                                        <td>{{$row['country_name']}}</td>
+                                        <td>day-{{$row['day']}} on {{$row['date']}}</td>
+                                        <td>{{$row['max_correlation']}}</td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="tabs-container">
         <ul class="nav nav-tabs" role="tablist">
             @foreach ($getComparedHistoryData as $i => $countryData)
@@ -74,7 +114,7 @@
                         </div>
                         <div class="ibox-footer" id="ibox_ost">
                             <div class="mb-2">
-                                <h5 class="font-weight-bold">*Highest correlation between 
+                                <h5 class="font-weight-bold">*Highest correlation between
                                     {{$comparedCountryNames[$i]}} and {{$mainCountryName}} is {{$maxCorrelation[$i]}}
                                 </h5>
                             </div>
@@ -85,7 +125,7 @@
                                     </div>
                                     <div class="card-body">
                                         <div id="morris-line-chart-confirmed-{{$i}}"></div>
-                                        @component('components.allComparisonChart.confirmedChart', ['getMainHistoryData' => $getMainHistoryData, 'getComparedHistoryData' => $countryData, 
+                                        @component('components.allComparisonChart.confirmedChart', ['getMainHistoryData' => $getMainHistoryData, 'getComparedHistoryData' => $countryData,
                                                     'idx' => $i, 'mainCountryName' => $mainCountryName, 'comparedCountryName' => $comparedCountryNames[$i]])
                                         @endcomponent
                                     </div>
@@ -100,13 +140,13 @@
     </div>
     @endisset
 
-    
+
 
 </div>
 
     @push('footer-scripts')
     <!-- ChartJS -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js"></script>        
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js"></script>
     <script src="{{URL::asset('theme/js/plugins/datapicker/bootstrap-datepicker.js')}}"></script>
 
     {{-- MorrisJS --}}
@@ -114,7 +154,7 @@
     <script src="{{URL::asset('theme/js/plugins/morris/morris.js')}}"></script>
 
     <script>
-        
+
         $(document).ready(function () {
             $('#contentWrapper').hide();
 

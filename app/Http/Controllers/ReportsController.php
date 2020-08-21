@@ -93,29 +93,29 @@ class ReportsController extends Controller
         return view('pages.reports.countries', compact('currentData', 'historyData', 'data'));
     }
 
-    public function getFromFirstCase($historyData)	
-    {	
-        $index = 0;	
-        foreach($historyData as $i => $rowHistoryData){	
-            if($rowHistoryData['Confirmed'] > 0){	
-                $index = $i;	
-                break;	
-            }	
-        }	
-        $collection = collect($historyData);	
-        $slice = $collection->slice($index);	
-        $i = 0;	
-        foreach($slice->all() as $data){	
-            $historyDataArr[$i] = $data;	
-            $i++;	
-        }	
+    public function getFromFirstCase($historyData)
+    {
+        $index = 0;
+        foreach($historyData as $i => $rowHistoryData){
+            if($rowHistoryData['Confirmed'] > 0){
+                $index = $i;
+                break;
+            }
+        }
+        $collection = collect($historyData);
+        $slice = $collection->slice($index);
+        $i = 0;
+        foreach($slice->all() as $data){
+            $historyDataArr[$i] = $data;
+            $i++;
+        }
 
-        for($idx = 0; $idx<count($historyDataArr); $idx++){	
-            $dateParts = explode("-",$historyDataArr[$idx]['Date']);	
-            $historyDataArr[$idx]['Date'] = ($dateParts[2] . '-' . $dateParts[0] . '-' . $dateParts[1]);	
-        }	
+        for($idx = 0; $idx<count($historyDataArr); $idx++){
+            $dateParts = explode("-",$historyDataArr[$idx]['Date']);
+            $historyDataArr[$idx]['Date'] = ($dateParts[2] . '-' . $dateParts[0] . '-' . $dateParts[1]);
+        }
 
-        return $historyDataArr;	
+        return $historyDataArr;
     }
 
     public function fetchCurrent($slug)
@@ -173,7 +173,7 @@ class ReportsController extends Controller
         // $historyData = json_decode($response, TRUE);
 
         $historyData = CountryDetail::where('country_slug', $slug)->get();
-        
+
         return $historyData;
     }
 
@@ -184,7 +184,7 @@ class ReportsController extends Controller
 
         $endDate = explode("/",$endDate);
         $endDate = $endDate[0] . '-' . $endDate[1] . '-' . $endDate[2];
-        
+
         foreach($historyData as $i => $rowHistoryData){
             if($rowHistoryData['Date'] >= $startDate && $rowHistoryData['Date'] <= $endDate){
                 $historyDataArr[$i] = $rowHistoryData;
@@ -215,7 +215,7 @@ class ReportsController extends Controller
             'comparedCountry' => ['required', 'string'],
             'count' => ['required', 'numeric', 'min:30']
         ]);
-        
+
         $mainHistoryData = $this->fetchHistory($request->mainCountry);
         // $mainHistoryData = $this->getFromFirstCase($mainHistoryData);
         $mainHistoryData = $mainHistoryData->toArray();
@@ -224,31 +224,31 @@ class ReportsController extends Controller
             $getMainHistoryData[$i] = array_merge($getMainHistoryData[$i], ["Label" => ('day ' . ($i+1))]);
             $getMainHistoryData[$i] = array_merge($getMainHistoryData[$i], ["Index" => $i]);
         }
-        
+
         $comparedHistoryData = $this->fetchHistory($request->comparedCountry);
         // $comparedHistoryData = $this->getFromFirstCase($comparedHistoryData);
         $comparedHistoryData = $comparedHistoryData->toArray();
 
         $maxCorrelation = 0;
         for($idx = 0; $idx < 30; $idx++){
-            $getComparedHistoryData[$idx] = array_slice($comparedHistoryData, $idx, $request->count);            
+            $getComparedHistoryData[$idx] = array_slice($comparedHistoryData, $idx, $request->count);
             $correlations[$idx] = $this->countCountryCorrelation($getMainHistoryData, $getComparedHistoryData[$idx], $request->count);
             if($correlations[$idx] > $maxCorrelation){
                 $maxCorrelation = $correlations[$idx];
                 $maxIndex = $idx;
             }
         }
-        
+
         $getComparedHistoryData = $getComparedHistoryData[$maxIndex];
-        
+
         $data = $this->fetchCountryIdentity();
 
         $mainCountryName = Country::select('name')->where('slug', $getMainHistoryData[0]['country_slug'])->get()->toArray();
         $mainCountryName = $mainCountryName[0]['name'];
         $comparedCountryName = Country::select('name')->where('slug', $getComparedHistoryData[0]['country_slug'])->get()->toArray();
         $comparedCountryName = $comparedCountryName[0]['name'];
-        
-        return view('pages.reports.comparison', compact(['data', 'getComparedHistoryData', 'getMainHistoryData', 
+
+        return view('pages.reports.comparison', compact(['data', 'getComparedHistoryData', 'getMainHistoryData',
                     'mainCountryName', 'comparedCountryName', 'correlations', 'maxIndex']));
     }
 
@@ -262,7 +262,7 @@ class ReportsController extends Controller
         $avgX = ($sumX/$total);
         $avgY = ($sumY/$total);
 
-        $diffX = 0; $diffY = 0; 
+        $diffX = 0; $diffY = 0;
         foreach($mainHistoryData as $i => $mainData){
             $diffX = ($mainData['confirmed'] - $avgX);
             $diffXSquare[$i] = pow($diffX, 2);
@@ -280,9 +280,9 @@ class ReportsController extends Controller
         }
         $sx = sqrt($sumDiffXSquare / ($total - 1));
         $sy = sqrt($sumDiffYSquare / ($total - 1));
-        
+
         $correlationFinal = $sumCorrelation / ($total * $sx * $sy);
-        
+
         return $correlationFinal;
     }
 
@@ -299,7 +299,7 @@ class ReportsController extends Controller
             'mainCountry' => ['required', 'string'],
             'count' => ['required', 'numeric', 'min:30']
         ]);
-        
+
         $mainHistoryData = $this->fetchHistory($request->mainCountry);
         $mainHistoryData = $mainHistoryData->toArray();
         $getMainHistoryData = array_slice($mainHistoryData, 0, $request->count);
@@ -307,19 +307,20 @@ class ReportsController extends Controller
             $getMainHistoryData[$i] = array_merge($getMainHistoryData[$i], ["Label" => ('day ' . ($i+1))]);
             $getMainHistoryData[$i] = array_merge($getMainHistoryData[$i], ["Index" => $i]);
         }
-        
+
         $data = $this->fetchCountryIdentity();
         foreach ($data as $i => $dataRow) {
-            if($dataRow['Slug'] != $getMainHistoryData[0]['country_slug']){
+            if($dataRow['Slug'] != $getMainHistoryData[0]['country_slug']){ //kondisi untuk negara selain main country
                 $fetchedData = $this->fetchHistory($dataRow['Slug']);
                 $fetchedData = $fetchedData->toArray();
-    
-                if ($fetchedData[0]['date'] < $getMainHistoryData[0]['date']) { //get country if first case ahead of main country first case
+
+                if ($fetchedData[0]['date'] < $getMainHistoryData[0]['date']) { //get country if first case ahead of main country's first case
                     $comparedHistoryData[$i] = $fetchedData;
                 }
             }
             // $comparedHistoryData[$i] = $this->getFromFirstCase($comparedHistoryDataAll[$i]);
         }
+
         foreach ($comparedHistoryData as $i => $rowData) {  //$i = index untuk negara
             $maxCorrelation[$i] = 0;
             for($idx = 0; $idx < 30; $idx++){  //idx = index untuk pergeseran ke-
@@ -336,24 +337,52 @@ class ReportsController extends Controller
 
         arsort($maxCorrelation);
         $indexesMaxCorr = array_keys($maxCorrelation);
-        $indexesMaxCorr = array_slice($indexesMaxCorr, 0, 3); //get indexes of highest three
+        $indexesMaxCorr = array_slice($indexesMaxCorr, 0, 6); //get indexes of highest country count
 
         foreach ($getComparedHistoryData as $a => $row) {
-            if (!in_array($a, $indexesMaxCorr)) { //jika current index ga termasuk highest three indexes
+            if (!in_array($a, $indexesMaxCorr)) { //jika current index ga termasuk highest indexes
                 unset($getComparedHistoryData[$a]);  //maka delete element tsb
                 unset($maxCorrelation[$a]);
             }
         }
-        
+
+        //get country names
         foreach ($getComparedHistoryData as $i => $comparedData) {
             $comparedCountryName = Country::select('name')->where('slug', $comparedData[0]['country_slug'])->get()->toArray();
             $comparedCountryNames[$i] = $comparedCountryName[0]['name'];
         }
         $mainCountryName = Country::select('name')->where('slug', $getMainHistoryData[0]['country_slug'])->get()->toArray();
         $mainCountryName = $mainCountryName[0]['name'];
-        
+
+        //cari data dgn korelasi tertinggi (yaitu elemen pertama pada $getComparedHistoryData di tiap index (negara))
+        $maxCorr = -1;
+        foreach ($getComparedHistoryData as $a => $comparedData) {
+            foreach ($comparedData as $b => $comparedDatum) {   //get date of max correlation
+                if ($b == 0){
+                    $datatableMaxCorr[$a]['date'] = $comparedDatum['date'];
+                    $datatableMaxCorr[$a]['country_name'] = $comparedCountryNames[$a];
+                    $datatableMaxCorr[$a]['max_correlation'] = $maxCorrelation[$a];
+                    if ($maxCorrelation[$a] > $maxCorr){
+                        $maxCorr = $maxCorrelation[$a];
+                        $maxCorrIdx = $a;
+                    }
+                }
+            }
+            foreach ($maxIndex as $c => $maxIndexRow) {   //get day ke- dari pergeseran pertama (dari first case)
+                if ($a == $c) {
+                    $datatableMaxCorr[$a]['day'] = $maxIndexRow;
+                }
+            }
+        }
+        //beri tanda pada index untuk negara dgn max correlation
+        foreach ($getComparedHistoryData as $a => $comparedData) {
+            if ($a == $maxCorrIdx){
+                $datatableMaxCorr[$a]['max_index'] = true;
+            }
+        }
+
         //index dari getComparedHistoryData dan maxCorrelation harus disamakan
         return view('pages.reports.comparison-all', compact(['data', 'getComparedHistoryData', 'getMainHistoryData',
-                     'maxCorrelation', 'mainCountryName', 'comparedCountryNames']));
+                     'maxCorrelation', 'mainCountryName', 'comparedCountryNames', 'datatableMaxCorr']));
     }
 }
