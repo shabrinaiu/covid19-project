@@ -27,6 +27,7 @@
 @endsection
 
 @section('content')
+
 <div class="row mb-2" id="currentData">
     <div class="col-md-4">
         <div class="card card-confirmed">
@@ -94,7 +95,9 @@
                 $("#submitButton").click(function(){
                     var selectedName = $("select.country").children("option:selected").html();
                     var selectedSlug = $("select.country").children("option:selected").val();
-                    var url = '/reports/countries/' + selectedSlug;
+                    var url = '{{ route("countries.show", ":selectedSlug") }}';
+                    url = url.replace(':selectedSlug', selectedSlug);
+                    // var url = '{{route('countries.show', '+ selectedSlug +')}}';
                     document.location.href=url;
                 });          
 

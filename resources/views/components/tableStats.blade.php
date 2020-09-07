@@ -29,13 +29,13 @@
                             @php $i++; @endphp
                             <tr>
                                 <td>{{$i}}</td>
-                                <td>{{$row['Confirmed']}}</td>
-                                <td>{{$row['Deaths']}}</td>
-                                <td>{{$row['Recovered']}}</td>
+                                <td>{{$row['confirmed']}}</td>
+                                <td>{{$row['deaths']}}</td>
+                                <td>{{$row['recovered']}}</td>
                                 @php
-                                    $date = date_create($row['Date']);
+                                    $date = date_create($row['date']);
                                 @endphp
-                                <td>{{$row['Date']}}</td>
+                                <td>{{$row['date']}}</td>
                             </tr>
                         @endforeach
                         </tbody>

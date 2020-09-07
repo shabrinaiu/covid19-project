@@ -47,7 +47,7 @@
                     pointRadius: 2,
                     fill: false,
                     borderWidth: 3,
-                    data: historyData.map(item => ({t: new Date(item.Date), y: item.Deaths})),
+                    data: historyData.map(item => ({t: new Date(item.date), y: item.deaths})),
                 }]
             },
             options: {

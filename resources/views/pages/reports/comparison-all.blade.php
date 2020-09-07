@@ -8,7 +8,7 @@
 @endpush
 
 @section('page-heading')
-    <form action="/reports/compare-all" method="post" id="compare-countries">
+    <form action="{{route('compare-all.post')}}" method="post" id="compare-countries">
     @csrf
     <div class="row wrapper page-heading">
         <div class="col-md-12 vertical-align-middle">

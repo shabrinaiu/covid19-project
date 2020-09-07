@@ -32,9 +32,10 @@
     
     console.log(historyData);
     console.log(historyData.map(item => {
-                const d = new Date(item.Date)
-                return `${d.day}-${d.month}`}))
-    console.log(historyData.map(item => item.Confirmed))
+                const d = new Date(item.date.split("-").reverse().join("-"))
+                return `${d.day}-${d.month}`})
+                );
+    console.log(historyData.map(item => item.confirmed))
 
     var chart = new Chart(ctx, {
         type: 'line',
@@ -52,7 +53,7 @@
                 pointRadius: 2,
                 fill: false,
                 borderWidth: 3,
-                data: historyData.map(item => ({t: new Date(item.Date), y: item.Confirmed})),
+                data: historyData.map(item => ({t: new Date(item.date), y: item.confirmed})),
             }]
         },
         options: {
