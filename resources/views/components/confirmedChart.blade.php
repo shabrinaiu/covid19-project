@@ -15,7 +15,8 @@
             </div>
             <div class="ibox-footer">
                 <div>
-                    <canvas id="confirmedChart" style="height:20%; width:80%"></canvas>
+                    {{-- <canvas id="confirmedChart" style="height:20%; width:80%"></canvas> --}}
+                    <div id="morris-line-chart-confirmed"></div>
                 </div>
             </div>
         </div>
@@ -23,77 +24,41 @@
 </div>
 
 @push('footer-scripts')
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js"></script>
 <script>
+    
 @isset($historyData)
+    function dateFormat(d){
+        let dat = d;
+        let res = str.split("-");
+        let newDat = (res[1] + ' ' + res[0] + ' ' + res[2]);
+
+        let monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+        let t = new Date(newDat);
+        return t.getDate()+' '+monthNames[t.getMonth()]+' '+t.getFullYear();
+    }
+    $(function() {
+        Morris.Line({
+            element: 'morris-line-chart-confirmed',
+            data: [
+                @foreach($historyData as $i => $datum)
+                    { y: '{{$datum['date']}}', a: {{$datum['confirmed']}} },
+                @endforeach
+            ],
+            xkey: 'y',
+            parseTime: false,
+            ykeys: ['a'],
+            xLabels: "string",
+            labels: ['confirmed'],
+            hideHover: 'auto',
+            resize: true,
+            lineColors: ['#ffdd33'],
+        });
+    });
+
     var historyData = {!! json_encode($historyData) !!}
     var data = {!! json_encode($data) !!}
-    var ctx = document.getElementById('confirmedChart').getContext('2d');
     
     console.log(historyData);
-    console.log(historyData.map(item => {
-                const d = new Date(item.date.split("-").reverse().join("-"))
-                return `${d.day}-${d.month}`})
-                );
-    console.log(historyData.map(item => item.confirmed))
-
-    var chart = new Chart(ctx, {
-        type: 'line',
-        data: {
-            datasets: [{
-                label: 'Confirmed',
-                borderColor: "#f82649",
-                pointBorderColor: "#f82649",
-                pointBackgroundColor: "#f82649",
-                pointHoverBackgroundColor: "#f82649",
-                pointHoverBorderColor: "#f82649",
-                pointBorderWidth: 3,
-                pointHoverRadius: 3,
-                pointHoverBorderWidth: 1,
-                pointRadius: 2,
-                fill: false,
-                borderWidth: 3,
-                data: historyData.map(item => ({t: new Date(item.date), y: item.confirmed})),
-            }]
-        },
-        options: {
-            tooltips: {
-                intersect: false
-            },
-            legend: {
-                display: false,
-                position: "bottom"
-            },
-            scales: {
-                yAxes: [{
-                    ticks: {
-                        fontColor: "rgba(0,0,0,0.5)",
-                        fontStyle: "bold",
-                        beginAtZero: true,
-                        maxTicksLimit: 5,
-                        padding: 20
-                    },
-                    gridLines: {
-                        drawTicks: false,
-                        display: false
-                    }
-                    }],
-                xAxes: [{
-                    type: "time",
-                    time: {
-                        unit: "day"
-                    },
-                    gridLines: {
-                        zeroLineColor: "transparent"},
-                    ticks: {
-                        padding: 20,
-                        fontColor: "rgba(0,0,0,0.5)",
-                        fontStyle: "bold",
-                    },
-                }]
-            }
-        }
-    });
 @endisset
 </script>
 @endpush
