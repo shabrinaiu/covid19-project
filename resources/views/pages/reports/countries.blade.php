@@ -3,6 +3,7 @@
 @push('header-scripts')
     <link href="{{URL::asset('theme/css/plugins/select2/select2.min.css')}}" rel="stylesheet">
     <link href="{{URL::asset('theme/css/plugins/select2/select2-bootstrap4.min.css')}}" rel="stylesheet">
+    <link href="{{URL::asset('theme/css/plugins/morris/morris-0.4.3.min.css')}}" rel="stylesheet">
 @endpush
 
 @section('page-heading')
@@ -79,12 +80,17 @@
 
 @endisset
 
-    @push('footer-scripts')
-              
-
+    @push('footer-scripts')              
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js"></script>
+    {{-- MorrisJS --}}
+    <script src="{{URL::asset('theme/js/plugins/morris/raphael-2.1.0.min.js')}}"></script>
+    <script src="{{URL::asset('theme/js/plugins/morris/morris.js')}}"></script>
         <script>
-            
+
             $(document).ready(function () {
+                $('div[id^="morris-line-chart"]').hover(function(){
+                    $(window).trigger('resize');
+                });
 
                 $(".select2_demo_3").select2({
                     theme: 'bootstrap4',

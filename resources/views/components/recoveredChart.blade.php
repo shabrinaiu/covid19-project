@@ -15,7 +15,8 @@
             </div>
             <div class="ibox-footer">
                 <div>
-                    <canvas id="recoveredChart" style="height:20%; width:80%"></canvas>
+                    {{-- <canvas id="recoveredChart" style="height:20%; width:80%"></canvas> --}}
+                    <div id="morris-line-chart-recovered"></div>
                 </div>
             </div>
         </div>
@@ -23,73 +24,31 @@
 </div>
 
 @push('footer-scripts')
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js"></script>
 <script>
-    @isset($historyData)
-        var historyData = {!! json_encode($historyData) !!}
-        var data = {!! json_encode($data) !!}
-        
-        var ctx1 = document.getElementById('recoveredChart').getContext('2d');
-
-        var chart1 = new Chart(ctx1, {
-            type: 'line',
-            data: {
-                datasets: [{
-                    label: 'Recovered',
-                    borderColor: "#09ad95",
-                    pointBorderColor: "#09ad95",
-                    pointBackgroundColor: "#09ad95",
-                    pointHoverBackgroundColor: "#09ad95",
-                    pointHoverBorderColor: "#09ad95",
-                    pointBorderWidth: 3,
-                    pointHoverRadius: 3,
-                    pointHoverBorderWidth: 1,
-                    pointRadius: 2,
-                    fill: false,
-                    borderWidth: 3,
-                    data: historyData.map(item => ({t: new Date(item.date), y: item.recovered})),
-                },
-            ]
-            },
-            options: {
-                tooltips: {
-                    intersect: false
-                },
-                legend: {
-                    display: false,
-                    position: "bottom"
-                },
-                scales: {
-                    yAxes: [{
-                        ticks: {
-                            fontColor: "rgba(0,0,0,0.5)",
-                            fontStyle: "bold",
-                            beginAtZero: true,
-                            maxTicksLimit: 5,
-                            padding: 20
-                        },
-                        gridLines: {
-                            drawTicks: false,
-                            display: false
-                        }
-                        }],
-                    xAxes: [{
-                        type: "time",
-                        time: {
-                            unit: "day"
-                        },
-                        gridLines: {
-                            zeroLineColor: "transparent"},
-                        ticks: {
-                            padding: 20,
-                            fontColor: "rgba(0,0,0,0.5)",
-                            fontStyle: "bold",
-                        },
-                    }]
-                }
-            }
+@isset($historyData)
+    $(function() {
+        Morris.Line({
+            element: 'morris-line-chart-recovered',
+            data: [
+                @foreach($historyData as $i => $datum)
+                    { y: '{{$datum['date']}}', a: {{$datum['recovered']}} },
+                @endforeach
+            ],
+            xkey: 'y',
+            parseTime: false,
+            ykeys: ['a'],
+            xLabels: "string",
+            labels: ['recovered'],
+            hideHover: 'auto',
+            resize: true,
+            lineColors: ['#1654c7'],
         });
+    });
 
-    @endisset
+    var historyData = {!! json_encode($historyData) !!}
+    var data = {!! json_encode($data) !!}
+    
+    console.log(historyData);
+@endisset
 </script>
 @endpush
