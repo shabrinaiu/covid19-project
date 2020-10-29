@@ -1,3 +1,7 @@
-https://mysterious-cliffs-75138.herokuapp.com/
-
-Coronavirus Disease 2019 atau COVID-19 adalah penyakit baru yang dapat menyebabkan terjadinya gangguan pernapasan dan radang paru. Sebagai virus model baru masyarakat awam kesulitan untuk mencari padanannya sehingga kemudian menganggapnya remeh. Penyebaran penyakit yang diakibatkan oleh virus COVID 19 telah ditetapkan sebagai pandemi oleh WHO per tanggal 12 Maret 2020. Perkembangan data pandemi covid-19 di Indonesia, telah merenggut 1089 nyawa pada 17 Mei 2020 (sumber : http://covid19.bnpb.go.id/) dan merupakan ancaman besar bagi kesehatan masyarakat global khususnya Indonesia. Pemerintah Indonesia sudah memberikan peringatan dan himbauan untuk melakukan social distance dengan memberlakukan bekerja dan belajar di rumah yang terbaru di 28 April 2020 ini untuk sebagian wilayah Jatim telah menyusul ditetapkan Pembatasan Sosial Berskala Besar (PSBB)  ditetapkan sebagai salah satu solusi untuk menghambat laju pertumbuhan kasus COVID-19 di Indonesia, namun masyarakat belum bisa melaksanakan himbauan tersebut dengan berbagai alasan. Keadaan ini bila dibiarkan akan membuat kasus penyebaran Covid-19 ini semakin tidak terkendali. Kami mengusulkan model epidemic SEIR (S=Suspect, E=Expose, I=Infected, dan R=Recovered)  untuk memprediksi perilaku penyebaran covid-19 di Indonesia dengan parameter tingkat sebaran, tingkat penyembuhan, tingkat kematian, tingkat komunikasi dan pergerakan. Selanjutnya model dibangun menggunakan model epidemik sebagai pengembangan dari Cellular Automata dengan metode Runge Kutta. Dengan model SEIR ini diharapkan dapat melakukan prediksi pandemi covid-19 yang akurat di Indonesia sebagai data yang bermanfaat bagi pemerintah dalam menetapkan kebijakan di semua sektor yang akan dilakukan kedepannya.
+# COVID-19 HEALTH INFORMATION
+<br>
+Dalam aplikasi web yang ditujukan untuk melakukan pencarian data tentang covid-19 di dunia ini terdapat beberapa langkah yang dibangun untuk membangun sistem web tersebut hingga terintegrasi dengan berbagai data yang diambil secara real time updated.
+<br>
+Team Mahasiswa :<br>
+- M Satriyo Aji<br>
+- Ulima Inas Shabrina<br>
