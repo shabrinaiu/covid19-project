@@ -78,7 +78,7 @@
             <div class="content">
                 <h4>WELCOME TO</h4>
                 <h3>COVID-19<br>HEALTH INFORMATION</h3>
-                <a href="{{ route('reports.index') }}"><h6>click here to redirect to Reporting covid-19 data</h6></a>
+                <a href="{{ route('home') }}"><h6>click here to redirect to Reporting covid-19 data</h6></a>
             </div>
         </div>
         <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>

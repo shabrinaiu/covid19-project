@@ -8,9 +8,14 @@
     </li>
 </div>
 <ul class="nav navbar-top-links navbar-right">
-    <li class="">
-        <a href="{{route('reports.index')}}">
+    <li class="{{ request()->is('home') ? 'active' : '' }}">
+        <a href="{{route('home')}}">
             <span class="nav-label">Home</span>
+        </a>
+    </li>
+    <li class="">
+        <a href="https://forms.gle/Jviexxu7n6mFqfEw5">
+            <span class="nav-label">Overview</span>
         </a>
     </li>
     <li class="{{ request()->is('reports') ? 'active' : '' }}">
@@ -18,11 +23,11 @@
             <span class="nav-label">Global</span>
         </a>
     </li>
-    <li class="{{ request()->is('reports/countries') || request()->is('reports/countries/*') ? 'active' : '' }}">
+    {{-- <li class="{{ request()->is('reports/countries') || request()->is('reports/countries/*') ? 'active' : '' }}">
         <a href="{{ route('countries.index')}}">
             <span class="nav-label">Country</span>
         </a>
-    </li>
+    </li> --}}
     <li class="{{ request()->is('reports/compare') || request()->is('reports/compare/*') ? 'active' : '' }}">
         <a href="{{ route('compare.index')}}"> 
             <span class="nav-label">Comparison</span>

@@ -9,6 +9,11 @@ use Illuminate\Support\Facades\Http;
 
 class ReportsController extends Controller
 {
+    public function home()
+    {
+        return view('pages.reports.home');
+    }
+
     public function index(Request $request)
     {
         return view('pages.reports.index');
@@ -25,7 +30,7 @@ class ReportsController extends Controller
     {
         // $curl = curl_init();
         // curl_setopt_array($curl, array(
-        //     CURLOPT_URL => "https://api-corona.azurewebsites.net/country",
+        //     CURLOPT_URL => "https://corona.azure-api.net/country",
         //     CURLOPT_RETURNTRANSFER => true,
         //     CURLOPT_ENCODING => "",
         //     CURLOPT_TIMEOUT => 30,
@@ -58,7 +63,7 @@ class ReportsController extends Controller
         //Country name data
         $curl = curl_init();
         curl_setopt_array($curl, array(
-            CURLOPT_URL => "https://api-corona.azurewebsites.net/summary",
+            CURLOPT_URL => "https://corona.azure-api.net/summary",
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => "",
             CURLOPT_TIMEOUT => 30,
@@ -123,7 +128,7 @@ class ReportsController extends Controller
         //fetching current data country
         $curl = curl_init();
         curl_setopt_array($curl, array(
-            CURLOPT_URL => "https://api-corona.azurewebsites.net/summary",
+            CURLOPT_URL => "https://corona.azure-api.net/summary",
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => "",
             CURLOPT_TIMEOUT => 30,
@@ -135,6 +140,7 @@ class ReportsController extends Controller
         $err = curl_error($curl);
         curl_close($curl);
         $data = json_decode($response, TRUE);
+        dd($data);
         if(count($data) <= 1){
             return 'failed to load';
         }
@@ -159,7 +165,7 @@ class ReportsController extends Controller
         //fetching All data in the contry
         // $curl = curl_init();
         // curl_setopt_array($curl, array(
-        //     CURLOPT_URL => "https://api-corona.azurewebsites.net/timeline/" . $slug,
+        //     CURLOPT_URL => "https://corona.azure-api.net/timeline/" . $slug,
         //     CURLOPT_RETURNTRANSFER => true,
         //     CURLOPT_ENCODING => "",
         //     CURLOPT_TIMEOUT => 30,

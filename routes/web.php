@@ -18,6 +18,7 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard', 'SiteController@index')->name('dashboard');
+Route::get('/home', 'ReportsController@home')->name('home');
 
 Route::prefix('reports')->group(function () {
     // Route::get('users', function () {

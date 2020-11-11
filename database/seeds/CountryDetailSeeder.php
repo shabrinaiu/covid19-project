@@ -18,7 +18,7 @@ class CountryDetailSeeder extends Seeder
             //fetching All data in the contry
             $curl = curl_init();
             curl_setopt_array($curl, array(
-                CURLOPT_URL => "https://api-corona.azurewebsites.net/timeline/" . $country->slug,
+                CURLOPT_URL => "https://corona.azure-api.net/timeline/" . $country->slug,
                 CURLOPT_RETURNTRANSFER => true,
                 CURLOPT_ENCODING => "",
                 CURLOPT_TIMEOUT => 30,
