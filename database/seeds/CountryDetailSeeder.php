@@ -14,7 +14,7 @@ class CountryDetailSeeder extends Seeder
      */
     public function run()
     {
-        $this->getAll();
+        $this->getRemains();
     }
 
     private function getAll()
