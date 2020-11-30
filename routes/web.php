@@ -20,12 +20,15 @@ Route::get('/', function () {
 Route::get('/dashboard', 'SiteController@index')->name('dashboard');
 Route::get('/home', 'ReportsController@home')->name('home');
 
+
+Route::resource('public-response', 'PublicResponseController');
+
 Route::prefix('reports')->group(function () {
     // Route::get('users', function () {
     // });
     Route::get('/', 'ReportsController@index')->name('reports.index');
     Route::get('/global', 'ReportsController@global')->name('global.index');
-    
+
     Route::get('/countries', 'ReportsController@countries')->name('countries.index');
     Route::get('/countries/{selected}', 'ReportsController@show')->name("countries.show");
 
@@ -35,4 +38,3 @@ Route::prefix('reports')->group(function () {
     Route::get('/compare-all', 'ReportsController@compareAllCountries')->name('compare-all.index');
     Route::post('/compare-all', 'ReportsController@processAllCountries')->name('compare-all.post');
 });
-

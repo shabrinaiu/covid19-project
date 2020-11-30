@@ -13,8 +13,8 @@
             <span class="nav-label">Home</span>
         </a>
     </li>
-    <li class="">
-        <a href="https://forms.gle/Jviexxu7n6mFqfEw5">
+    <li class="{{ request()->is('public-response/create') || request()->is('public-response/*') ? 'active' : '' }}">
+        <a href="{{ route('public-response.create')}}">
             <span class="nav-label">Overview</span>
         </a>
     </li>
