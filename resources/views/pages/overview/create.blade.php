@@ -6,7 +6,7 @@
 <link href="{{URL::asset('theme/css/plugins/datapicker/datepicker3.css')}}" rel="stylesheet">
 @endpush
 
-@section('page-heading')
+@section('content')
 <form action="{{route('public-response.store')}}" method="post" id="create-overview-form">
     @csrf
     <div class="row wrapper page-heading">

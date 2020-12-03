@@ -44,7 +44,7 @@ class PublicResponseController extends Controller
             'news_date' => 'required|date',
             'country' => 'required|max:100',
             'news_url' => 'required|max:200',
-            'news_text' => 'required|max:255',
+            'news_text' => 'required|max:10000',
             'response_value' => 'required|numeric|between:-1,1',
             'entried_by' => 'required|max:100',
         ]);

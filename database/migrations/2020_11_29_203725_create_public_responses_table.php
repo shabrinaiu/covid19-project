@@ -18,7 +18,7 @@ class CreatePublicResponsesTable extends Migration
             $table->date('news_date');
             $table->string('country', 100);
             $table->string('news_url', 200);
-            $table->string('news_text');
+            $table->string('news_text', 10000);
             $table->decimal('response_value', 3, 2);
             $table->string('entried_by', 100);
             $table->timestamps();
