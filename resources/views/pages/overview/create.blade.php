@@ -9,6 +9,14 @@
 @section('content')
 <form action="{{route('public-response.store')}}" method="post" id="create-overview-form">
     @csrf
+    @if(Session::has('success'))
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong>{{Session::get('success')}}</strong>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    @endif
     <div class="row wrapper page-heading">
         <div class="col-md-12 vertical-align-middle">
             <h2>Data Respon Masyarakat</h2>

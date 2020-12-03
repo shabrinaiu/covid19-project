@@ -74,7 +74,7 @@ class PublicResponseController extends Controller
 
         if ($reponseData) {
             return redirect()->route('public-response.create')
-                ->with('success', 'Data created successfully.');
+                ->with('success', 'Data respon masyarakat berhasil ditambahkan');
         }
         /*
         if ($reponseData)
