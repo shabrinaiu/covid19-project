@@ -65,7 +65,7 @@ class PublicResponseController extends Controller
 
         $reponseData = PublicResponse::create([
             'news_date' => $request->news_date,
-            'country' => $request->news_date,
+            'country' => $request->country,
             'news_url' => $request->news_url,
             'news_text' => $request->news_text,
             'response_value' => $request->response_value,
