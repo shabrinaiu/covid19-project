@@ -7,7 +7,7 @@
 @endpush
 
 @section('content')
-<form action="{{route('public-response.store')}}" method="post" id="create-overview-form">
+<form class="mb-4" action="{{route('public-response.store')}}" method="post" id="create-overview-form">
     @csrf
     @if(Session::has('success'))
         <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -89,7 +89,7 @@
         </div>
     </div>
 
-    <div class="row wrapper page-heading">
+    <div class="row wrapper page-heading mb-4">
         <div class="col-md-4 vertical-align-middle">
             <h3>Nilai Respon Masyarakat (-1 sampai 1)</h3>
         </div>
