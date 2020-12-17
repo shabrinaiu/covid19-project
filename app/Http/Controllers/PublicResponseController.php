@@ -15,7 +15,18 @@ class PublicResponseController extends Controller
      */
     public function index()
     {
-        //
+    }
+
+    public function getAverageResponse($country)
+    {
+        $publicResponses = PublicResponse::where('country', $country)->avg('response_value');
+
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Average of public response successfully get!',
+            'data' => floatval($publicResponses),
+        ], 200);
     }
 
     /**
@@ -48,20 +59,6 @@ class PublicResponseController extends Controller
             'response_value' => 'required|numeric|between:-1,1',
             'entried_by' => 'required|max:100',
         ]);
-        /*
-        $validator = Validator::make($request->all(), [
-            'news_date' => 'required|date',
-            'country' => 'required|max:100',
-            'news_url' => 'required|max:200',
-            'news_text' => 'required',
-            'response_value' => 'required|numeric|between:-1,1',
-            'entried_by' => 'required|max:100',
-        ]);
-
-        if ($validator->fails()) {
-            return response()->json($validator->errors(), 400);
-        }
-        */
 
         $reponseData = PublicResponse::create([
             'news_date' => $request->news_date,
@@ -76,7 +73,32 @@ class PublicResponseController extends Controller
             return redirect()->route('public-response.create')
                 ->with('success', 'Data respon masyarakat berhasil ditambahkan');
         }
-        /*
+    }
+
+    public function storeAsJson(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'news_date' => 'required|date',
+            'country' => 'required|max:100',
+            'news_url' => 'required|max:200',
+            'news_text' => 'required|max:10000',
+            'response_value' => 'required|numeric|between:-1,1',
+            'entried_by' => 'required|max:100',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json($validator->errors(), 400);
+        }
+
+        $reponseData = PublicResponse::create([
+            'news_date' => $request->news_date,
+            'country' => $request->country,
+            'news_url' => $request->news_url,
+            'news_text' => $request->news_text,
+            'response_value' => $request->response_value,
+            'entried_by' => $request->entried_by,
+        ]);
+
         if ($reponseData)
             return response()->json([
                 'success' => true,
@@ -87,8 +109,7 @@ class PublicResponseController extends Controller
             return response()->json([
                 'success' => false,
                 'message' => 'Add data failed!',
-            ], 200);
-            */
+            ], 400);
     }
 
     /**
