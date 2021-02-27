@@ -14,6 +14,11 @@ class ReportsController extends Controller
         return view('pages.reports.index');
     }
 
+    public function home(Request $request)
+    {
+        return view('pages.reports.home');
+    }
+
     public function countries()
     {
         $data = $this->fetchCountryIdentity();
