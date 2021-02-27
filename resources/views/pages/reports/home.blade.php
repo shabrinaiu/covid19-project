@@ -45,7 +45,10 @@
     </div>
 
     @push('footer-scripts')
-    
+    <script src="{{URL::asset('theme/js/plugins/metisMenu/jquery.metisMenu.js')}}"></script>
+    <script src="{{URL::asset('theme/js/plugins/slimscroll/jquery.slimscroll.min.js')}}"></script>
+    <script src="{{URL::asset('theme/js/inspinia.js')}}"></script>
+    <script src="{{URL::asset('theme/js/plugins/pace/pace.min.js')}}"></script>
     @endpush
 
 @endsection
