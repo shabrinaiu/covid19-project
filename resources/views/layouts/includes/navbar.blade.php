@@ -8,6 +8,7 @@
     </li>
 </div>
 <ul class="nav navbar-top-links navbar-right">
+
     <li class="{{ request()->is('home') ? 'active' : '' }}">
         <a href="{{route('home')}}">
             <span class="nav-label">Home</span>
