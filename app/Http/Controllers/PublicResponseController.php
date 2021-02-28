@@ -17,16 +17,93 @@ class PublicResponseController extends Controller
     {
     }
 
-    public function getAverageResponse($country)
+    public function getBetaStaticJson($country = 'Indonesia')
     {
-        $publicResponses = PublicResponse::where('country', $country)->avg('response_value');
+        $publicResponseAvg = PublicResponse::where('country', $country)->avg('response_value');
 
+        if ($publicResponseAvg == null) {
+            return response()->json([
+                'success' => false,
+                'message' => 'No country data found'
+            ], 200);
+        }
+        return response()->json([
+            'success' => true,
+            'message' => 'Average of public response successfully get!',
+            'data' => floatval($publicResponseAvg),
+        ], 200);
+    }
+    public function getBetaStatic($country = 'Indonesia')
+    {
+        $publicResponseAvg = PublicResponse::where('country', $country)->avg('response_value');
+
+        if ($publicResponseAvg == null)
+            return null;
+        else
+            return floatval($publicResponseAvg);
+    }
+
+    public function getBetaDynamicJson($firstDate, $endDate, $country = 'Indonesia')
+    {
+        $firstResponse = PublicResponse::where('country', $country)
+            ->orderBy('news_date')->first();
+
+        if ($firstResponse == null) {
+            return response()->json([
+                'success' => false,
+                'message' => 'No country data found'
+            ], 200);
+        }
+        if ($firstDate < $firstResponse->news_date)
+            $betha = 0.4; //default from Wuhan
+        else {
+            $betha = PublicResponse::where('country', $country)
+                ->whereBetween('news_date', [$firstResponse->news_date, $firstDate])
+                ->avg('response_value');
+        }
+        return response()->json([
+            'success' => true,
+            'message' => 'Average of public response successfully get!',
+            'data' => $betha,
+        ], 200);
+    }
+    public function getBetaDynamic($country = 'Indonesia')
+    {
+        $$firstResponse = PublicResponse::where('country', $country)
+            ->orderBy('news_date')->first();
+
+        if ($firstResponse == null) {
+            return response()->json([
+                'success' => false,
+                'message' => 'No country data found'
+            ], 200);
+        }
+        if ($firstDate < $firstResponse->news_date)
+            $betha = 0.4; //default from Wuhan
+        else {
+            $betha = PublicResponse::where('country', $country)
+                ->whereBetween('news_date', [$firstResponse->news_date, $firstDate])
+                ->avg('response_value');
+        }
+
+        return $betha;
+    }
+
+    public function jsonLatestNews($count = 3)
+    {
+        $news = PublicResponse::orderBy('created_at', 'desc')->take($count)->get();
 
         return response()->json([
             'success' => true,
             'message' => 'Average of public response successfully get!',
-            'data' => floatval($publicResponses),
+            'data' => $news
         ], 200);
+    }
+    public function getLatestNews($count = 3)
+    {
+        $news = PublicResponse::orderBy('created_at', 'desc')->take($count)->get();
+
+        return $news;
     }
 
     /**
@@ -54,7 +131,7 @@ class PublicResponseController extends Controller
         $data = $request->validate([
             'news_date' => 'required|date',
             'country' => 'required|max:100',
-            'news_url' => 'required|max:200',
+            'news_url' => 'required|max:200|url',
             'news_text' => 'required|max:10000',
             'response_value' => 'required|numeric|between:-1,1',
             'entried_by' => 'required|max:100',
@@ -80,7 +157,7 @@ class PublicResponseController extends Controller
         $validator = Validator::make($request->all(), [
             'news_date' => 'required|date',
             'country' => 'required|max:100',
-            'news_url' => 'required|max:200',
+            'news_url' => 'required|max:200|url',
             'news_text' => 'required|max:10000',
             'response_value' => 'required|numeric|between:-1,1',
             'entried_by' => 'required|max:100',
