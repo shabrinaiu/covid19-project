@@ -67,9 +67,9 @@ class PublicResponseController extends Controller
             'data' => $betha,
         ], 200);
     }
-    public function getBetaDynamic($country = 'Indonesia')
+    public function getBetaDynamic($firstDate, $endDate, $country = 'Indonesia')
     {
-        $$firstResponse = PublicResponse::where('country', $country)
+        $firstResponse = PublicResponse::where('country', $country)
             ->orderBy('news_date')->first();
 
         if ($firstResponse == null) {
