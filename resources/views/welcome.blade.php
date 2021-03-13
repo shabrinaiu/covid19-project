@@ -1,87 +1,94 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+@extends('layouts.master')
 
-        <title>Laravel</title>
-
-        <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css?family=Nunito:200,600,700,900" rel="stylesheet">
-
-        <link href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" rel="stylesheet">
-        <link href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css" rel="stylesheet">
-
-        <!-- Styles -->
-        <style>
-            html, body {
-                background-image: url(/theme/img/virusvirus.svg);
-                background-attachment: fixed;
-                background-position: center center;
-                background-size: cover; 
-                color: #e7ecf7;
-                font-family: 'Nunito', sans-serif;
-                background-size: 100%;
-                margin: 0;
-                vertical-align: middle;
-                overflow: hidden;
-            }
-            .centered {
-                height: 100vh;
-                vertical-align : middle;
-                position:absolute;
-                top:10%;
-            }
-            .content {
-                font-size: 2em;
-                letter-spacing: 2px;
-                font-weight: 600;
-                vertical-align: middle;
-                max-width: 65em;
-                width: calc(100% - 6em);
-                margin: 0 auto;
-                position: relative;
-                z-index: 10000;
-                line-height: 1;
-            }
-            h4{
-                left: 5%;
-                font-style: normal;
-                font-weight: normal;
-                font-size: 54px;
-                line-height: 66px;
-
-                /* identical to box height */
-                letter-spacing: 0.02em;
-                text-transform: uppercase;
-
-                color: #E8EFF9;
-            }
-            h3{           
-                left: 5%;
-                font-style: normal;
-                font-weight: bold;
-                font-size: 54px;
-                line-height: 66px;
-                letter-spacing: 0.02em;
-                text-transform: uppercase;
-
-                color: #FFFFFF;
-            }
-            .content > a {
-                color : #fff;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="centered">
-            <div class="content">
-                <h4>WELCOME TO</h4>
-                <h3>COVID-19<br>HEALTH INFORMATION</h3>
-                <a href="{{ route('home') }}"><h6>click here to redirect to Reporting covid-19 data</h6></a>
+@section('content')
+<div class="row mb-4">
+        <div class="col-md-4">
+            <div class="card card-confirmed">
+                <div class="card-body">
+                    <h2 class="card-title text-warning" id="confirmed">???</h2>
+                    <h6 class="card-subtitle mb-2 text-muted"></h6>
+                    <h4 class="card-text">patient confirmed</h4>
+                </div>
             </div>
         </div>
-        <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
-        <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
-    </body>
-</html>
+        <div class="col-md-4">
+            <div class="card card-recovered">
+                <div class="card-body">
+                    <h2 class="card-title text-success" id="recovered">???</h2>
+                    <h6 class="card-subtitle mb-2 text-muted"></h6>
+                    <h4 class="card-text">patient recovered</h4>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card card-deaths">
+                <div class="card-body">
+                    <h2 class="card-title text-danger" id="deaths">???</h2>
+                    <h6 class="card-subtitle mb-2 text-muted"></h6>
+                    <h4 class="card-text">patient deaths</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-header">
+                    <h2>Berita Seputar COVID-19</h2>
+                </div>
+                <div class="card-body text-justify">
+                    
+                </div>
+            </div>
+        </div>
+        <div class="col-md-5 vertical-align-middle d-flex justify-content-end">
+            <button type="button" class="btn btn-primary" id="submitButton"><strong>Input Berita</strong></button>
+        </div>
+    </div>
+
+    <div class="col-md-4 vertical-align-middle">
+            <h3>Prediksi COVID-19</h3>
+        </div>
+    <div class="row mb-6">
+        <div class="col-md-6">
+            <div class="card card-confirmed">
+                <div class="card-body">
+                    <h2 class="card-title text-warning" id="confirmed"> Indonesia</h2>
+                   
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card card-recovered">
+                <div class="card-body">
+                    <h2 class="card-title text-success" id="recovered"> Global</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mb-6">
+        <div class="col-md-6">
+            <div class="card card-confirmed">
+                <div class="card-body">
+                    <h2 class="card-title text-warning" id="confirmed">Comparsion</h2>
+                   
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card card-recovered">
+                <div class="card-body">
+                    <h2 class="card-title text-success" id="recovered">Correlation</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @push('footer-scripts')
+    <script src="{{URL::asset('theme/js/plugins/metisMenu/jquery.metisMenu.js')}}"></script>
+    <script src="{{URL::asset('theme/js/plugins/slimscroll/jquery.slimscroll.min.js')}}"></script>
+    <script src="{{URL::asset('theme/js/inspinia.js')}}"></script>
+    <script src="{{URL::asset('theme/js/plugins/pace/pace.min.js')}}"></script>
+    @endpush
+
+@endsection

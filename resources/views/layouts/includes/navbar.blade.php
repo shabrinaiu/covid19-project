@@ -38,6 +38,12 @@
             <span class="nav-label">Correlations</span>
         </a>
     </li>
+    <li class="{{ request()->is('reports/compare') || request()->is('reports/compare/*') ? 'active' : '' }}">
+        <a href="{{ route('compare.index')}}"> 
+            <span class="nav-label">Indonesia</span>
+        </a>
+    </li>
+    
     <!-- <li class="dropdown {{ (request()->is('reports/countries') || request()->is('reports/countries/*') || request()->is('reports/global') || request()->is('reports/global/*')) ? 'active' : '' }}">
         <a class="dropdown-toggle" data-toggle="dropdown" href="">
             <i class="fa fa-flag-o"></i>
