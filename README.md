@@ -5,3 +5,4 @@ Dalam aplikasi web yang ditujukan untuk melakukan pencarian data tentang covid-1
 Team Mahasiswa :<br>
 - M Satriyo Aji<br>
 - Ulima Inas Shabrina<br>
+- Ufri
