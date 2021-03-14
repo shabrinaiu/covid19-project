@@ -857,7 +857,7 @@ h5 {
   display: block;
 }
 .nav > li > h2 {
-  color: white;
+  color: #183B67;
   font-weight: 600;
   font-size: xx-large;
   line-height: 25px;
@@ -869,7 +869,7 @@ h5 {
   line-height: 25px;
 }
 .nav > h4 {
-  color: white;
+  color: #183B67;
   font-weight: 300;
   font-size: smaller;
   text-align: right;
@@ -885,15 +885,15 @@ h5 {
   display: block;
 }
 .nav.navbar-right > li > a {
-  color: white;
+  color: #183B67;
 }
 .nav > li.active > a {
   color: #F2C808;
 }
 .navbar-default .nav > li > a:hover,
 .navbar-default .nav > li > a:focus {
-  background-color: #293846;
-  color: white;
+  background-color: white;
+  color: #183B67;
 }
 .nav .open > a,
 .nav .open > a:hover,
@@ -939,8 +939,8 @@ h5 {
   text-shadow: none;
   top: 100%;
   z-index: 1000;
-  background-color: #183B67;
-  color: white;
+  background-color: #fff;
+  color: #183B67;
 }
 .dropdown-menu > li > a {
   border-radius: 3px;
@@ -1085,7 +1085,7 @@ ul.nav-second-level {
 .navbar.navbar-static-top {
   width: 100%;
   align-items: inherit;
-  background-color: #183B67;
+  background-color: white;
   padding: 0 10% 20px 10%;
 }
 .navbar-static-top .dropdown-menu {
@@ -4595,7 +4595,7 @@ video {
   padding: 0 15px;
   position: relative !important;
   flex-shrink: 1;
-  width: 100%; 
+  width: 100%;
 }
 @media (min-width: 768px) {
   #page-wrapper {
@@ -4905,13 +4905,13 @@ img.circle-border {
   background-color: transparent;
   padding: 0;
   margin-bottom: 0;
-  color: white;
+  color: #183c6769;
 }
 .breadcrumb > li a {
-  color: inherit;
+  color: #183c6769;
 }
 .breadcrumb > .active {
-  color: inherit;
+  color: #183B67;
 }
 code {
   background-color: #F9F2F4;

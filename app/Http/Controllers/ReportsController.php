@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Country;
 use App\CountryDetail;
+use Faker\Provider\DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 
@@ -98,6 +99,41 @@ class ReportsController extends Controller
         return view('pages.reports.countries', compact('currentData', 'historyData', 'data'));
     }
 
+    public function showCountryJson($slug, $date)
+    {
+        $data = CountryDetail::where('country_slug', $slug)
+          ->where('date', $date.'T00:00:00Z')->first();
+
+        if ($data == null) {
+          return response()->json([
+            'success' => false,
+            'message' => 'No data existed'
+          ], 200);
+        }
+        return response()->json([
+          'success' => true,
+          'message' => 'Country detail data successfully get!',
+          'data' => $data,
+        ], 200);
+    }
+    public function showCountryPeriodJson($slug, $firstDate, $endDate)
+    {
+        $data = CountryDetail::where('country_slug', $slug)
+              ->whereBetween('date', [$firstDate.'T00:00:00Z', $endDate.'T00:00:00Z'])->get();
+
+        if ($data == null) {
+            return response()->json([
+              'success' => false,
+              'message' => 'No data existed'
+            ], 200);
+        }
+        return response()->json([
+            'success' => true,
+            'message' => 'Country detail data successfully get!',
+            'data' => $data,
+        ], 200);
+    }
+
     public function getFromFirstCase($historyData)
     {
         $index = 0;
@@ -140,7 +176,7 @@ class ReportsController extends Controller
         $err = curl_error($curl);
         curl_close($curl);
         $data = json_decode($response, TRUE);
-        dd($data);
+
         if (count($data) <= 1) {
             return 'failed to load';
         }

@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('pages.reports.home');
 });
 
 Route::get('/dashboard', 'SiteController@index')->name('dashboard');
@@ -29,10 +29,15 @@ Route::prefix('reports')->group(function () {
     Route::get('/compare-all', 'ReportsController@compareAllCountries')->name('compare-all.index');
     Route::post('/compare-all', 'ReportsController@processAllCountries')->name('compare-all.post');
 
+    //mengambil nilai Beta statis
     Route::get('public-response/get-beta-static/{country}', 'PublicResponseController@getBetaStatic')
         ->name('get-beta-static');
-    Route::get('public-response/get-beta-dynamic/{country}', 'PublicResponseController@getBetaDynamic')
+
+    //mengambil nilai beta dinamis
+    Route::get('public-response/get-beta-dynamic/{firstDate}/{endDate}/{country}', 'PublicResponseController@getBetaDynamic')
         ->name('get-beta-dynamic');
+
+    //mengambill berita terakhir dgn input jumlah berita
     Route::get('public-response/get-latest-news/{count}', 'PublicResponseController@getLatestNews')
         ->name('get-latest-news');
 });
