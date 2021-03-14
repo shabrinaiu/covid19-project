@@ -17,6 +17,16 @@ class PublicResponseController extends Controller
     {
     }
 
+    public function getAllBetaStaticJson()
+    {
+        $publicResponseAvg = PublicResponse::select('response_value')->avg('response_value');
+
+        return response()->json([
+          'success' => true,
+          'message' => 'Average of public response successfully get!',
+          'data' => floatval($publicResponseAvg),
+        ], 200);
+    }
     public function getBetaStaticJson($country = 'Indonesia')
     {
         $publicResponseAvg = PublicResponse::where('country', $country)->avg('response_value');
@@ -67,9 +77,9 @@ class PublicResponseController extends Controller
             'data' => $betha,
         ], 200);
     }
-    public function getBetaDynamic($country = 'Indonesia')
+    public function getBetaDynamic($firstDate, $endDate, $country = 'Indonesia')
     {
-        $$firstResponse = PublicResponse::where('country', $country)
+        $firstResponse = PublicResponse::where('country', $country)
             ->orderBy('news_date')->first();
 
         if ($firstResponse == null) {
