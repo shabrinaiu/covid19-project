@@ -6,7 +6,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <title>PENS HEALTH INFORMATION</title>
+        <title>COVID-19 Prediction</title>
 
         @include('layouts.includes._header-script')
 
