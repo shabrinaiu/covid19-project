@@ -1,6 +1,11 @@
 @extends('layouts.master')
 
+@section('titlehalaman')
+    PREDIKSI PANDEMI COVID-19
+@endsection
+
 @section('content')
+    <h2 class="card-text">Total Kasus per hari ini</h2>
     <div class="row mb-4">
         <div class="col-md-4">
             <div class="card card-confirmed">
@@ -31,6 +36,35 @@
         </div>
     </div>
 
+    <h2 class="card-text">Berita Terbaru</h2>
+    <div class="row mb-3">
+        <div class="col-md-2">
+            <a href="{{route('reports.index')}}">
+                <div class="card">
+                    <div style="height:200px; text-align:center" class="card-body">
+                        <i class="fa fa-smile-o"></i>
+                        <h3 class="card-text">Tambahkan berita baru</h3>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="col-md-5">
+                <div class="card">
+                    <div style="height:200px" class="card-body">
+                        <h3 class="card-text">Prediksi Global</h3>
+                    </div>
+                </div>
+        </div>
+        <div class="col-md-5">
+                <div class="card">
+                    <div style="height:200px" class="card-body">
+                        <h3 class="card-text">Prediksi Indonesia</h3>
+                    </div>
+                </div>
+        </div>
+    </div>
+
+    <h2 class="card-text">Menu</h2>
     <div class="row mb-3">
         <div class="col-md-6">
             <a href="{{route('reports.index')}}">
@@ -70,7 +104,7 @@
                 <div class="card">
                     <div style="text-align:center" class="card-body">
                         <i class="fa fa-smile-o"></i>
-                        <h3 class="card-text">Perhitungan Perbandingan kasus 2 Negara</h3>
+                        <h3 class="card-text">Perhitungan Komparasi kasus 2 Negara</h3>
                     </div>
                 </div>
             </a>
@@ -79,7 +113,7 @@
 
     @push('footer-scripts')
     <script>
-        <!-- DataMaps -->
+        <script src="{{URL::asset('theme/js/plugins/slick/slick.min.js')}}"></script>
         <script src="{{URL::asset('theme/js/plugins/metisMenu/jquery.metisMenu.js')}}"></script>
         <script src="{{URL::asset('theme/js/plugins/slimscroll/jquery.slimscroll.min.js')}}"></script>
         <script src="{{URL::asset('theme/js/inspinia.js')}}"></script>
@@ -135,12 +169,9 @@
                     },100)
                 });
 
-
             });
         </script>
 
     </script>
     @endpush
-
-
 @endsection
