@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('content')
-    <div class="row mb-4">
+    {{-- <div class="row mb-4">
         <div class="col-md-4">
             <div class="card card-confirmed">
                 <div class="card-body">
@@ -29,8 +29,8 @@
                 </div>
             </div>
         </div>
-    </div>
-
+    </div> --}}
+{{--
     <div class="row">
         <div class="col-lg-12">
             <div class="ibox ">
@@ -80,7 +80,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
     <div class="row">
         <div class="col-md-12">
             <div class="ibox ">
@@ -92,7 +92,7 @@
     </div>
 
     @push('footer-scripts')
-    <script>
+    {{-- <script>
         <!-- DataMaps -->
     <script src="js/plugins/typehead/bootstrap3-typeahead.min.js"></script>
     <script src="js/plugins/d3/d3.min.js"></script>
@@ -153,7 +153,7 @@
         });
     </script>
 
-    </script>
+    </script> --}}
     @endpush
 
 @endsection

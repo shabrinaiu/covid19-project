@@ -18,7 +18,22 @@
         <div id="page-wrapper" class="gray-bg dashbard-1">
             <div class="row border-bottom">
                 <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
-                    @include('layouts.includes.navbar')
+                    <div class="nav col-md-12 navbar-right">
+                        <h4>Politeknik Elektronika Negeri Surabaya</h4>
+                    </div>
+                    <div class="nav navbar-header col-md-5">
+                        <li>
+                            <h3>@yield('titlehalaman')</h3>
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item">
+                                    <a href="{{route('home')}}">Home</a>
+                                </li>
+                                <li class="breadcrumb-item active">
+                                    <strong>@yield('navbarbreadcrumbs')</strong>
+                                </li>
+                            </ol>
+                        </li>
+                    </div>
                 </nav>
             </div>
 
@@ -35,7 +50,7 @@
 
             <div class="footer">
                 <div class="float-right">
-                    
+
                 </div>
                 <div>
                     <strong>Copyright</strong> Politeknik Elektronika Negeri Surabaya &copy; {{date('Y')}}
