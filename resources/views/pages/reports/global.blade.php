@@ -1,5 +1,9 @@
 @extends('layouts.master')
 
+@section('navbarbreadcrumbs')
+    Halaman apa ini
+@endsection
+
 @section('content')
     <div class="row mb-4">
         <div class="col-md-4">

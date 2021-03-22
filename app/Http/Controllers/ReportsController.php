@@ -50,6 +50,7 @@ class ReportsController extends Controller
         //     $data = json_decode($response, TRUE);
         // }
 
+        $countries = array();
         $queryCountries = Country::all();
         foreach ($queryCountries as $i => $country) {
             $countries[$i]['Country'] = $country->name;
