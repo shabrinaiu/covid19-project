@@ -21,7 +21,7 @@
                     <div class="nav col-md-12 navbar-right">
                         <h4>Politeknik Elektronika Negeri Surabaya</h4>
                     </div>
-                    <div class="nav navbar-header col-md-5">
+                    <div class="nav navbar-header col-md-12">
                         <li>
                             <h3>@yield('titlehalaman')</h3>
                             <ol class="breadcrumb">
