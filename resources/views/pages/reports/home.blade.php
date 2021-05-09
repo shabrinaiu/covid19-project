@@ -39,7 +39,7 @@
     <h2 class="card-text">Berita Terbaru</h2>
     <div class="row mb-3">
         <div class="col-md-2">
-            <a href="{{route('reports.index')}}">
+            <a href="{{route('public-response.create')}}">
                 <div class="card">
                     <div style="height:200px; text-align:center" class="card-body">
                         <i class="fa fa-smile-o"></i>
