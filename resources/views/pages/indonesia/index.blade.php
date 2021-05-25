@@ -109,7 +109,7 @@
         </div>
     </div>
 
-    <div class="row wrapper page-heading">
+    <!-- <div class="row wrapper page-heading">
         <div class="col-md-4 vertical-align-middle">
             <h3> Jumlah Suspected (S)</h3>
         </div>
@@ -143,7 +143,8 @@
               <div class="invalid-feedback">{{$message}}</div>
             @enderror
         </div>
-    </div>
+    </div> -->
+    
     <div class="row wrapper page-heading">
         <div class="col-md-12 vertical-align-middle">
             <button type="submit" class="btn btn-primary" id="submitButton">Hitung Prediksi</button>
