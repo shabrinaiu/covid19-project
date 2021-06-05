@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\IndonesiaController;
 
 Route::get('/', function () {
     return view('pages.reports.home');
@@ -8,7 +9,6 @@ Route::get('/', function () {
 
 Route::get('/dashboard', 'SiteController@index')->name('dashboard');
 Route::get('/home', 'ReportsController@home')->name('home');
-
 
 Route::resource('public-response', 'PublicResponseController');
 
@@ -41,3 +41,12 @@ Route::prefix('reports')->group(function () {
     Route::get('public-response/get-latest-news/{count}', 'PublicResponseController@getLatestNews')
         ->name('get-latest-news');
 });
+
+Route::prefix('predictions')->name('predictions.')->group(function(){
+    Route::prefix('indonesia')->name('indonesia.')->group(function(){
+        Route::get('/', 'IndonesiaController@index')->name('index');
+        Route::post('/', 'IndonesiaController@dateFilter')->name('date-filter');
+    });
+});
+
+

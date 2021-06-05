@@ -77,7 +77,7 @@
             </a>
         </div>
         <div class="col-md-6">
-            <a href="#">
+            <a href="{{ route('predictions.indonesia.index') }}">
                 <div class="card">
                     <div style="text-align:center" class="card-body">
                         <i class="fa fa-smile-o"></i>
