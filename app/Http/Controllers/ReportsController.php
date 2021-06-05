@@ -4,9 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Country;
 use App\CountryDetail;
+use Exception;
 use Faker\Provider\DateTime;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Validator;
 
 class ReportsController extends Controller
 {
@@ -103,7 +106,7 @@ class ReportsController extends Controller
     public function showCountryJson($slug, $date)
     {
         $data = CountryDetail::where('country_slug', $slug)
-          ->where('date', $date.'T00:00:00Z')->first();
+          ->where('date', 'like', $date.'%')->first();
 
         if ($data == null) {
           return response()->json([
@@ -435,5 +438,60 @@ class ReportsController extends Controller
             'data', 'getComparedHistoryData', 'getMainHistoryData',
             'maxCorrelation', 'mainCountryName', 'comparedCountryNames', 'datatableMaxCorr'
         ]));
+    }
+
+    public function seedCountryDetails(Request $request){
+        $rules = [
+            'date_start' => ['required', 'date'],
+            'date_end' => ['required', 'date', 'after_or_equal:date_start'],
+        ];
+        $errMessages = $this->validateGeneral($request, $rules);
+        if ($errMessages != "")
+            return response()->json(['message' => $errMessages], 422);
+
+        $date_end = $request->date_end > date('Y-m-d') ? $request->date_end : date('Y-m-d');
+        $queryCountries = DB::table('countries')->get();
+
+        foreach ($queryCountries as $i => $country) {
+            //fetching All data in the contry
+            $curl = curl_init();
+            curl_setopt_array($curl, array(
+                CURLOPT_URL => "https://api.covid19api.com/country/".$country->slug.
+                    '?from='.$request->date_start.'T00:00:00Z&to='.$date_end.'T00:00:00Z',
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_ENCODING => "",
+                CURLOPT_TIMEOUT => 30,
+                CURLOPT_SSL_VERIFYHOST => 0,
+                CURLOPT_SSL_VERIFYPEER => 0,
+                CURLOPT_CUSTOMREQUEST => "GET",
+            ));
+            $response = curl_exec($curl);
+            $err = curl_error($curl);
+            curl_close($curl);
+            $fetchedArr = json_decode($response, TRUE);
+
+            if (isset($fetchedArr)) {
+                foreach ($fetchedArr as $i => $fetched) {
+                    if (isset($fetched['Date']) && isset($fetched['Confirmed'])){
+                        DB::beginTransaction();
+                        try {
+                            DB::table('country_details')->insert([
+                                'country_slug' => $country->slug,
+                                'province' => (isset($fetched['Province']) ? $fetched['Province'] : null),
+                                'date' => $fetched['Date'],
+                                'confirmed' => $fetched['Confirmed'],
+                                'recovered' => $fetched['Recovered'],
+                                'deaths' => $fetched['Deaths'],
+                            ]);
+                            DB::commit();
+                        } catch (Exception $e) {
+                            DB::rollback();
+                            throw new Exception('error when insert seeds');
+                        }
+//                            app('App\Http\Controllers\ReportsController')->storeCountryDetail($country,$fetched);
+                    }
+                }
+            }
+        }
     }
 }
