@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('navbarbreadcrumbs')
-    Halaman apa ini
+    Data Global
 @endsection
 
 @push('header-scripts')
