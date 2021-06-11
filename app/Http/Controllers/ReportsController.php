@@ -106,29 +106,29 @@ class ReportsController extends Controller
     public function showCountryJson($slug, $date)
     {
         $data = CountryDetail::where('country_slug', $slug)
-          ->where('date', 'like', $date.'%')->first();
+            ->where('date', 'like', $date . '%')->first();
 
         if ($data == null) {
-          return response()->json([
-            'success' => false,
-            'message' => 'No data existed'
-          ], 200);
+            return response()->json([
+                'success' => false,
+                'message' => 'No data existed'
+            ], 200);
         }
         return response()->json([
-          'success' => true,
-          'message' => 'Country detail data successfully get!',
-          'data' => $data,
+            'success' => true,
+            'message' => 'Country detail data successfully get!',
+            'data' => $data,
         ], 200);
     }
     public function showCountryPeriodJson($slug, $firstDate, $endDate)
     {
         $data = CountryDetail::where('country_slug', $slug)
-              ->whereBetween('date', [$firstDate.'T00:00:00Z', $endDate.'T00:00:00Z'])->get();
+            ->whereBetween('date', [$firstDate . 'T00:00:00Z', $endDate . 'T00:00:00Z'])->get();
 
         if ($data == null) {
             return response()->json([
-              'success' => false,
-              'message' => 'No data existed'
+                'success' => false,
+                'message' => 'No data existed'
             ], 200);
         }
         return response()->json([
@@ -440,7 +440,8 @@ class ReportsController extends Controller
         ]));
     }
 
-    public function seedCountryDetails(Request $request){
+    public function seedCountryDetails(Request $request)
+    {
         $rules = [
             'date_start' => ['required', 'date'],
             'date_end' => ['required', 'date', 'after_or_equal:date_start'],
@@ -456,8 +457,8 @@ class ReportsController extends Controller
             //fetching All data in the contry
             $curl = curl_init();
             curl_setopt_array($curl, array(
-                CURLOPT_URL => "https://api.covid19api.com/country/".$country->slug.
-                    '?from='.$request->date_start.'T00:00:00Z&to='.$date_end.'T00:00:00Z',
+                CURLOPT_URL => "https://api.covid19api.com/country/" . $country->slug .
+                    '?from=' . $request->date_start . '&to=' . $date_end,
                 CURLOPT_RETURNTRANSFER => true,
                 CURLOPT_ENCODING => "",
                 CURLOPT_TIMEOUT => 30,
@@ -472,7 +473,7 @@ class ReportsController extends Controller
 
             if (isset($fetchedArr)) {
                 foreach ($fetchedArr as $i => $fetched) {
-                    if (isset($fetched['Date']) && isset($fetched['Confirmed'])){
+                    if (isset($fetched['Date']) && isset($fetched['Confirmed'])) {
                         DB::beginTransaction();
                         try {
                             DB::table('country_details')->insert([
@@ -488,10 +489,15 @@ class ReportsController extends Controller
                             DB::rollback();
                             throw new Exception('error when insert seeds');
                         }
-//                            app('App\Http\Controllers\ReportsController')->storeCountryDetail($country,$fetched);
+                        //                            app('App\Http\Controllers\ReportsController')->storeCountryDetail($country,$fetched);
                     }
                 }
             }
         }
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Country details has stored'
+        ], 200);
     }
 }
