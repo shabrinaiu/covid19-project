@@ -1,5 +1,13 @@
 @extends('layouts.master')
 
+@section('titlehalaman')
+    Perhitungan Komparasi kasus 2 Negara
+@endsection
+
+@section('navbarbreadcrumbs')
+    Perhitungan Komparasi kasus 2 Negara
+@endsection
+
 @push('header-scripts')
     <link href="{{URL::asset('theme/css/plugins/select2/select2.min.css')}}" rel="stylesheet">
     <link href="{{URL::asset('theme/css/plugins/select2/select2-bootstrap4.min.css')}}" rel="stylesheet">
@@ -38,7 +46,7 @@
                     @foreach ($data as $row)
                         <option value="" disabled selected></option>
                         <option value="{{$row['Slug']}}">{{$row['Country']}}</option>
-                    @endforeach                    
+                    @endforeach
                 @endisset
             </select>
             @error('comparedCountry')
@@ -65,14 +73,14 @@
 
 @section('content')
 
-<div id="contentWrapper">   
+<div id="contentWrapper">
     @isset($correlations)
         <div class="row" id="table-stats">
             <div class="col-lg-12">
                 <div class="ibox ">
                     <div class="ibox-title">
                         <h4 class="text-center font-weight-bold" id="TableTitle">Table of Correlations</h4>
-        
+
                         <div class="ibox-tools">
                             <a class="collapse-link">
                                 <i class="fa fa-chevron-up"></i>
@@ -92,7 +100,7 @@
                                 @php $i = 0; @endphp
                                 @foreach($correlations as $i => $corr)
                                     @php $i++; @endphp
-                                    <tr 
+                                    <tr
                                     @if ($i == ($maxIndex+1))
                                         class="font-weight-bold bg-success text-white"
                                     @endif>
@@ -124,13 +132,13 @@
 
         @component('components.comparisonChart.correlationChart', ['correlations' => $correlations])
         @endcomponent
-    @endisset 
+    @endisset
 
 </div>
 
     @push('footer-scripts')
     <!-- ChartJS -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js"></script>        
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js"></script>
     <script src="{{URL::asset('theme/js/plugins/datapicker/bootstrap-datepicker.js')}}"></script>
 
     {{-- MorrisJS --}}
@@ -138,7 +146,7 @@
     <script src="{{URL::asset('theme/js/plugins/morris/morris.js')}}"></script>
 
     <script>
-        
+
         $(document).ready(function () {
             $('#contentWrapper').hide();
 

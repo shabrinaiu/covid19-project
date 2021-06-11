@@ -1,5 +1,9 @@
 @extends('layouts.master')
 
+@section('navbarbreadcrumbs')
+    Halaman apa ini
+@endsection
+
 @section('content')
     <div class="row mb-4">
         <div class="col-md-4">
@@ -109,7 +113,7 @@
             setInterval(function () {
                 semuaData();
             }, 2000);
-    
+
             function semuaData() {
                 $.ajax({
                     url: 'https://coronavirus-19-api.herokuapp.com/all',

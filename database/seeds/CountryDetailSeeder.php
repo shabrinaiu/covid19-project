@@ -85,7 +85,7 @@ class CountryDetailSeeder extends Seeder
 
                 if (isset($fetchedArr)) {
                     foreach ($fetchedArr as $i => $fetched) {
-                        if ($fetched['Confirmed'] > 0) {
+                        if (isset($fetched['Confirmed']) && $fetched['Confirmed'] > 0) {
                             DB::table('country_details')->insert([
                                 'country_slug' => $country["slug"],
                                 'province' => (isset($fetched['Province']) ? $fetched['Province'] : null),

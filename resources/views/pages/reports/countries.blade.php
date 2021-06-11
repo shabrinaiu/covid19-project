@@ -1,5 +1,9 @@
 @extends('layouts.master')
 
+@section('navbarbreadcrumbs')
+    Halaman apa ini
+@endsection
+
 @push('header-scripts')
     <link href="{{URL::asset('theme/css/plugins/select2/select2.min.css')}}" rel="stylesheet">
     <link href="{{URL::asset('theme/css/plugins/select2/select2-bootstrap4.min.css')}}" rel="stylesheet">
@@ -17,7 +21,7 @@
                     @foreach ($data as $row)
                         <option value="" disabled selected></option>
                         <option value="{{$row['Slug']}}">{{$row['Country']}}</option>
-                    @endforeach                    
+                    @endforeach
                 @endisset
             </select>
         </div>
@@ -62,7 +66,7 @@
                 <h4 class="card-text">patient deaths</h4>
             </div>
         </div>
-    </div>    
+    </div>
 </div>
 
 @isset($historyData)
@@ -80,7 +84,7 @@
 
 @endisset
 
-    @push('footer-scripts')              
+    @push('footer-scripts')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js"></script>
     {{-- MorrisJS --}}
     <script src="{{URL::asset('theme/js/plugins/morris/raphael-2.1.0.min.js')}}"></script>
@@ -105,7 +109,7 @@
                     url = url.replace(':selectedSlug', selectedSlug);
                     // var url = '{{route('countries.show', '+ selectedSlug +')}}';
                     document.location.href=url;
-                });          
+                });
 
                 // menampilkan chart ketika data sudah masuk
                 if( ($('#recovered').html() && $('#confirmed').html() && $('#deaths').html() ) == 'no data exists'){
@@ -128,9 +132,9 @@
                     let deaths = numeral($('#deaths').html()).format('0,0');
                     $('#deaths').html(deaths);
                 }
-        
+
             });
-    
+
     </script>
     @endpush
 

@@ -1,5 +1,13 @@
 @extends('layouts.master')
 
+@section('titlehalaman')
+    Perhitungan Korelasi kasus 2 Negara
+@endsection
+
+@section('navbarbreadcrumbs')
+    Perhitungan Korelasi kasus 2 Negara
+@endsection
+
 @push('header-scripts')
     <link href="{{URL::asset('theme/css/plugins/select2/select2.min.css')}}" rel="stylesheet">
     <link href="{{URL::asset('theme/css/plugins/select2/select2-bootstrap4.min.css')}}" rel="stylesheet">
