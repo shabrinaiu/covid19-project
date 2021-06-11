@@ -67,7 +67,7 @@
     <h2 class="card-text">Menu</h2>
     <div class="row mb-3">
         <div class="col-md-6">
-            <a href="{{route('reports.countries')}}">
+            <a href="{{route('countries.index')}}">
                 <div class="card">
                     <div style="text-align:center" class="card-body">
                         <i class="fa fa-smile-o"></i>
@@ -94,7 +94,7 @@
                 <div class="card">
                     <div style="text-align:center" class="card-body">
                         <i class="fa fa-smile-o"></i>
-                        <h3 class="card-text">Perhitungan Korelasi kasus 2 Negara</h3>
+                        <h3 class="card-text">Perhitungan Korelasi Antar Negara</h3>
                     </div>
                 </div>
             </a>
