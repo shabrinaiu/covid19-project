@@ -94,7 +94,6 @@ class ReportsController extends Controller
     public function show($selectedSlug)
     {
         $currentData = $this->fetchCurrent($selectedSlug);
-
         $historyData = $this->fetchHistory($selectedSlug);
         // $historyData = $this->getFromFirstCase($historyData);
 
@@ -185,7 +184,7 @@ class ReportsController extends Controller
             return 'failed to load';
         }
 
-        $data = $data['countries'];
+        $data = $data['Countries'];
         foreach ($data as $dataCountry) {
             if ($dataCountry['Slug'] == $slug) {
                 $currentData = $dataCountry;
