@@ -67,7 +67,7 @@
     <h2 class="card-text">Menu</h2>
     <div class="row mb-3">
         <div class="col-md-6">
-            <a href="{{route('reports.index')}}">
+            <a href="{{route('reports.countries')}}">
                 <div class="card">
                     <div style="text-align:center" class="card-body">
                         <i class="fa fa-smile-o"></i>
