@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('navbarbreadcrumbs')
-    Halaman apa ini
+    Data Global
 @endsection
 
 @push('header-scripts')
@@ -32,13 +32,12 @@
 @endsection
 
 @section('content')
-
 <div class="row mb-2" id="currentData">
     <div class="col-md-4">
         <div class="card card-confirmed">
             <div class="card-body">
                 <h2 class="card-title text-success" id="recovered">{{
-                    (isset($currentData['Recovered']) ? $currentData['Recovered'] : 'no data exists')
+                    (isset($currentData['TotalRecovered']) ? $currentData['TotalRecovered'] : 'no data exists')
                     }}</h2>
                 <h6 class="card-subtitle mb-2 text-muted"></h6>
                 <h4 class="card-text">patient recovered</h4>
@@ -49,7 +48,7 @@
         <div class="card card-recovered">
             <div class="card-body">
                 <h2 class="card-title text-warning" id="confirmed">{{
-                    (isset($currentData['Confirmed']) ? $currentData['Confirmed'] : 'no data exists')
+                    (isset($currentData['TotalConfirmed']) ? $currentData['TotalConfirmed'] : 'no data exists')
                     }}</h2>
                 <h6 class="card-subtitle mb-2 text-muted"></h6>
                 <h4 class="card-text">patient confirmed</h4>
@@ -60,7 +59,7 @@
         <div class="card card-deaths">
             <div class="card-body">
                 <h2 class="card-title text-danger" id="deaths">{{
-                    (isset($currentData['Deaths']) ? $currentData['Deaths'] : 'no data exists')
+                    (isset($currentData['TotalDeaths']) ? $currentData['TotalDeaths'] : 'no data exists')
                     }}</h2>
                 <h6 class="card-subtitle mb-2 text-muted"></h6>
                 <h4 class="card-text">patient deaths</h4>
