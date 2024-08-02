@@ -35,7 +35,7 @@ The proposed scheme of the SEIR epidemic model includes:
 - **R<sub>t</sub>**: Number of recovered/deceased/immune individuals at time t.
 
 ### System Design:
-![System Design]((System%20Design.png))
+![System Design](System%20Design.png)
 1. API Data for COVID-19
 2. Database
 3. Public Responses
