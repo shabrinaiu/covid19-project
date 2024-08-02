@@ -8,13 +8,6 @@
 - Satriyo Aji
 - Ulima Inas
 
-## Outline
-1. [Background](#background)
-2. [Purpose](#purpose)
-3. [Proposed Methods](#proposed-methods)
-4. [Results](#results)
-5. [Conclusion](#conclusion)
-
 ## Background
 Coronavirus Disease or COVID-19 is a new disease caused by Severe Acute Respiratory Syndrome Coronavirus 2 (SARS-CoV-2). This virus can induce respiratory system disorders, ranging from mild symptoms to lung infections. The outbreak was first identified in Wuhan, China, in December 2019, with most early cases being reported in the city. After that, COVID-19 spread between humans very quickly and reached many countries, including Indonesia, in just a few months. The outbreak of COVID-19 has been declared a pandemic by the World Health Organization as of March 12, 2020. The number of COVID-19 cases is influenced by public response as one critical parameter.
 
