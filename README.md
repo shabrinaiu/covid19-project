@@ -44,16 +44,6 @@ The proposed scheme of the SEIR epidemic model includes:
 6. Data Visualization
 7. Update β Parameter Value
 
-## Results
-### Prediction for One Week:
-![Prediction for One Week](#)
-
-### Prediction for One Month:
-![Prediction for One Month](#)
-
-### Influence of β on the Number of Infected:
-![Influence of β](#)
-
 ### Analysis
 We must re-research the factors affecting the cure ratio to enhance temporary resistance. The smaller the value of the β and γ parameters, the more sloped the graph. From two experiments, using β value of 0.285714 and γ value of 0.7470, the results show that the prediction is still not close to the factual data due to static parameter β and insufficient public responses.
 
