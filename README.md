@@ -22,7 +22,7 @@ Coronavirus Disease or COVID-19 is a new disease caused by Severe Acute Respirat
 This research aims to determine the appropriate value of β parameters from public responses with input about government policies and community actions that can affect the spread of COVID-19 in Indonesia. With the SEIR Epidemic model, we aim to predict the number of COVID-19 cases in Indonesia accurately. This will present data that is useful for the government to determine policies in all sectors moving forward. This research will predict the rise and fall in the number of COVID-19 cases in Indonesia and provide information about the number of cases at certain times, which is not limited to the present or past but also includes future projections.
 
 ## Proposed Methods
-![SEIR Epidemic Model](#)
+![SEIR Epidemic Model](SEIR%20Epidemic%20Model.png)
 The proposed scheme of the SEIR epidemic model includes:
 - The β value: indicates the spread size of COVID-19.
 - The γ value: shows the cure ratio representing temporary resilience.
@@ -35,7 +35,7 @@ The proposed scheme of the SEIR epidemic model includes:
 - **R<sub>t</sub>**: Number of recovered/deceased/immune individuals at time t.
 
 ### System Design:
-![System Design](#)
+![System Design]((System%Design.png))
 1. API Data for COVID-19
 2. Database
 3. Public Responses
